@@ -1,7 +1,10 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-class OngModel {
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:equatable/equatable.dart';
+
+class OngModel extends Equatable {
+  final String? id;
   final String cnpj;
   final String email;
   final String fantasia;
@@ -17,7 +20,8 @@ class OngModel {
   final String? informacoes;
   final Map? pix;
 
-  OngModel({
+  const OngModel({
+    this.id,
     required this.cnpj,
     required this.email,
     required this.fantasia,
@@ -35,6 +39,7 @@ class OngModel {
   });
 
   OngModel copyWith({
+    String? id,
     String? cnpj,
     String? email,
     String? fantasia,
@@ -51,6 +56,7 @@ class OngModel {
     Map? pix,
   }) {
     return OngModel(
+      id: id ?? this.id,
       cnpj: cnpj ?? this.cnpj,
       email: email ?? this.email,
       fantasia: fantasia ?? this.fantasia,
@@ -70,6 +76,7 @@ class OngModel {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
+      'id': id,
       'cnpj': cnpj,
       'email': email,
       'fantasia': fantasia,
@@ -89,6 +96,7 @@ class OngModel {
 
   factory OngModel.fromMap(Map<String, dynamic> map) {
     return OngModel(
+      id: map['id'] != null ? map['id'] as String : null,
       cnpj: map['cnpj'] as String,
       email: map['email'] as String,
       fantasia: map['fantasia'] as String,
@@ -98,20 +106,62 @@ class OngModel {
       logradouro: map['logradouro'] as String,
       numero: map['numero'] as String,
       bairro: map['bairro'] as String,
-      complemento: map['complemento'] != null ? map['complemento'] as String : null,
+      complemento:
+          map['complemento'] != null ? map['complemento'] as String : null,
       municipio: map['municipio'] as String,
       uf: map['uf'] as String,
-      informacoes: map['informacoes'] != null ? map['informacoes'] as String : null,
-      pix: map['pix'] != null ? map['pix'] as Map<String,dynamic> : null,
+      informacoes:
+          map['informacoes'] != null ? map['informacoes'] as String : null,
+      pix: map['pix'] != null ? map['pix'] as Map<String, dynamic> : null,
+    );
+  }
+
+  factory OngModel.fromSnapshot(DocumentSnapshot snap) {
+    return OngModel(
+      id: snap.id,
+      cnpj: snap['cnpj'],
+      email: snap['email'],
+      fantasia: snap['fantasia'],
+      nome: snap['nome'],
+      telefone: snap['telefone'],
+      cep: snap['cep'],
+      logradouro: snap['logradouro'],
+      numero: snap['numero'],
+      bairro: snap['bairro'],
+      complemento: snap['complemento'] ?? '',
+      municipio: snap['municipio'],
+      uf: snap['uf'],
+      informacoes: snap['informacoes'] ?? '',
+      pix: snap['pix'] ?? '',
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory OngModel.fromJson(String source) => OngModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory OngModel.fromJson(String source) =>
+      OngModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
-    return 'OngModel(cnpj: $cnpj, email: $email, fantasia: $fantasia, nome: $nome, telefone: $telefone, cep: $cep, logradouro: $logradouro, numero: $numero, bairro: $bairro, complemento: $complemento, municipio: $municipio, uf: $uf, informacoes: $informacoes, pix: $pix)';
+    return 'OngModel(id: $id, cnpj: $cnpj, email: $email, fantasia: $fantasia, nome: $nome, telefone: $telefone, cep: $cep, logradouro: $logradouro, numero: $numero, bairro: $bairro, complemento: $complemento, municipio: $municipio, uf: $uf, informacoes: $informacoes, pix: $pix)';
   }
+
+  @override
+  List<Object?> get props => [
+        id,
+        cnpj,
+        email,
+        fantasia,
+        nome,
+        telefone,
+        cep,
+        logradouro,
+        numero,
+        bairro,
+        complemento,
+        municipio,
+        uf,
+        informacoes,
+        pix,
+      ];
 }

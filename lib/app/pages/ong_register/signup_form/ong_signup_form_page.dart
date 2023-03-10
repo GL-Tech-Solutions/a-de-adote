@@ -1,31 +1,44 @@
-import 'package:a_de_adote/app/core/extensions/mask_formatters.dart';
-import 'package:a_de_adote/app/pages/ong_register/cnpj_form/ong_cnpj_form_controller.dart';
-import 'package:a_de_adote/app/pages/ong_register/cnpj_form/ong_cnpj_form_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/ui/styles/project_colors.dart';
 import '../../../core/ui/styles/project_fonts.dart';
 import '../../../core/ui/widgets/form_button.dart';
-import '../../../core/ui/widgets/standard_form_input.dart';
+import '../../../models/ong_model.dart';
+import '../../login/widgets/login_form_input.dart';
+import 'ong_signup_form_controller.dart';
+import 'ong_signup_form_state.dart';
 
-class ONGCNPJFormPage extends StatefulWidget {
-  const ONGCNPJFormPage({super.key});
+class ONGSignUpFormPage extends StatefulWidget {
+  const ONGSignUpFormPage({super.key});
 
   @override
-  State<ONGCNPJFormPage> createState() => _ONGCNPJFormPageState();
+  State<ONGSignUpFormPage> createState() => _ONGSignUpFormPageState();
 }
 
-class _ONGCNPJFormPageState extends State<ONGCNPJFormPage> {
+class _ONGSignUpFormPageState extends State<ONGSignUpFormPage> {
   final _formKey = GlobalKey<FormState>();
-  final _cnpj = TextEditingController();
-  var _isLoading = false;
+  final _email = TextEditingController();
+  final _senha = TextEditingController();
+  final _confirmarSenha = TextEditingController();
+  bool _isLoading = false;
 
-  void salvar() async {}
+  late OngModel ongModel;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      ongModel = ModalRoute.of(context)?.settings.arguments as OngModel;
+      _email.text = ongModel.email;
+    });
+  }
 
   @override
   void dispose() {
-    _cnpj.dispose();
+    _email.dispose();
+    _senha.dispose();
+    _confirmarSenha.dispose();
     super.dispose();
   }
 
@@ -33,15 +46,15 @@ class _ONGCNPJFormPageState extends State<ONGCNPJFormPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ProjectColors.secondary,
-      body: BlocConsumer<OngCnpjFormController, OngCnpjFormState>(
+      body: BlocConsumer<OngSignupFormController, OngSignupFormState>(
         listener: (context, state) {
           state.status.matchAny(
             any: () => _isLoading = false,
             loading: () => _isLoading = true,
-            loaded: () {
+            userCreated: () {
               _isLoading = false;
-              Navigator.of(context)
-                  .pushNamed('/informacoes', arguments: state.ong);
+              Navigator.of(context, rootNavigator: true)
+                  .popAndPushNamed('/ong_space');
             },
             error: () {
               _isLoading = false;
@@ -63,7 +76,7 @@ class _ONGCNPJFormPageState extends State<ONGCNPJFormPage> {
                 physics: const BouncingScrollPhysics(),
                 child: ConstrainedBox(
                   constraints: BoxConstraints(
-                    maxHeight: MediaQuery.of(context).size.height / 2.5,
+                    maxHeight: MediaQuery.of(context).size.height / 2,
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -76,7 +89,7 @@ class _ONGCNPJFormPageState extends State<ONGCNPJFormPage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: const [
                                 Text(
-                                  Labels.iniciar,
+                                  'Último passo!',
                                   style: ProjectFonts.h3LightBold,
                                 ),
                               ],
@@ -88,7 +101,7 @@ class _ONGCNPJFormPageState extends State<ONGCNPJFormPage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: const [
                                 Text(
-                                  Labels.insiraCnpj,
+                                  'Vamos agora criar seu usuário.',
                                   style: ProjectFonts.h5Light,
                                 ),
                               ],
@@ -102,16 +115,30 @@ class _ONGCNPJFormPageState extends State<ONGCNPJFormPage> {
                           key: _formKey,
                           child: Column(
                             children: [
-                              StandardFormInput(
-                                controller: _cnpj,
-                                labelText: Labels.cnpj,
-                                mask: [
-                                  context.maskFormatters.maskCNPJFormatter
-                                ],
-                                inputType: TextInputType.number,
+                              LoginFormInput(
+                                type: 'login',
+                                controller: _email,
+                                labelText: 'E-mail',
+                                fullSelectionText: true,
+                              ),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                              LoginFormInput(
+                                type: 'signup_senha',
+                                controller: _senha,
+                                labelText: 'Senha',
+                              ),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                              LoginFormInput(
+                                type: 'signup_senha',
+                                controller: _confirmarSenha,
+                                labelText: 'Confirmar Senha',
                                 validator: (value) {
-                                  if ((value!.isEmpty) || (value.length < 18)) {
-                                    return Labels.cnpjValido;
+                                  if (value != _senha.text) {
+                                    return 'Senhas não conferem!';
                                   }
                                   return null;
                                 },
@@ -121,18 +148,14 @@ class _ONGCNPJFormPageState extends State<ONGCNPJFormPage> {
                               ),
                               FormButton(
                                 formKey: _formKey,
-                                text: Botoes.proximo,
+                                text: 'CADASTRAR',
                                 action: () {
-                                  final valid =
-                                      _formKey.currentState?.validate() ??
-                                          false;
-                                  if (valid) {
+                                  if (_formKey.currentState!.validate()) {
+                                    final ong =
+                                        ongModel.copyWith(email: _email.text);
                                     context
-                                        .read<OngCnpjFormController>()
-                                        .loadOng(
-                                          _cnpj.text.replaceAll(
-                                              RegExp(r'[^0-9]'), ''),
-                                        );
+                                        .read<OngSignupFormController>()
+                                        .signUpOng(ong, _senha.text);
                                   }
                                 },
                                 isLoading: _isLoading,

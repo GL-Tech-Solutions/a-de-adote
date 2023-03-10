@@ -1,0 +1,9 @@
+import '../../models/ong_model.dart';
+
+abstract class OngRepository {
+  Future<OngModel> getOngDataFromWeb(String cnpj);
+  Future<List<OngModel>> getOngs();
+  Future<OngModel> getCurrentOngUser();
+  Future<void> createOng(OngModel ong);
+  Future<void> updateOng(OngModel ong);
+}

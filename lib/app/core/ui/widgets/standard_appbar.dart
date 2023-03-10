@@ -5,8 +5,13 @@ import '../styles/project_fonts.dart';
 
 class StandardAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
+  final bool? canPop;
 
-  const StandardAppBar({super.key, required this.title});
+  const StandardAppBar({
+    super.key,
+    required this.title,
+    this.canPop,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +30,7 @@ class StandardAppBar extends StatelessWidget implements PreferredSizeWidget {
           title,
           style: ProjectFonts.h6Light,
         ),
+        automaticallyImplyLeading: canPop ?? true,
       ),
     );
   }

@@ -1,12 +1,13 @@
-import 'package:a_de_adote/app/pages/ong_register/cnpj_form/ong_cnpj_form_controller.dart';
-import 'package:a_de_adote/app/pages/ong_register/cnpj_form/ong_cnpj_form_page.dart';
+import 'package:a_de_adote/app/pages/ong_register/signup_form/ong_signup_form_page.dart';
+import 'package:a_de_adote/app/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../repositories/ong/ong_repository.dart';
 import '../../../repositories/ong/ong_repository_impl.dart';
+import 'ong_signup_form_controller.dart';
 
-class OngCnpjFormRouter {
-  OngCnpjFormRouter._();
+class OngSignupFormRouter {
+  OngSignupFormRouter._();
 
   static Widget get page => MultiProvider(
         providers: [
@@ -16,10 +17,13 @@ class OngCnpjFormRouter {
                   auth: context.read(),
                 )),
           ),
-          Provider<OngCnpjFormController>(
-            create: ((context) => OngCnpjFormController(context.read())),
+          Provider<OngSignupFormController>(
+            create: ((context) => OngSignupFormController(
+                  context.read<AuthService>(),
+                  context.read(),
+                )),
           ),
         ],
-        child: const ONGCNPJFormPage(),
+        child: const ONGSignUpFormPage(),
       );
 }

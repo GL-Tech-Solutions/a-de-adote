@@ -1,8 +1,7 @@
 import 'package:a_de_adote/app/pages/ong_register/cnpj_form/ong_cnpj_form_router.dart';
-import 'package:a_de_adote/app/pages/ong_register/signup_form/ong_signup_form.dart';
+import 'package:a_de_adote/app/pages/ong_register/signup_form/ong_signup_form_router.dart';
 import 'package:flutter/material.dart';
 import '../../core/ui/widgets/standard_appbar.dart';
-import 'cnpj_form/ong_cnpj_form_page.dart';
 import 'informations_form/ong_informations_form_page.dart';
 
 class OngRegisterRouter extends StatefulWidget {
@@ -43,7 +42,7 @@ class _OngRegisterRouterState extends State<OngRegisterRouter> {
                   page = const ONGInformationsFormPage();
                   break;
                 case '/usuario':
-                  page = const ONGSignUpForm();
+                  page = OngSignupFormRouter.page;
                   break;
                 default:
                   return null;
