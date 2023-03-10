@@ -8,6 +8,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../core/ui/styles/project_colors.dart';
 import '../../core/ui/styles/project_fonts.dart';
 import '../../core/ui/widgets/form_button.dart';
+import 'package:a_de_adote/app/core/constantes/labels.dart';
+import 'package:a_de_adote/app/core/constantes/botoes.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -107,7 +109,7 @@ class _LoginPageState extends State<LoginPage> {
                                   LoginFormInput(
                                     type: 'login',
                                     controller: _email,
-                                    labelText: 'E-mail',
+                                    labelText: Labels.email,
                                   ),
                                   const SizedBox(
                                     height: 15,
@@ -115,7 +117,7 @@ class _LoginPageState extends State<LoginPage> {
                                   LoginFormInput(
                                     type: 'senha',
                                     controller: _senha,
-                                    labelText: 'Senha',
+                                    labelText: Labels.senha,
                                   ),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
@@ -132,7 +134,7 @@ class _LoginPageState extends State<LoginPage> {
                                           ),
                                           onPressed: (() => null),
                                           child: const Text(
-                                              'Esqueci minha senha.',
+                                              Botoes.recuperarSenha,
                                               style: ProjectFonts.smallLight),
                                         ),
                                       ),
@@ -179,10 +181,10 @@ class _LoginPageState extends State<LoginPage> {
                                         children: [
                                           TextSpan(
                                               text:
-                                                  'Ainda não possui cadastro? ',
+                                                  Labels.naoPossuiCadastro,
                                               style: ProjectFonts.smallLight),
                                           TextSpan(
-                                            text: 'Crie uma conta.',
+                                            text: Labels.crieConta,
                                             style: TextStyle(
                                               fontSize: 12,
                                               color: ProjectColors.primaryLight,
@@ -221,10 +223,10 @@ class _LoginPageState extends State<LoginPage> {
                           text: const TextSpan(
                             children: [
                               TextSpan(
-                                  text: 'Não é uma ONG? ',
+                                  text: Labels.naoEOng,
                                   style: ProjectFonts.smallLight),
                               TextSpan(
-                                text: 'Entrar como Adotante.',
+                                text: Labels.entrarComoAdotante,
                                 style: TextStyle(
                                   fontSize: 12,
                                   color: ProjectColors.light,

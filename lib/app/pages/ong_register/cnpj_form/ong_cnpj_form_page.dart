@@ -8,6 +8,8 @@ import '../../../core/ui/styles/project_colors.dart';
 import '../../../core/ui/styles/project_fonts.dart';
 import '../../../core/ui/widgets/form_button.dart';
 import '../../../core/ui/widgets/standard_form_input.dart';
+import 'package:a_de_adote/app/core/constantes/labels.dart';
+import 'package:a_de_adote/app/core/constantes/botoes.dart';
 
 class ONGCNPJFormPage extends StatefulWidget {
   const ONGCNPJFormPage({super.key});

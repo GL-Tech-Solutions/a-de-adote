@@ -66,4 +66,8 @@ class Labels {
   static const servidoresOcupados =
       "Servidores ocupados. Tente novamente daqui 1 min.";
   static const timeout = "Tempo de busca excedido. Tente novamente.";
+  static const erroDocOng = "Erro ao criar documento ong";
+  static const erroCadastro = "Erro ao cadastrar.";
+  static const ongNaoEncontrada = "Não foi possível encontar a ONG";
+  static const erroUpdateOng = "Erro ao atualizar ong.";
 }
