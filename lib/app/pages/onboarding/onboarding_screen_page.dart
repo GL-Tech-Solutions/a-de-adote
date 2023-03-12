@@ -3,23 +3,23 @@ import 'package:a_de_adote/app/pages/onboarding/onboarding_screen_controller.dar
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/constantes/labels.dart';
 import '../../core/ui/styles/project_colors.dart';
 import '../../core/ui/styles/project_fonts.dart';
 import '../../core/ui/widgets/animated_button.dart';
 import 'onboarding_screen_state.dart';
 
-class OnboardingScreen extends StatefulWidget {
-  const OnboardingScreen({super.key});
+class OnboardingScreenPage extends StatefulWidget {
+  const OnboardingScreenPage({super.key});
 
   @override
-  State<OnboardingScreen> createState() => _OnboardingScreenState();
+  State<OnboardingScreenPage> createState() => _OnboardingScreenPageState();
 }
 
-class _OnboardingScreenState extends State<OnboardingScreen> {
+class _OnboardingScreenPageState extends State<OnboardingScreenPage> {
   final int _numPages = 3;
   final PageController _pc = PageController(initialPage: 0);
-  //late int _currentPage;
   late String _option;
 
   List<Widget> _buildPageIndicator(int currentPage) {
@@ -265,16 +265,30 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               child: Align(
                                 alignment: FractionalOffset.bottomCenter,
                                 child: AnimatedButton(
-                                  route: _option == 'adotante'
-                                      ? () => Navigator.popAndPushNamed(
-                                            context,
-                                            '/main',
-                                          )
-                                      : () => Navigator.popAndPushNamed(
-                                            context,
-                                            '/register',
-                                          ),
-                                ),
+                                    route: _option == 'adotante'
+                                        ? () async {
+                                            final navigator =
+                                                Navigator.of(context);
+                                            final sp = await SharedPreferences
+                                                .getInstance();
+                                            sp.setBool('isFirstAccess', false);
+                                            sp.setString(
+                                                'userType', 'adotante');
+                                            navigator.popAndPushNamed(
+                                              '/main',
+                                            );
+                                          }
+                                        : () async {
+                                            final navigator =
+                                                Navigator.of(context);
+                                            final sp = await SharedPreferences
+                                                .getInstance();
+                                            sp.setBool('isFirstAccess', false);
+                                            sp.setString('userType', 'ong');
+                                            navigator.popAndPushNamed(
+                                              '/register',
+                                            );
+                                          }),
                               ),
                             ),
                           ),

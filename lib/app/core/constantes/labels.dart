@@ -54,6 +54,11 @@ class Labels {
   static const entrarComoAdotante = " Entrar como adotante.";
   static const naoEOng = "Não é uma ONG?";
 
+  //RESET PASSWORD PAGE
+  static const esqueceuSenha = "Esqueceu a senha?";
+  static const insiraEmail = "Insira abaixo o seu e-mail.";
+  static const redefinirSenha = "Redefinir Senha";
+
   //LOGIN FORM INPUT
   static const emailValido = "Informe um e-mail válido!";
   static const senhaValida = "Informe uma senha válida";

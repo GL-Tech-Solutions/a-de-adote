@@ -12,7 +12,7 @@ class LogoutButton extends StatelessWidget {
       onPressed: () async {
         final navigator = Navigator.of(context);
         await context.read<AuthService>().signOut();
-        navigator.pushNamed('/login');
+        navigator.pushNamedAndRemoveUntil('/login', (_) => true);
       },
       style: ElevatedButton.styleFrom(
         elevation: 0,

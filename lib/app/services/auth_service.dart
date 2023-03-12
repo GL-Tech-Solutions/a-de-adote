@@ -1,7 +1,6 @@
 import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import '../core/exceptions/auth_exception.dart';
 
 class AuthService extends ChangeNotifier {
@@ -68,6 +67,27 @@ class AuthService extends ChangeNotifier {
       }
     } catch (e, s) {
       log('Erro ao logar', error: e, stackTrace: s);
+      throw AuthException('Houve um problema. Tenta novamente mais tarde.');
+    }
+  }
+
+  Future<void> resetPassword(String email) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+    } on FirebaseAuthException catch (e, s) {
+      log('Erro ao enviar e-mail de redefinição de senha.',
+          error: e, stackTrace: s);
+      if (e.code == 'invalid-email') {
+        throw AuthException(
+            'E-mail inválido. Por favor, verifique o e-email inserido.');
+      } else if (e.code == 'user-not-found') {
+        throw AuthException('Nenhum usuário encontrado com este e-mail.');
+      } else {
+        throw AuthException('Houve um problema. Tenta novamente mais tarde.');
+      }
+    } catch (e, s) {
+      log('Erro ao enviar e-mail de redefinição de senha.',
+          error: e, stackTrace: s);
       throw AuthException('Houve um problema. Tenta novamente mais tarde.');
     }
   }

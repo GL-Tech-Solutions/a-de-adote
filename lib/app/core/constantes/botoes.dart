@@ -6,4 +6,5 @@ class Botoes {
   static const pular = "PULAR";
   static const proximo = "PRÓXIMO";
   static const entrar = "ENTRAR";
+  static const enviar = "ENVIAR";
 }

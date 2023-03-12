@@ -5,6 +5,7 @@ import 'package:a_de_adote/app/pages/login/widgets/login_form_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/ui/styles/project_colors.dart';
 import '../../core/ui/styles/project_fonts.dart';
 import '../../core/ui/widgets/form_button.dart';
@@ -74,9 +75,6 @@ class _LoginPageState extends State<LoginPage> {
                         sigmaX: 2,
                         sigmaY: 2,
                       ),
-                      child: Container(
-                        color: Colors.black.withOpacity(0),
-                      ),
                     ),
                   ),
                 ),
@@ -98,7 +96,7 @@ class _LoginPageState extends State<LoginPage> {
                               'assets/images/logos/logo_completo_white.png',
                               fit: BoxFit.fill,
                             ),
-                          ),  
+                          ),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 45),
                             child: Form(
@@ -132,7 +130,8 @@ class _LoginPageState extends State<LoginPage> {
                                                   .withOpacity(0.2),
                                             ),
                                           ),
-                                          onPressed: (() => null),
+                                          onPressed: () => Navigator.pushNamed(
+                                              context, '/login/reset_password'),
                                           child: const Text(
                                               Botoes.recuperarSenha,
                                               style: ProjectFonts.smallLight),
@@ -147,7 +146,7 @@ class _LoginPageState extends State<LoginPage> {
                                     builder: (context, state) {
                                       return FormButton(
                                         formKey: _formKey,
-                                        text: 'ENTRAR',
+                                        text: Botoes.entrar,
                                         action: () {
                                           bool valid = _formKey.currentState
                                                   ?.validate() ??
@@ -170,7 +169,9 @@ class _LoginPageState extends State<LoginPage> {
                                     height: 2,
                                   ),
                                   TextButton(
-                                    onPressed: (() => null),
+                                    onPressed: () =>
+                                        Navigator.pushNamedAndRemoveUntil(
+                                            context, '/register', (_) => true),
                                     style: ButtonStyle(
                                       overlayColor: MaterialStateProperty.all(
                                         ProjectColors.primary.withOpacity(0.2),
@@ -180,8 +181,7 @@ class _LoginPageState extends State<LoginPage> {
                                       text: const TextSpan(
                                         children: [
                                           TextSpan(
-                                              text:
-                                                  Labels.naoPossuiCadastro,
+                                              text: Labels.naoPossuiCadastro,
                                               style: ProjectFonts.smallLight),
                                           TextSpan(
                                             text: Labels.crieConta,
@@ -213,7 +213,12 @@ class _LoginPageState extends State<LoginPage> {
                         color: ProjectColors.lightDark,
                       ),
                       TextButton(
-                        onPressed: (() => null),
+                        onPressed: () async {
+                          final navigator = Navigator.of(context);
+                          final sp = await SharedPreferences.getInstance();
+                          sp.setString('userType', 'adotante');
+                          navigator.popAndPushNamed('/main');
+                        },
                         style: ButtonStyle(
                           overlayColor: MaterialStateProperty.all(
                             ProjectColors.primary.withOpacity(0.2),

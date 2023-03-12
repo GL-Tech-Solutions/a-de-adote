@@ -9,13 +9,15 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  //TODO Não permitir voltar para a tela de onboarding ao clicar o BackButton
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: ProjectColors.lightDark,
-      body: Center(
-        child: Text('MainPage'),
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: const Scaffold(
+        backgroundColor: ProjectColors.lightDark,
+        body: Center(
+          child: Text('MainPage'),
+        ),
       ),
     );
   }
