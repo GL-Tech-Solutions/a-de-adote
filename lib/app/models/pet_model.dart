@@ -1,19 +1,20 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 class PetModel {
   final String nome;
   final String idadeAproximada;
   final String porte;
   final String raca;
   final bool castrado;
+  final String? fotoUrl;
   final Map? vacinas;
   final String? descricao;
-  
+
   PetModel({
     required this.nome,
     required this.idadeAproximada,
     required this.porte,
     required this.raca,
     required this.castrado,
+    this.fotoUrl,
     this.vacinas,
     this.descricao,
   });
@@ -24,6 +25,7 @@ class PetModel {
     String? porte,
     String? raca,
     bool? castrado,
+    String? fotoUrl,
     Map? vacinas,
     String? descricao,
   }) {
@@ -33,6 +35,7 @@ class PetModel {
       porte: porte ?? this.porte,
       raca: raca ?? this.raca,
       castrado: castrado ?? this.castrado,
+      fotoUrl: fotoUrl ?? this.fotoUrl,
       vacinas: vacinas ?? this.vacinas,
       descricao: descricao ?? this.descricao,
     );
@@ -45,6 +48,7 @@ class PetModel {
       'porte': porte,
       'raca': raca,
       'castrado': castrado,
+      'fotoUrl': fotoUrl,
       'vacinas': vacinas,
       'descricao': descricao,
     };
@@ -57,14 +61,16 @@ class PetModel {
       porte: map['porte'] as String,
       raca: map['raca'] as String,
       castrado: map['castrado'] as bool,
-      vacinas: map['vacinas'] != null ? map['vacinas'] as Map<String,dynamic> : null,
+      fotoUrl: map['fotoUrl'] != null ? map['fotoUrl'] as String : null,
+      vacinas: map['vacinas'] != null
+          ? map['vacinas'] as Map<String, dynamic>
+          : null,
       descricao: map['descricao'] != null ? map['descricao'] as String : null,
     );
   }
-  
+
   @override
   String toString() {
-    return 'PetModel(nome: $nome, idadeAproximada: $idadeAproximada, porte: $porte, raca: $raca, castrado: $castrado, vacinas: $vacinas, descricao: $descricao)';
+    return 'PetModel(nome: $nome, idadeAproximada: $idadeAproximada, porte: $porte, raca: $raca, castrado: $castrado, fotoUrl: $fotoUrl, vacinas: $vacinas, descricao: $descricao)';
   }
-
 }

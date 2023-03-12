@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 
 class OngModel extends Equatable {
@@ -17,6 +15,7 @@ class OngModel extends Equatable {
   final String? complemento;
   final String municipio;
   final String uf;
+  final String? fotoUrl;
   final String? informacoes;
   final Map? pix;
 
@@ -34,6 +33,7 @@ class OngModel extends Equatable {
     this.complemento,
     required this.municipio,
     required this.uf,
+    this.fotoUrl,
     this.informacoes,
     this.pix,
   });
@@ -52,6 +52,7 @@ class OngModel extends Equatable {
     String? complemento,
     String? municipio,
     String? uf,
+    String? fotoUrl,
     String? informacoes,
     Map? pix,
   }) {
@@ -69,6 +70,7 @@ class OngModel extends Equatable {
       complemento: complemento ?? this.complemento,
       municipio: municipio ?? this.municipio,
       uf: uf ?? this.uf,
+      fotoUrl: fotoUrl ?? this.fotoUrl,
       informacoes: informacoes ?? this.informacoes,
       pix: pix ?? this.pix,
     );
@@ -89,6 +91,7 @@ class OngModel extends Equatable {
       'complemento': complemento,
       'municipio': municipio,
       'uf': uf,
+      'fotoUrl': fotoUrl,
       'informacoes': informacoes,
       'pix': pix,
     };
@@ -110,29 +113,10 @@ class OngModel extends Equatable {
           map['complemento'] != null ? map['complemento'] as String : null,
       municipio: map['municipio'] as String,
       uf: map['uf'] as String,
+      fotoUrl: map['fotoUrl'] != null ? map['fotoUrl'] as String : null,
       informacoes:
           map['informacoes'] != null ? map['informacoes'] as String : null,
       pix: map['pix'] != null ? map['pix'] as Map<String, dynamic> : null,
-    );
-  }
-
-  factory OngModel.fromSnapshot(DocumentSnapshot snap) {
-    return OngModel(
-      id: snap.id,
-      cnpj: snap['cnpj'],
-      email: snap['email'],
-      fantasia: snap['fantasia'],
-      nome: snap['nome'],
-      telefone: snap['telefone'],
-      cep: snap['cep'],
-      logradouro: snap['logradouro'],
-      numero: snap['numero'],
-      bairro: snap['bairro'],
-      complemento: snap['complemento'] ?? '',
-      municipio: snap['municipio'],
-      uf: snap['uf'],
-      informacoes: snap['informacoes'] ?? '',
-      pix: snap['pix'] ?? '',
     );
   }
 
@@ -143,7 +127,7 @@ class OngModel extends Equatable {
 
   @override
   String toString() {
-    return 'OngModel(id: $id, cnpj: $cnpj, email: $email, fantasia: $fantasia, nome: $nome, telefone: $telefone, cep: $cep, logradouro: $logradouro, numero: $numero, bairro: $bairro, complemento: $complemento, municipio: $municipio, uf: $uf, informacoes: $informacoes, pix: $pix)';
+    return 'OngModel(id: $id, cnpj: $cnpj, email: $email, fantasia: $fantasia, nome: $nome, telefone: $telefone, cep: $cep, logradouro: $logradouro, numero: $numero, bairro: $bairro, complemento: $complemento, municipio: $municipio, uf: $uf, fotoUrl: $fotoUrl, informacoes: $informacoes, pix: $pix)';
   }
 
   @override
@@ -161,6 +145,7 @@ class OngModel extends Equatable {
         complemento,
         municipio,
         uf,
+        fotoUrl,
         informacoes,
         pix,
       ];
