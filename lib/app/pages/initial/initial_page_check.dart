@@ -1,8 +1,11 @@
 import 'package:a_de_adote/app/pages/home/main_page.dart';
 import 'package:a_de_adote/app/pages/initial/initial_page_animation.dart';
+import 'package:a_de_adote/app/services/auth_service.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../login/login_router.dart';
+import '../ong_space/ong_space_router.dart';
 
 class InitialPageCheck extends StatelessWidget {
   final SharedPreferences sp;
@@ -19,7 +22,10 @@ class InitialPageCheck extends StatelessWidget {
       if (userType == 'adotante') {
         return const MainPage();
       } else if (userType == 'ong') {
-        return LoginRouter.page;
+        if (Provider.of<AuthService>(context).ongUser == null) {
+          return LoginRouter.page;
+        }
+        return OngSpaceRouter.page;
       } else {
         return const InitialPageAnimation();
       }
