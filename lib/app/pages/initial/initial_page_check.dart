@@ -25,7 +25,7 @@ class InitialPageCheck extends StatelessWidget {
         if (Provider.of<AuthService>(context).ongUser == null) {
           return LoginRouter.page;
         }
-        return OngSpaceRouter.page;
+        return const MainPage();
       } else {
         return const InitialPageAnimation();
       }

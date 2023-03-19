@@ -1,14 +1,12 @@
-import 'dart:ui';
-
 import 'package:a_de_adote/app/core/ui/styles/project_fonts.dart';
-import 'package:a_de_adote/app/core/ui/widgets/logout_button.dart';
 import 'package:a_de_adote/app/core/ui/widgets/standard_appbar.dart';
+import 'package:a_de_adote/app/core/ui/widgets/standard_drawer.dart';
 import 'package:a_de_adote/app/pages/ong_space/ong_space_controller.dart';
 import 'package:a_de_adote/app/pages/ong_space/ong_space_state.dart';
+import 'package:a_de_adote/app/pages/ong_space/widgets/custom_expansion_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../core/ui/styles/project_colors.dart';
 
 class OngSpacePage extends StatefulWidget {
@@ -35,9 +33,10 @@ class _OngSpacePageState extends State<OngSpacePage> {
       onWillPop: () async => false,
       child: Scaffold(
         appBar: const StandardAppBar(
-          title: 'Dados Ong',
+          title: 'Dados ONG',
           canPop: false,
         ),
+        drawer: const StandardDrawer(),
         body: BlocConsumer<OngSpaceController, OngSpaceState>(
           listener: (context, state) {
             state.status.matchAny(
@@ -60,29 +59,184 @@ class _OngSpacePageState extends State<OngSpacePage> {
             loaded: () => true,
           ),
           builder: (context, state) {
-            return AnnotatedRegion<SystemUiOverlayStyle>(
-              value: const SystemUiOverlayStyle(
-                systemNavigationBarColor: ProjectColors.secondary,
-              ),
-              child: _isLoading
-                  ? const Center(child: CircularProgressIndicator())
-                  : Column(
-                      children: [
-                        Text(
-                          state.ong.toString(),
-                          style: ProjectFonts.h6Light,
+            String enderecoConcat =
+                '${state.ong?.logradouro}, ${state.ong?.numero} - ${state.ong?.bairro} / ${state.ong?.municipio} - ${state.ong?.uf} / ${state.ong?.cep}';
+
+            return _isLoading
+                ? const Center(child: CircularProgressIndicator())
+                : Column(
+                    children: [
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.24,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: ProjectColors.lightDark,
+                          image: state.ong?.fotoUrl == null
+                              ? null
+                              : DecorationImage(
+                                  image: Image.network(
+                                    state.ong!.fotoUrl!,
+                                  ).image,
+                                  fit: BoxFit.fitWidth,
+                                ),
                         ),
-                        const SizedBox(
-                          height: 20,
+                        child: state.ong?.fotoUrl != null
+                            ? null
+                            : Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: const [
+                                  Icon(
+                                    Icons.photo_camera_outlined,
+                                    size: 36,
+                                    color: ProjectColors.secondaryDark,
+                                  ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text(
+                                    'Adicione uma foto de sua ONG!',
+                                    style: ProjectFonts.h6SecundaryDark,
+                                  ),
+                                ],
+                              ),
+                      ),
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.048,
+                        width: double.infinity,
+                        color: ProjectColors.primaryDark,
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Flexible(
+                              child: Text(
+                                state.ong?.fantasia ?? '',
+                                style: ProjectFonts.h6LightBold,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                            IconButton(
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.edit,
+                                color: ProjectColors.light,
+                                size: 22,
+                              ),
+                            ),
+                          ],
                         ),
-                        const SizedBox(
-                          height: 30,
-                          width: 60,
-                          child: LogoutButton(),
-                        ),
-                      ],
-                    ),
-            );
+                      ),
+                      Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                for (int i = 0; i < 4; i++)
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                      bottom: i == 3 ? 0.0 : 4.0,
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          i == 0
+                                              ? Icons.info_outline_rounded
+                                              : i == 1
+                                                  ? Icons.email_outlined
+                                                  : i == 2
+                                                      ? Icons.phone_outlined
+                                                      : i == 3
+                                                          ? Icons.home_outlined
+                                                          : null,
+                                          color: ProjectColors.light,
+                                          size: 18,
+                                        ),
+                                        const SizedBox(
+                                          width: 5,
+                                        ),
+                                        Flexible(
+                                          child: RichText(
+                                            text: TextSpan(
+                                              children: [
+                                                TextSpan(
+                                                  text: i == 0
+                                                      ? 'CNPJ: '
+                                                      : i == 1
+                                                          ? 'E-mail: '
+                                                          : i == 2
+                                                              ? 'Telefone: '
+                                                              : i == 3
+                                                                  ? 'Endereço: '
+                                                                  : '',
+                                                  style:
+                                                      ProjectFonts.pLightBold,
+                                                ),
+                                                TextSpan(
+                                                  text: i == 0
+                                                      ? state.ong?.cnpj
+                                                      : i == 1
+                                                          ? state.ong?.email
+                                                          : i == 2
+                                                              ? state
+                                                                  .ong?.telefone
+                                                              : i == 3
+                                                                  ? enderecoConcat
+                                                                  : '',
+                                                  style: ProjectFonts.pLight,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                              ],
+                            ),
+                          ),
+                          Column(
+                            children: [
+                              CustomExpansionTile(
+                                isOng: true,
+                                title: 'Doação - Pix',
+                                body: state.ong?.pix == null
+                                    ? Text(
+                                        'Sem formas de doação disponíveis. Adicione uma!',
+                                        style: ProjectFonts.pLight.copyWith(
+                                          fontStyle: FontStyle.italic,
+                                        ),
+                                      )
+                                    : Text(
+                                        state.ong!.pix.toString(),
+                                        style: ProjectFonts.pLight,
+                                      ),
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              CustomExpansionTile(
+                                isOng: true,
+                                title: 'Sobre',
+                                body: state.ong?.pix == null
+                                    ? Text(
+                                        'Sem informações sobre a ONG. Adicione-as!',
+                                        style: ProjectFonts.smallLight.copyWith(
+                                          fontStyle: FontStyle.italic,
+                                        ),
+                                      )
+                                    : Text(
+                                        state.ong!.informacoes!,
+                                        style: ProjectFonts.pLight,
+                                      ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  );
           },
         ),
       ),

@@ -31,6 +31,12 @@ class StandardAppBar extends StatelessWidget implements PreferredSizeWidget {
           style: ProjectFonts.h6Light,
         ),
         automaticallyImplyLeading: canPop ?? true,
+        leading: canPop == true || canPop == null
+            ? null
+            : IconButton(
+                onPressed: () => Scaffold.of(context).openDrawer(),
+                icon: const Icon(Icons.menu),
+              ),
       ),
     );
   }

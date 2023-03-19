@@ -34,7 +34,7 @@ class _LoginPageState extends State<LoginPage> {
           listener: (context, state) {
             state.status.matchAny(
               any: () => null,
-              loaded: () => Navigator.pushNamed(context, '/ong_space'),
+              loaded: () => Navigator.pushNamed(context, '/main'),
               error: (() => ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(state.errorMessage ?? ''),
