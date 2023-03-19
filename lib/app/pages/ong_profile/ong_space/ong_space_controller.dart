@@ -1,7 +1,8 @@
 import 'dart:developer';
-import 'package:a_de_adote/app/pages/ong_space/ong_space_state.dart';
 import 'package:a_de_adote/app/repositories/ong/ong_repository.dart';
 import 'package:bloc/bloc.dart';
+
+import 'ong_space_state.dart';
 
 class OngSpaceController extends Cubit<OngSpaceState> {
   final OngRepository _ongRepository;

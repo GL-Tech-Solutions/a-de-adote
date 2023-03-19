@@ -1,9 +1,6 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
 import 'package:match/match.dart';
-
-import '../../models/ong_model.dart';
-
+import '../../../models/ong_model.dart';
 part 'ong_space_state.g.dart';
 
 @match

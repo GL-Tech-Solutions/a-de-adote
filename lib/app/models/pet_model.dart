@@ -1,18 +1,20 @@
 class PetModel {
+  final String? id;
   final String nome;
   final String idadeAproximada;
   final String porte;
-  final String raca;
+  final String especie;
   final bool castrado;
   final String? fotoUrl;
   final Map? vacinas;
   final String? descricao;
 
   PetModel({
+    this.id,
     required this.nome,
     required this.idadeAproximada,
     required this.porte,
-    required this.raca,
+    required this.especie,
     required this.castrado,
     this.fotoUrl,
     this.vacinas,
@@ -20,20 +22,22 @@ class PetModel {
   });
 
   PetModel copyWith({
+    String? id,
     String? nome,
     String? idadeAproximada,
     String? porte,
-    String? raca,
+    String? especie,
     bool? castrado,
     String? fotoUrl,
     Map? vacinas,
     String? descricao,
   }) {
     return PetModel(
+      id: id ?? this.id,
       nome: nome ?? this.nome,
       idadeAproximada: idadeAproximada ?? this.idadeAproximada,
       porte: porte ?? this.porte,
-      raca: raca ?? this.raca,
+      especie: especie ?? this.especie,
       castrado: castrado ?? this.castrado,
       fotoUrl: fotoUrl ?? this.fotoUrl,
       vacinas: vacinas ?? this.vacinas,
@@ -43,10 +47,11 @@ class PetModel {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
+      'id': id,
       'nome': nome,
       'idadeAproximada': idadeAproximada,
       'porte': porte,
-      'raca': raca,
+      'especie': especie,
       'castrado': castrado,
       'fotoUrl': fotoUrl,
       'vacinas': vacinas,
@@ -56,10 +61,11 @@ class PetModel {
 
   factory PetModel.fromMap(Map<String, dynamic> map) {
     return PetModel(
+      id: map['id'] != null ? map['id'] as String : null,
       nome: map['nome'] as String,
       idadeAproximada: map['idadeAproximada'] as String,
       porte: map['porte'] as String,
-      raca: map['raca'] as String,
+      especie: map['especie'] as String,
       castrado: map['castrado'] as bool,
       fotoUrl: map['fotoUrl'] != null ? map['fotoUrl'] as String : null,
       vacinas: map['vacinas'] != null
@@ -71,6 +77,6 @@ class PetModel {
 
   @override
   String toString() {
-    return 'PetModel(nome: $nome, idadeAproximada: $idadeAproximada, porte: $porte, raca: $raca, castrado: $castrado, fotoUrl: $fotoUrl, vacinas: $vacinas, descricao: $descricao)';
+    return 'PetModel(id: $id, nome: $nome, idadeAproximada: $idadeAproximada, porte: $porte, especie: $especie, castrado: $castrado, fotoUrl: $fotoUrl, vacinas: $vacinas, descricao: $descricao)';
   }
 }

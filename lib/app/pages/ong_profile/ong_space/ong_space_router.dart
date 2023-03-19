@@ -1,9 +1,8 @@
 import 'package:a_de_adote/app/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../../repositories/ong/ong_repository.dart';
-import '../../repositories/ong/ong_repository_impl.dart';
+import '../../../repositories/ong/ong_repository.dart';
+import '../../../repositories/ong/ong_repository_impl.dart';
 import 'ong_space_controller.dart';
 import 'ong_space_page.dart';
 

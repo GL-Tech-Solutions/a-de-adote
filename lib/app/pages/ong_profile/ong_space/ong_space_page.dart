@@ -1,13 +1,12 @@
 import 'package:a_de_adote/app/core/ui/styles/project_fonts.dart';
 import 'package:a_de_adote/app/core/ui/widgets/standard_appbar.dart';
 import 'package:a_de_adote/app/core/ui/widgets/standard_drawer.dart';
-import 'package:a_de_adote/app/pages/ong_space/ong_space_controller.dart';
-import 'package:a_de_adote/app/pages/ong_space/ong_space_state.dart';
-import 'package:a_de_adote/app/pages/ong_space/widgets/custom_expansion_tile.dart';
+import 'package:a_de_adote/app/pages/ong_profile/ong_space/ong_space_state.dart';
+import 'package:a_de_adote/app/pages/ong_profile/ong_space/widgets/custom_expansion_tile.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../core/ui/styles/project_colors.dart';
+import '../../../core/ui/styles/project_colors.dart';
+import 'ong_space_controller.dart';
 
 class OngSpacePage extends StatefulWidget {
   const OngSpacePage({super.key});
@@ -32,10 +31,6 @@ class _OngSpacePageState extends State<OngSpacePage> {
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
-        appBar: const StandardAppBar(
-          title: 'Dados ONG',
-          canPop: false,
-        ),
         drawer: const StandardDrawer(),
         body: BlocConsumer<OngSpaceController, OngSpaceState>(
           listener: (context, state) {

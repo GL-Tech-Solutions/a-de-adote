@@ -16,12 +16,12 @@ class _OngsPageState extends State<OngsPage> {
       onWillPop: () async => false,
       child: const Scaffold(
         appBar: StandardAppBar(
-          title: 'Pets',
+          title: 'ONGs',
           canPop: false,
         ),
         drawer: StandardDrawer(),
         body: Center(
-          child: Text('PetsPage'),
+          child: Text('ONGs'),
         ),
       ),
     );

@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../login/login_router.dart';
-import '../ong_space/ong_space_router.dart';
 
 class InitialPageCheck extends StatelessWidget {
   final SharedPreferences sp;

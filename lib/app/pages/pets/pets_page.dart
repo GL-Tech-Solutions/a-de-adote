@@ -21,7 +21,7 @@ class _PetsPageState extends State<PetsPage> {
         ),
         drawer: StandardDrawer(),
         body: Center(
-          child: Text('MainPage'),
+          child: Text('Pets'),
         ),
       ),
     );
