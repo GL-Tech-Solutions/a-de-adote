@@ -4,6 +4,7 @@ import 'package:a_de_adote/app/pages/initial/initial_page_check.dart';
 import 'package:a_de_adote/app/pages/ong_profile/ong_profile_page.dart';
 import 'package:a_de_adote/app/pages/ongs/ongs_page.dart';
 import 'package:a_de_adote/app/pages/pet_register/pet_register_page.dart';
+import 'package:a_de_adote/app/pages/pet_register/pet_register_router.dart';
 import 'package:a_de_adote/app/pages/pets/pets_page.dart';
 import 'package:a_de_adote/app/pages/reset_password/reset_password_router.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +37,7 @@ class AdeAdoteApp extends StatelessWidget {
           '/pets': (_) => const PetsPage(),
           '/ongs': (_) => const OngsPage(),
           '/ong_profile': (_) => const OngProfilePage(),
-          '/pet_register': (_) => const PetRegisterPage(),
+          '/pet_register': (_) => PetRegisterRouter.page,
         },
       ),
     );

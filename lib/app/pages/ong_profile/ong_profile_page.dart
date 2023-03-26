@@ -1,5 +1,6 @@
 import 'package:a_de_adote/app/core/ui/styles/project_colors.dart';
 import 'package:a_de_adote/app/pages/ong_profile/ong_animals/ong_animals_page.dart';
+import 'package:a_de_adote/app/pages/ong_profile/ong_animals/ong_animals_router.dart';
 import 'package:a_de_adote/app/pages/ong_profile/ong_space/ong_space_router.dart';
 import 'package:a_de_adote/app/pages/ong_profile/widgets/ong_profile_appbar.dart';
 import 'package:flutter/gestures.dart';
@@ -70,7 +71,7 @@ class _OngProfilePageState extends State<OngProfilePage>
                 physics: const ClampingScrollPhysics(),
                 children: [
                   OngSpaceRouter.page,
-                  const OngAnimalsPage(),
+                  OngAnimalsRouter.page,
                 ],
               ),
             );

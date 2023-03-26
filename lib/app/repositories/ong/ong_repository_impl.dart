@@ -9,11 +9,10 @@ import '../../core/exceptions/firestore_exception.dart';
 import '../../models/ong_model.dart';
 import 'ong_repository.dart';
 
-
 class OngRepositoryImpl implements OngRepository {
   final CustomDio dio;
+  final AuthService auth;
   late FirebaseFirestore db;
-  late AuthService auth;
 
   OngRepositoryImpl({
     required this.dio,
@@ -35,16 +34,14 @@ class OngRepositoryImpl implements OngRepository {
         return OngModel.fromMap(result.data);
       } else if (result.data['situacao'] != 'ATIVA' &&
           result.data['status'] != 'ERROR') {
-        throw Exception(
-            Labels.cnpjInapto);
+        throw Exception(Labels.cnpjInapto);
       } else {
         throw Exception(Labels.cnpjNaoEncontrado);
       }
     } on DioError catch (e) {
       log(Labels.erroCnpj, error: e);
       if (e.response?.statusCode == 429) {
-        return throw Exception(
-            Labels.servidoresOcupados);
+        return throw Exception(Labels.servidoresOcupados);
       }
       if (e.type == DioErrorType.connectionTimeout ||
           e.type == DioErrorType.sendTimeout ||
