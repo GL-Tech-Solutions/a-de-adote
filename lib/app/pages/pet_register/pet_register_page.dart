@@ -84,6 +84,9 @@ class _PetRegisterPageState extends State<PetRegisterPage>
                                   any: () => const AssetImage(
                                     'assets/images/logos/logo_completo_withblue.png',
                                   ),
+                                  loading: () => Image.file(
+                                    state.image!,
+                                  ).image,
                                   imageLoaded: () => Image.file(
                                     state.image!,
                                   ).image,

@@ -10,6 +10,7 @@ enum OngAnimalStatus {
   initial,
   loading,
   loaded,
+  petDeleted,
   error,
 }
 

@@ -11,6 +11,7 @@ extension OngAnimalStatusMatch on OngAnimalStatus {
       {required T Function() initial,
       required T Function() loading,
       required T Function() loaded,
+      required T Function() petDeleted,
       required T Function() error}) {
     final v = this;
     if (v == OngAnimalStatus.initial) {
@@ -25,6 +26,10 @@ extension OngAnimalStatusMatch on OngAnimalStatus {
       return loaded();
     }
 
+    if (v == OngAnimalStatus.petDeleted) {
+      return petDeleted();
+    }
+
     if (v == OngAnimalStatus.error) {
       return error();
     }
@@ -37,6 +42,7 @@ extension OngAnimalStatusMatch on OngAnimalStatus {
       T Function()? initial,
       T Function()? loading,
       T Function()? loaded,
+      T Function()? petDeleted,
       T Function()? error}) {
     final v = this;
     if (v == OngAnimalStatus.initial && initial != null) {
@@ -49,6 +55,10 @@ extension OngAnimalStatusMatch on OngAnimalStatus {
 
     if (v == OngAnimalStatus.loaded && loaded != null) {
       return loaded();
+    }
+
+    if (v == OngAnimalStatus.petDeleted && petDeleted != null) {
+      return petDeleted();
     }
 
     if (v == OngAnimalStatus.error && error != null) {

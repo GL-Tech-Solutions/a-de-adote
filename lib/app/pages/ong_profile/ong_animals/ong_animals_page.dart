@@ -5,6 +5,8 @@ import 'package:a_de_adote/app/pages/ong_profile/ong_animals/widgets/ong_animal_
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../core/ui/helpers/alert_dialog_confirmation_message.dart';
+
 class OngAnimalsPage extends StatefulWidget {
   const OngAnimalsPage({super.key});
 
@@ -12,7 +14,8 @@ class OngAnimalsPage extends StatefulWidget {
   State<OngAnimalsPage> createState() => _OngAnimalsPageState();
 }
 
-class _OngAnimalsPageState extends State<OngAnimalsPage> {
+class _OngAnimalsPageState extends State<OngAnimalsPage>
+    with AlertDialogConfirmationMessage {
   bool _isLoading = false;
 
   @override
@@ -33,6 +36,8 @@ class _OngAnimalsPageState extends State<OngAnimalsPage> {
             state.status.matchAny(
               any: () => _isLoading = false,
               loading: () => _isLoading = true,
+              petDeleted: () =>
+                  context.read<OngAnimalsController>().loadCurrentUserPets(),
               error: () {
                 _isLoading = false;
                 ScaffoldMessenger.of(context).showSnackBar(
@@ -55,18 +60,37 @@ class _OngAnimalsPageState extends State<OngAnimalsPage> {
             return _isLoading
                 ? const Center(child: CircularProgressIndicator())
                 : ListView.builder(
+                    padding: const EdgeInsets.all(10),
                     itemCount: lenght,
                     itemBuilder: (context, index) {
                       return OngAnimalCard(
-                          fotoUrl: state.listPets[index].fotoUrl,
-                          nome: state.listPets[index].nome);
+                        fotoUrl: state.listPets[index].fotoUrl,
+                        nome: state.listPets[index].nome,
+                        especie: state.listPets[index].especie,
+                        deleteMethod: () async {
+                          bool? action = await confimAction(
+                              'Você tem certeza que gostaria de excluir este animal?');
+                          if (action == null || action == false) {
+                            null;
+                          } else {
+                            // ignore: use_build_context_synchronously
+                            context
+                                .read<OngAnimalsController>()
+                                .deletePet(state.listPets[index]);
+                          }
+                        },
+                      );
                     },
                   );
           },
         ),
         floatingActionButton: FloatingActionButton(
           backgroundColor: ProjectColors.primary,
-          onPressed: () => Navigator.pushNamed(context, '/pet_register'),
+          onPressed: () async {
+            await Navigator.pushNamed(context, '/pet_register');
+            // ignore: use_build_context_synchronously
+            context.read<OngAnimalsController>().loadCurrentUserPets();
+          },
           child: const Icon(
             Icons.add,
             color: ProjectColors.light,
