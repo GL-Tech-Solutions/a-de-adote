@@ -5,6 +5,7 @@ import 'package:a_de_adote/app/pages/ong_profile/ong_space/ong_space_state.dart'
 import 'package:a_de_adote/app/pages/ong_profile/ong_space/widgets/custom_expansion_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import '../../../core/ui/styles/project_colors.dart';
 import 'ong_space_controller.dart';
 
@@ -128,10 +129,10 @@ class _OngSpacePageState extends State<OngSpacePage> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
-                                for (int i = 0; i < 4; i++)
+                                for (int i = 0; i < 5; i++)
                                   Padding(
                                     padding: EdgeInsets.only(
-                                      bottom: i == 3 ? 0.0 : 4.0,
+                                      bottom: i == 4 ? 0.0 : 4.0,
                                     ),
                                     child: Row(
                                       children: [
@@ -143,8 +144,12 @@ class _OngSpacePageState extends State<OngSpacePage> {
                                                   : i == 2
                                                       ? Icons.phone_outlined
                                                       : i == 3
-                                                          ? Icons.home_outlined
-                                                          : null,
+                                                          ? MaterialCommunityIcons
+                                                              .whatsapp
+                                                          : i == 4
+                                                              ? Icons
+                                                                  .home_outlined
+                                                              : null,
                                           color: ProjectColors.light,
                                           size: 18,
                                         ),
@@ -163,8 +168,10 @@ class _OngSpacePageState extends State<OngSpacePage> {
                                                           : i == 2
                                                               ? 'Telefone: '
                                                               : i == 3
-                                                                  ? 'Endereço: '
-                                                                  : '',
+                                                                  ? 'WhatsApp: '
+                                                                  : i == 4
+                                                                      ? 'Endereço: '
+                                                                      : '',
                                                   style:
                                                       ProjectFonts.pLightBold,
                                                 ),
@@ -174,11 +181,16 @@ class _OngSpacePageState extends State<OngSpacePage> {
                                                       : i == 1
                                                           ? state.ong?.email
                                                           : i == 2
-                                                              ? state
-                                                                  .ong?.telefone
+                                                              ? state.ong
+                                                                      ?.telefone ??
+                                                                  '-'
                                                               : i == 3
-                                                                  ? enderecoConcat
-                                                                  : '',
+                                                                  ? state.ong
+                                                                          ?.whatsapp ??
+                                                                      '-'
+                                                                  : i == 4
+                                                                      ? enderecoConcat
+                                                                      : '',
                                                   style: ProjectFonts.pLight,
                                                 ),
                                               ],

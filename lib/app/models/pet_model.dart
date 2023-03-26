@@ -4,6 +4,7 @@ class PetModel {
   final String idadeAproximada;
   final String porte;
   final String especie;
+  final String sexo;
   final bool castrado;
   final String? fotoUrl;
   final Map? vacinas;
@@ -15,6 +16,7 @@ class PetModel {
     required this.idadeAproximada,
     required this.porte,
     required this.especie,
+    required this.sexo,
     required this.castrado,
     this.fotoUrl,
     this.vacinas,
@@ -27,6 +29,7 @@ class PetModel {
     String? idadeAproximada,
     String? porte,
     String? especie,
+    String? sexo,
     bool? castrado,
     String? fotoUrl,
     Map? vacinas,
@@ -38,6 +41,7 @@ class PetModel {
       idadeAproximada: idadeAproximada ?? this.idadeAproximada,
       porte: porte ?? this.porte,
       especie: especie ?? this.especie,
+      sexo: sexo ?? this.sexo,
       castrado: castrado ?? this.castrado,
       fotoUrl: fotoUrl ?? this.fotoUrl,
       vacinas: vacinas ?? this.vacinas,
@@ -52,6 +56,7 @@ class PetModel {
       'idadeAproximada': idadeAproximada,
       'porte': porte,
       'especie': especie,
+      'sexo': sexo,
       'castrado': castrado,
       'fotoUrl': fotoUrl,
       'vacinas': vacinas,
@@ -66,6 +71,7 @@ class PetModel {
       idadeAproximada: map['idadeAproximada'] as String,
       porte: map['porte'] as String,
       especie: map['especie'] as String,
+      sexo: map['sexo'] as String,
       castrado: map['castrado'] as bool,
       fotoUrl: map['fotoUrl'] != null ? map['fotoUrl'] as String : null,
       vacinas: map['vacinas'] != null
@@ -77,6 +83,6 @@ class PetModel {
 
   @override
   String toString() {
-    return 'PetModel(id: $id, nome: $nome, idadeAproximada: $idadeAproximada, porte: $porte, especie: $especie, castrado: $castrado, fotoUrl: $fotoUrl, vacinas: $vacinas, descricao: $descricao)';
+    return 'PetModel(id: $id, nome: $nome, idadeAproximada: $idadeAproximada, porte: $porte, especie: $especie, sexo: $sexo, castrado: $castrado, fotoUrl: $fotoUrl, vacinas: $vacinas, descricao: $descricao)';
   }
 }

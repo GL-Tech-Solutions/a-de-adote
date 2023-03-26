@@ -71,6 +71,7 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
         fantasia: _nomeFantasia.text,
         nome: _razaoSocial.text,
         telefone: _telefone.text,
+        whatsapp: '',
         cep: _cep.text,
         logradouro: _logradouro.text,
         numero: _numero.text,
@@ -176,12 +177,6 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
                             fullSelectionText: true,
                             mask: [context.maskFormatters.maskTelFormatter],
                             inputType: TextInputType.phone,
-                            validator: (value) {
-                              if ((value!.isEmpty) || (value.length < 14)) {
-                                return Labels.telValido;
-                              }
-                              return null;
-                            },
                           ),
                           const SizedBox(
                             height: 15,

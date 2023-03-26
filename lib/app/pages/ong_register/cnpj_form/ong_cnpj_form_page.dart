@@ -23,8 +23,6 @@ class _ONGCNPJFormPageState extends State<ONGCNPJFormPage> {
   final _cnpj = TextEditingController();
   var _isLoading = false;
 
-  void salvar() async {}
-
   @override
   void dispose() {
     _cnpj.dispose();

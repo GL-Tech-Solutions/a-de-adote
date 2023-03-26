@@ -140,6 +140,23 @@ class DropdownMenuItems {
           ),
         ),
       ];
+
+  List<DropdownMenuItem<String>> get sexo => [
+        const DropdownMenuItem(
+          value: 'Masculino',
+          child: Text(
+            'Masculino',
+            style: ProjectFonts.pLight,
+          ),
+        ),
+        const DropdownMenuItem(
+          value: 'Feminino',
+          child: Text(
+            'Feminino',
+            style: ProjectFonts.pLight,
+          ),
+        ),
+      ];
 }
 
 extension DropdownMenuItemsExtension on BuildContext {

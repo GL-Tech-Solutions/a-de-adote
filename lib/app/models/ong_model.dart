@@ -7,7 +7,8 @@ class OngModel extends Equatable {
   final String email;
   final String fantasia;
   final String nome;
-  final String telefone;
+  final String? telefone;
+  final String? whatsapp;
   final String cep;
   final String logradouro;
   final String numero;
@@ -25,7 +26,8 @@ class OngModel extends Equatable {
     required this.email,
     required this.fantasia,
     required this.nome,
-    required this.telefone,
+    this.telefone,
+    this.whatsapp,
     required this.cep,
     required this.logradouro,
     required this.numero,
@@ -45,6 +47,7 @@ class OngModel extends Equatable {
     String? fantasia,
     String? nome,
     String? telefone,
+    String? whatsapp,
     String? cep,
     String? logradouro,
     String? numero,
@@ -63,6 +66,7 @@ class OngModel extends Equatable {
       fantasia: fantasia ?? this.fantasia,
       nome: nome ?? this.nome,
       telefone: telefone ?? this.telefone,
+      whatsapp: whatsapp ?? this.whatsapp,
       cep: cep ?? this.cep,
       logradouro: logradouro ?? this.logradouro,
       numero: numero ?? this.numero,
@@ -84,6 +88,7 @@ class OngModel extends Equatable {
       'fantasia': fantasia,
       'nome': nome,
       'telefone': telefone,
+      'whatsapp': whatsapp,
       'cep': cep,
       'logradouro': logradouro,
       'numero': numero,
@@ -104,7 +109,8 @@ class OngModel extends Equatable {
       email: map['email'] as String,
       fantasia: map['fantasia'] as String,
       nome: map['nome'] as String,
-      telefone: map['telefone'] as String,
+      telefone: map['telefone'] != null ? map['telefone'] as String : null,
+      whatsapp: map['whatsapp'] != null ? map['whatsapp'] as String : null,
       cep: map['cep'] as String,
       logradouro: map['logradouro'] as String,
       numero: map['numero'] as String,
@@ -127,7 +133,7 @@ class OngModel extends Equatable {
 
   @override
   String toString() {
-    return 'OngModel(id: $id, cnpj: $cnpj, email: $email, fantasia: $fantasia, nome: $nome, telefone: $telefone, cep: $cep, logradouro: $logradouro, numero: $numero, bairro: $bairro, complemento: $complemento, municipio: $municipio, uf: $uf, fotoUrl: $fotoUrl, informacoes: $informacoes, pix: $pix)';
+    return 'OngModel(id: $id, cnpj: $cnpj, email: $email, fantasia: $fantasia, nome: $nome, telefone: $telefone, whatsapp: $whatsapp, cep: $cep, logradouro: $logradouro, numero: $numero, bairro: $bairro, complemento: $complemento, municipio: $municipio, uf: $uf, fotoUrl: $fotoUrl, informacoes: $informacoes, pix: $pix)';
   }
 
   @override
@@ -138,6 +144,7 @@ class OngModel extends Equatable {
         fantasia,
         nome,
         telefone,
+        whatsapp,
         cep,
         logradouro,
         numero,

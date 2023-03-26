@@ -29,6 +29,7 @@ class _PetRegisterPageState extends State<PetRegisterPage> {
   final ValueNotifier<String?> _especie = ValueNotifier('Cachorro');
   final ValueNotifier<String?> _porte = ValueNotifier('Pequeno');
   final ValueNotifier<String?> _unidadeIdade = ValueNotifier('meses');
+  final ValueNotifier<String?> _sexo = ValueNotifier('Masculino');
   final _idadeAproximada = TextEditingController();
   final ValueNotifier<bool> _castrado = ValueNotifier(true);
   final ValueNotifier<bool> _vacina1 = ValueNotifier(false);
@@ -43,6 +44,7 @@ class _PetRegisterPageState extends State<PetRegisterPage> {
         nome: _nome.text,
         idadeAproximada: '${_idadeAproximada.text} ${_unidadeIdade.value}',
         especie: _especie.value!,
+        sexo: _sexo.value!,
         porte: _porte.value!,
         castrado: _castrado.value,
         vacinas: {
@@ -65,7 +67,7 @@ class _PetRegisterPageState extends State<PetRegisterPage> {
             systemNavigationBarColor: ProjectColors.secondary),
         child: Center(
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 30),
+            padding: const EdgeInsets.symmetric(vertical: 10),
             child: SingleChildScrollView(
               reverse: true,
               physics: const ClampingScrollPhysics(),
@@ -160,22 +162,50 @@ class _PetRegisterPageState extends State<PetRegisterPage> {
                           const SizedBox(
                             height: 10,
                           ),
-                          ValueListenableBuilder(
-                            valueListenable: _porte,
-                            builder: (BuildContext context, String? value,
-                                Widget? child) {
-                              return StandardDropdown(
-                                labelText: 'Porte',
-                                items: context.dropdownMenuItems.porte,
-                                value: value!,
-                                dropdownCallback: (selected) {
-                                  _porte.value = selected;
-                                },
-                                validator: Validatorless.required(
-                                  'Por favor, insira um porte!',
+                          Row(
+                            children: [
+                              Expanded(
+                                child: ValueListenableBuilder(
+                                  valueListenable: _porte,
+                                  builder: (BuildContext context, String? value,
+                                      Widget? child) {
+                                    return StandardDropdown(
+                                      labelText: 'Porte',
+                                      items: context.dropdownMenuItems.porte,
+                                      value: value!,
+                                      dropdownCallback: (selected) {
+                                        _porte.value = selected;
+                                      },
+                                      validator: Validatorless.required(
+                                        'Por favor, insira um porte!',
+                                      ),
+                                    );
+                                  },
                                 ),
-                              );
-                            },
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Expanded(
+                                child: ValueListenableBuilder(
+                                  valueListenable: _sexo,
+                                  builder: (BuildContext context, String? value,
+                                      Widget? child) {
+                                    return StandardDropdown(
+                                      labelText: 'Sexo',
+                                      items: context.dropdownMenuItems.sexo,
+                                      value: value!,
+                                      dropdownCallback: (selected) {
+                                        _sexo.value = selected;
+                                      },
+                                      validator: Validatorless.required(
+                                        'Válor inválido!',
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
                           ),
                           const SizedBox(
                             height: 10,

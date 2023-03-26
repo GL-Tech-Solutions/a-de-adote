@@ -1,6 +1,9 @@
+import 'package:a_de_adote/app/core/extensions/mask_formatters.dart';
+import 'package:a_de_adote/app/core/ui/widgets/standard_form_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:validatorless/validatorless.dart';
 import '../../../core/ui/styles/project_colors.dart';
 import '../../../core/ui/styles/project_fonts.dart';
 import '../../../core/ui/widgets/form_button.dart';
@@ -18,6 +21,7 @@ class ONGSignUpFormPage extends StatefulWidget {
 
 class _ONGSignUpFormPageState extends State<ONGSignUpFormPage> {
   final _formKey = GlobalKey<FormState>();
+  final _whatsapp = TextEditingController();
   final _email = TextEditingController();
   final _senha = TextEditingController();
   final _confirmarSenha = TextEditingController();
@@ -36,6 +40,7 @@ class _ONGSignUpFormPageState extends State<ONGSignUpFormPage> {
 
   @override
   void dispose() {
+    _whatsapp.dispose();
     _email.dispose();
     _senha.dispose();
     _confirmarSenha.dispose();
@@ -54,7 +59,7 @@ class _ONGSignUpFormPageState extends State<ONGSignUpFormPage> {
             userCreated: () {
               _isLoading = false;
               Navigator.of(context, rootNavigator: true)
-                  .popAndPushNamed('/ong_space');
+                  .popAndPushNamed('/ong_profile');
             },
             error: () {
               _isLoading = false;
@@ -76,7 +81,7 @@ class _ONGSignUpFormPageState extends State<ONGSignUpFormPage> {
                 physics: const BouncingScrollPhysics(),
                 child: ConstrainedBox(
                   constraints: BoxConstraints(
-                    maxHeight: MediaQuery.of(context).size.height / 2,
+                    maxHeight: MediaQuery.of(context).size.height / 1.5,
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -115,6 +120,26 @@ class _ONGSignUpFormPageState extends State<ONGSignUpFormPage> {
                           key: _formKey,
                           child: Column(
                             children: [
+                              StandardFormInput(
+                                controller: _whatsapp,
+                                labelText: 'WhatsApp',
+                                mask: [context.maskFormatters.maskTelFormatter],
+                                trailing: const Tooltip(
+                                  triggerMode: TooltipTriggerMode.tap,
+                                  preferBelow: false,
+                                  message:
+                                      'Será a forma direta que o adotante irá entrar em contato.',
+                                  child: Icon(
+                                    Icons.info_outline,
+                                    color: ProjectColors.lightDark,
+                                  ),
+                                ),
+                                validator: Validatorless.required(
+                                    'Forneça um WhatsApp!'),
+                              ),
+                              const SizedBox(
+                                height: 15,
+                              ),
                               LoginFormInput(
                                 type: 'login',
                                 controller: _email,
@@ -151,8 +176,9 @@ class _ONGSignUpFormPageState extends State<ONGSignUpFormPage> {
                                 text: 'CADASTRAR',
                                 action: () {
                                   if (_formKey.currentState!.validate()) {
-                                    final ong =
-                                        ongModel.copyWith(email: _email.text);
+                                    final ong = ongModel.copyWith(
+                                        email: _email.text,
+                                        whatsapp: _whatsapp.text);
                                     context
                                         .read<OngSignupFormController>()
                                         .signUpOng(ong, _senha.text);
