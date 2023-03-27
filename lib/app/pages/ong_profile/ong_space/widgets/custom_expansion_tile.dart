@@ -6,12 +6,14 @@ class CustomExpansionTile extends StatefulWidget {
   final bool isOng;
   final String title;
   final Widget body;
+  Function() edit;
 
-  const CustomExpansionTile({
+  CustomExpansionTile({
     super.key,
     required this.isOng,
     required this.title,
     required this.body,
+    required this.edit,
   });
 
   @override
@@ -91,7 +93,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile>
                       child: IconButton(
                         iconSize: 22,
                         color: ProjectColors.light,
-                        onPressed: () {},
+                        onPressed: widget.edit,
                         icon: const Icon(
                           Icons.edit,
                         ),

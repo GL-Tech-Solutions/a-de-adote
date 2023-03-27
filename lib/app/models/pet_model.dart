@@ -1,5 +1,8 @@
 class PetModel {
   final String? id;
+  final String?
+      ongId; //* Para faciliar em consultas futuras. Porém, talvez dá pra puxar a ONG responsável de acordo com o Parent Doc
+  final String? ongNome;
   final String nome;
   final String idadeAproximada;
   final String porte;
@@ -12,6 +15,8 @@ class PetModel {
 
   PetModel({
     this.id,
+    this.ongId,
+    this.ongNome,
     required this.nome,
     required this.idadeAproximada,
     required this.porte,
@@ -25,6 +30,8 @@ class PetModel {
 
   PetModel copyWith({
     String? id,
+    String? ongId,
+    String? ongNome,
     String? nome,
     String? idadeAproximada,
     String? porte,
@@ -37,6 +44,8 @@ class PetModel {
   }) {
     return PetModel(
       id: id ?? this.id,
+      ongId: ongId ?? this.ongId,
+      ongNome: ongNome ?? this.ongNome,
       nome: nome ?? this.nome,
       idadeAproximada: idadeAproximada ?? this.idadeAproximada,
       porte: porte ?? this.porte,
@@ -52,6 +61,8 @@ class PetModel {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
+      'ongId': ongId,
+      'ongNome': ongNome,
       'nome': nome,
       'idadeAproximada': idadeAproximada,
       'porte': porte,
@@ -67,6 +78,8 @@ class PetModel {
   factory PetModel.fromMap(Map<String, dynamic> map) {
     return PetModel(
       id: map['id'] != null ? map['id'] as String : null,
+      ongId: map['ongId'] != null ? map['ongId'] as String : null,
+      ongNome: map['ongNome'] != null ? map['ongNome'] as String : null,
       nome: map['nome'] as String,
       idadeAproximada: map['idadeAproximada'] as String,
       porte: map['porte'] as String,
@@ -83,6 +96,6 @@ class PetModel {
 
   @override
   String toString() {
-    return 'PetModel(id: $id, nome: $nome, idadeAproximada: $idadeAproximada, porte: $porte, especie: $especie, sexo: $sexo, castrado: $castrado, fotoUrl: $fotoUrl, vacinas: $vacinas, descricao: $descricao)';
+    return 'PetModel(id: $id, ongId: $ongId, ongNome: $ongNome, nome: $nome, idadeAproximada: $idadeAproximada, porte: $porte, especie: $especie, sexo: $sexo, castrado: $castrado, fotoUrl: $fotoUrl, vacinas: $vacinas, descricao: $descricao)';
   }
 }

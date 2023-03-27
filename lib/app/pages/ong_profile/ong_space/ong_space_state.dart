@@ -8,6 +8,7 @@ enum OngSpaceStatus {
   initial,
   loading,
   loaded,
+  fieldUpdated,
   error,
 }
 

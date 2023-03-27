@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:a_de_adote/app/core/exceptions/firestore_exception.dart';
+import 'package:a_de_adote/app/repositories/ong/ong_repository.dart';
 import 'package:a_de_adote/app/repositories/photos/photos_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:a_de_adote/app/pages/pet_register/pet_register_state.dart';
@@ -10,10 +11,12 @@ import 'package:image_picker/image_picker.dart';
 import '../../models/pet_model.dart';
 
 class PetRegisterController extends Cubit<PetRegisterState> {
+  final OngRepository _ongRepository;
   final PetRepository _petRepository;
   final PhotosRepository _photosRepository;
 
   PetRegisterController(
+    this._ongRepository,
     this._petRepository,
     this._photosRepository,
   ) : super(PetRegisterState.initial());
@@ -21,11 +24,18 @@ class PetRegisterController extends Cubit<PetRegisterState> {
   Future<void> registerPet(PetModel petModel, File? petPhoto) async {
     try {
       emit(state.copyWith(status: PetRegisterStatus.loading));
+      final currentOngUser = await _ongRepository.getCurrentOngUser();
       String? fotoUrl;
       if (petPhoto != null) {
         fotoUrl = await _photosRepository.uploadImagePet(petPhoto);
       }
-      await _petRepository.createPet(petModel.copyWith(fotoUrl: fotoUrl));
+      await _petRepository.createPet(
+        petModel.copyWith(
+          ongId: currentOngUser.id,
+          ongNome: currentOngUser.fantasia,
+          fotoUrl: fotoUrl,
+        ),
+      );
       emit(state.copyWith(status: PetRegisterStatus.petCreated));
     } on FirestoreException catch (e) {
       emit(

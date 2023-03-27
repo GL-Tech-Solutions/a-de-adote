@@ -1,5 +1,6 @@
+import 'package:a_de_adote/app/core/ui/helpers/bottom_sheet_image_source.dart';
+import 'package:a_de_adote/app/core/ui/helpers/update_dialog_ong_description.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_fonts.dart';
-import 'package:a_de_adote/app/core/ui/widgets/standard_appbar.dart';
 import 'package:a_de_adote/app/core/ui/widgets/standard_drawer.dart';
 import 'package:a_de_adote/app/pages/ong_profile/ong_space/ong_space_state.dart';
 import 'package:a_de_adote/app/pages/ong_profile/ong_space/widgets/custom_expansion_tile.dart';
@@ -16,7 +17,8 @@ class OngSpacePage extends StatefulWidget {
   State<OngSpacePage> createState() => _OngSpacePageState();
 }
 
-class _OngSpacePageState extends State<OngSpacePage> {
+class _OngSpacePageState extends State<OngSpacePage>
+    with BottomSheetImageSource, UpdateDialogOngDescription {
   bool _isLoading = false;
 
   @override
@@ -38,6 +40,7 @@ class _OngSpacePageState extends State<OngSpacePage> {
             state.status.matchAny(
               any: () => _isLoading = false,
               loading: () => _isLoading = true,
+              fieldUpdated: () => context.read<OngSpaceController>().loadOng(),
               error: () {
                 _isLoading = false;
                 ScaffoldMessenger.of(context).showSnackBar(
@@ -62,39 +65,50 @@ class _OngSpacePageState extends State<OngSpacePage> {
                 ? const Center(child: CircularProgressIndicator())
                 : Column(
                     children: [
-                      Container(
-                        height: MediaQuery.of(context).size.height * 0.24,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: ProjectColors.lightDark,
-                          image: state.ong?.fotoUrl == null
+                      InkWell(
+                        onTap: () async {
+                          final source = await setImageSorce();
+                          if (source != null) {
+                            // ignore: use_build_context_synchronously
+                            context
+                                .read<OngSpaceController>()
+                                .pickAndSaveImage(source);
+                          }
+                        },
+                        child: Container(
+                          height: MediaQuery.of(context).size.height * 0.24,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: ProjectColors.lightDark,
+                            image: state.ong?.fotoUrl == null
+                                ? null
+                                : DecorationImage(
+                                    image: Image.network(
+                                      state.ong!.fotoUrl!,
+                                    ).image,
+                                    fit: BoxFit.fitWidth,
+                                  ),
+                          ),
+                          child: state.ong?.fotoUrl != null
                               ? null
-                              : DecorationImage(
-                                  image: Image.network(
-                                    state.ong!.fotoUrl!,
-                                  ).image,
-                                  fit: BoxFit.fitWidth,
+                              : Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: const [
+                                    Icon(
+                                      Icons.photo_camera_outlined,
+                                      size: 36,
+                                      color: ProjectColors.secondaryDark,
+                                    ),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text(
+                                      'Adicione uma foto de sua ONG!',
+                                      style: ProjectFonts.h6SecundaryDark,
+                                    ),
+                                  ],
                                 ),
                         ),
-                        child: state.ong?.fotoUrl != null
-                            ? null
-                            : Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
-                                  Icon(
-                                    Icons.photo_camera_outlined,
-                                    size: 36,
-                                    color: ProjectColors.secondaryDark,
-                                  ),
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                  Text(
-                                    'Adicione uma foto de sua ONG!',
-                                    style: ProjectFonts.h6SecundaryDark,
-                                  ),
-                                ],
-                              ),
                       ),
                       Container(
                         height: MediaQuery.of(context).size.height * 0.048,
@@ -208,6 +222,7 @@ class _OngSpacePageState extends State<OngSpacePage> {
                               CustomExpansionTile(
                                 isOng: true,
                                 title: 'Doação - Pix',
+                                edit: () => showChangeDescription,
                                 body: state.ong?.pix == null
                                     ? Text(
                                         'Sem formas de doação disponíveis. Adicione uma!',
@@ -226,7 +241,18 @@ class _OngSpacePageState extends State<OngSpacePage> {
                               CustomExpansionTile(
                                 isOng: true,
                                 title: 'Sobre',
-                                body: state.ong?.pix == null
+                                edit: () async {
+                                  String? description =
+                                      await showChangeDescription(
+                                          state.ong?.informacoes);
+                                  if (description != null) {
+                                    // ignore: use_build_context_synchronously
+                                    context
+                                        .read<OngSpaceController>()
+                                        .updateDescriptionOng(description);
+                                  }
+                                },
+                                body: state.ong?.informacoes == null
                                     ? Text(
                                         'Sem informações sobre a ONG. Adicione-as!',
                                         style: ProjectFonts.smallLight.copyWith(
@@ -235,7 +261,7 @@ class _OngSpacePageState extends State<OngSpacePage> {
                                       )
                                     : Text(
                                         state.ong!.informacoes!,
-                                        style: ProjectFonts.pLight,
+                                        style: ProjectFonts.smallLight,
                                       ),
                               ),
                             ],

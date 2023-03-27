@@ -1,4 +1,5 @@
 import 'package:a_de_adote/app/core/extensions/dropdown_menu_items.dart';
+import 'package:a_de_adote/app/core/ui/helpers/alert_dialog_alert.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_colors.dart';
 import 'package:a_de_adote/app/core/ui/widgets/checkbox_row.dart';
 import 'package:a_de_adote/app/core/ui/widgets/expanded_form_input.dart';
@@ -23,7 +24,7 @@ class PetRegisterPage extends StatefulWidget {
 }
 
 class _PetRegisterPageState extends State<PetRegisterPage>
-    with BottomSheetImageSource {
+    with BottomSheetImageSource, AlertDialogAlert {
   final _formKey = GlobalKey<FormState>();
   final _nome = TextEditingController();
   final ValueNotifier<String?> _especie = ValueNotifier('Cachorro');
@@ -82,7 +83,7 @@ class _PetRegisterPageState extends State<PetRegisterPage>
                               image: DecorationImage(
                                 image: state.status.matchAny(
                                   any: () => const AssetImage(
-                                    'assets/images/logos/logo_completo_withblue.png',
+                                    'assets/images/support/add_a_photo_pet.png',
                                   ),
                                   loading: () => Image.file(
                                     state.image!,
@@ -91,7 +92,11 @@ class _PetRegisterPageState extends State<PetRegisterPage>
                                     state.image!,
                                   ).image,
                                 ),
-                                fit: BoxFit.fitWidth,
+                                fit: state.status.matchAny(
+                                  any: () => BoxFit.scaleDown,
+                                  loading: () => BoxFit.fitWidth,
+                                  imageLoaded: () => BoxFit.fitWidth,
+                                ),
                               ),
                             ),
                             child: Stack(
@@ -355,8 +360,12 @@ class _PetRegisterPageState extends State<PetRegisterPage>
                                   text: 'CADASTRAR',
                                   action: () {
                                     final valid =
-                                        _formKey.currentState?.validate() ??
-                                            false;
+                                        (_formKey.currentState?.validate() ??
+                                                false) &&
+                                            state.image != null;
+                                    if (state.image == null) {
+                                      showAlert('Por favor, insira uma foto.');
+                                    }
                                     if (valid) {
                                       final PetModel pet = PetModel(
                                         nome: _nome.text,

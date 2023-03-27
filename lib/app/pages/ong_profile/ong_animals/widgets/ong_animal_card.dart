@@ -3,7 +3,7 @@ import 'package:a_de_adote/app/core/ui/styles/project_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
-class OngAnimalCard extends StatefulWidget {
+class OngAnimalCard extends StatelessWidget {
   final String? fotoUrl;
   final String nome;
   final String especie;
@@ -17,19 +17,6 @@ class OngAnimalCard extends StatefulWidget {
       required this.deleteMethod});
 
   @override
-  State<OngAnimalCard> createState() => _OngAnimalCardState();
-}
-
-class _OngAnimalCardState extends State<OngAnimalCard> {
-  final ValueNotifier<bool> _isLoading = ValueNotifier(true);
-
-  @override
-  void dispose() {
-    super.dispose();
-    _isLoading.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -41,70 +28,27 @@ class _OngAnimalCardState extends State<OngAnimalCard> {
           children: [
             Row(
               children: [
-                widget.fotoUrl == null
+                fotoUrl == null
                     ? const SizedBox(
                         height: 60,
                         width: 110,
                       )
-                    : ValueListenableBuilder(
-                        valueListenable: _isLoading,
-                        builder: (BuildContext context, bool loading,
-                            Widget? child) {
-                          return ClipRRect(
-                            borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(12),
-                              bottomLeft: Radius.circular(12),
-                            ),
-                            child: Image.network(
-                              widget.fotoUrl!,
-                              height: 60,
-                              width: 110,
-                              fit: BoxFit.fitWidth,
-                              frameBuilder: (context, child, frame,
-                                  wasSynchronouslyLoaded) {
-                                if (wasSynchronouslyLoaded) {
-                                  return child;
-                                }
-                                return AnimatedOpacity(
-                                  opacity: loading ? 0 : 1,
-                                  duration: const Duration(seconds: 2),
-                                  curve: Curves.easeOut,
-                                  child: child,
-                                );
-                              },
-                              loadingBuilder:
-                                  (context, child, loadingProgress) {
-                                if (loadingProgress == null) {
-                                  WidgetsBinding.instance
-                                      .addPostFrameCallback((_) {
-                                    _isLoading.value = false;
-                                  });
-                                  return child;
-                                }
-                                return SizedBox(
-                                  height: 60,
-                                  width: 110,
-                                  child: Center(
-                                    child: SizedBox(
-                                      height: 25,
-                                      width: 25,
-                                      child: CircularProgressIndicator(
-                                        value: loadingProgress
-                                                    .expectedTotalBytes !=
-                                                null
-                                            ? loadingProgress
-                                                    .cumulativeBytesLoaded /
-                                                loadingProgress
-                                                    .expectedTotalBytes!
-                                            : null,
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          );
-                        }),
+                    : ClipRRect(
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(12),
+                          bottomLeft: Radius.circular(12),
+                        ),
+                        child: FadeInImage.assetNetwork(
+                          placeholderFit: BoxFit.scaleDown,
+                          placeholder:
+                              'assets/images/loaders/filled_fading_balls.gif',
+                          image: fotoUrl ??
+                              'https://firebasestorage.googleapis.com/v0/b/a-de-adote.appspot.com/o/logos%2Flogo_icon_white_1024.png?alt=media&token=8545f858-a26d-4a17-8b3c-3cdad23ae727',
+                          height: 60,
+                          width: 110,
+                          fit: BoxFit.fitWidth,
+                        ),
+                      ),
                 const SizedBox(
                   width: 10,
                 ),
@@ -112,20 +56,20 @@ class _OngAnimalCardState extends State<OngAnimalCard> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      widget.nome,
+                      nome,
                       style: ProjectFonts.h6SecundaryDarkBold,
                     ),
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Icon(
-                          widget.especie == 'Cachorro'
+                          especie == 'Cachorro'
                               ? MaterialCommunityIcons.dog
-                              : widget.especie == 'Gato'
+                              : especie == 'Gato'
                                   ? MaterialCommunityIcons.cat
-                                  : widget.especie == 'Pássaro'
+                                  : especie == 'Pássaro'
                                       ? MaterialCommunityIcons.bird
-                                      : widget.especie == 'Outro'
+                                      : especie == 'Outro'
                                           ? MaterialCommunityIcons.paw
                                           : MaterialCommunityIcons.paw,
                           size: 14,
@@ -135,7 +79,7 @@ class _OngAnimalCardState extends State<OngAnimalCard> {
                           width: 2,
                         ),
                         Text(
-                          widget.especie,
+                          especie,
                           style: ProjectFonts.smallSecundaryDark.copyWith(
                             color: const Color(0xFF646464),
                           ),
@@ -174,7 +118,7 @@ class _OngAnimalCardState extends State<OngAnimalCard> {
                     child: Material(
                       color: Colors.transparent,
                       child: InkWell(
-                        onTap: widget.deleteMethod,
+                        onTap: deleteMethod,
                         child: const Padding(
                           padding: EdgeInsets.all(5),
                           child: Icon(

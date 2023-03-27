@@ -11,6 +11,7 @@ extension OngSpaceStatusMatch on OngSpaceStatus {
       {required T Function() initial,
       required T Function() loading,
       required T Function() loaded,
+      required T Function() fieldUpdated,
       required T Function() error}) {
     final v = this;
     if (v == OngSpaceStatus.initial) {
@@ -25,6 +26,10 @@ extension OngSpaceStatusMatch on OngSpaceStatus {
       return loaded();
     }
 
+    if (v == OngSpaceStatus.fieldUpdated) {
+      return fieldUpdated();
+    }
+
     if (v == OngSpaceStatus.error) {
       return error();
     }
@@ -37,6 +42,7 @@ extension OngSpaceStatusMatch on OngSpaceStatus {
       T Function()? initial,
       T Function()? loading,
       T Function()? loaded,
+      T Function()? fieldUpdated,
       T Function()? error}) {
     final v = this;
     if (v == OngSpaceStatus.initial && initial != null) {
@@ -49,6 +55,10 @@ extension OngSpaceStatusMatch on OngSpaceStatus {
 
     if (v == OngSpaceStatus.loaded && loaded != null) {
       return loaded();
+    }
+
+    if (v == OngSpaceStatus.fieldUpdated && fieldUpdated != null) {
+      return fieldUpdated();
     }
 
     if (v == OngSpaceStatus.error && error != null) {
