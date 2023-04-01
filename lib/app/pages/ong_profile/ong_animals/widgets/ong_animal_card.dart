@@ -53,7 +53,7 @@ class OngAnimalCard extends StatelessWidget {
                           fadeOutDuration: const Duration(milliseconds: 300),
                           imageUrl: fotoUrl ??
                               'https://firebasestorage.googleapis.com/v0/b/a-de-adote.appspot.com/o/logos%2Flogo_icon_white_1024.png?alt=media&token=8545f858-a26d-4a17-8b3c-3cdad23ae727',
-                          height: 60,
+                          height: 70,
                           width: 110,
                           fit: BoxFit.fitWidth,
                           errorWidget: (context, url, error) => const Icon(
@@ -116,7 +116,7 @@ class OngAnimalCard extends StatelessWidget {
                       child: InkWell(
                         onTap: () {},
                         child: const Padding(
-                          padding: EdgeInsets.all(5),
+                          padding: EdgeInsets.all(10),
                           child: Icon(
                             Icons.edit,
                             size: 22,
@@ -133,7 +133,7 @@ class OngAnimalCard extends StatelessWidget {
                       child: InkWell(
                         onTap: deleteMethod,
                         child: const Padding(
-                          padding: EdgeInsets.all(5),
+                          padding: EdgeInsets.all(10),
                           child: Icon(
                             Icons.cancel_outlined,
                             size: 22,
