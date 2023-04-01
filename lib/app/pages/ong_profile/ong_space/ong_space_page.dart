@@ -1,3 +1,4 @@
+import 'package:a_de_adote/app/core/extensions/capitalize_only_first_letter_extension.dart';
 import 'package:a_de_adote/app/core/ui/helpers/bottom_sheet_image_source.dart';
 import 'package:a_de_adote/app/core/ui/helpers/update_dialog_ong_description.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_fonts.dart';
@@ -60,232 +61,235 @@ class _OngSpacePageState extends State<OngSpacePage>
           ),
           builder: (context, state) {
             String enderecoConcat =
-                '${state.ong?.logradouro}, ${state.ong?.numero} - ${state.ong?.bairro} / ${state.ong?.municipio} - ${state.ong?.uf} / ${state.ong?.cep}';
+                '${state.ong?.logradouro.stringAdjusted}, ${state.ong?.numero} - ${state.ong?.bairro.stringAdjusted} / ${state.ong?.municipio.stringAdjusted} - ${state.ong?.uf} / ${state.ong?.cep}';
 
             return _isLoading
                 ? const Center(child: CircularProgressIndicator())
-                : Column(
-                    children: [
-                      InkWell(
-                        onTap: () async {
-                          final source = await setImageSorce();
-                          if (source != null) {
-                            // ignore: use_build_context_synchronously
-                            context
-                                .read<OngSpaceController>()
-                                .pickAndSaveImage(source);
-                          }
-                        },
-                        child: Container(
-                          height: MediaQuery.of(context).size.height * 0.24,
-                          width: double.infinity,
-                          decoration: const BoxDecoration(
-                            color: ProjectColors.lightDark,
-                          ),
-                          child: state.ong?.fotoUrl != null
-                              ? CachedNetworkImage(
-                                  placeholder: (context, url) => Container(
-                                    decoration: const BoxDecoration(
-                                      image: DecorationImage(
-                                        image: AssetImage(
-                                          'assets/images/loaders/filled_fading_balls.gif',
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  fadeInDuration:
-                                      const Duration(milliseconds: 700),
-                                  fadeOutDuration:
-                                      const Duration(milliseconds: 300),
-                                  imageUrl: state.ong?.fotoUrl ??
-                                      'https://firebasestorage.googleapis.com/v0/b/a-de-adote.appspot.com/o/logos%2Flogo_icon_white_1024.png?alt=media&token=8545f858-a26d-4a17-8b3c-3cdad23ae727',
-                                  height: 60,
-                                  width: 110,
-                                  fit: BoxFit.fitWidth,
-                                  errorWidget: (context, url, error) =>
-                                      const Icon(
-                                    Icons.error,
-                                    color: ProjectColors.danger,
-                                  ),
-                                )
-                              : Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: const [
-                                    Icon(
-                                      Icons.photo_camera_outlined,
-                                      size: 36,
-                                      color: ProjectColors.secondaryDark,
-                                    ),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text(
-                                      'Adicione uma foto de sua ONG!',
-                                      style: ProjectFonts.h6SecundaryDark,
-                                    ),
-                                  ],
-                                ),
-                        ),
-                      ),
-                      Container(
-                        height: MediaQuery.of(context).size.height * 0.048,
-                        width: double.infinity,
-                        color: ProjectColors.primaryDark,
-                        padding: const EdgeInsets.only(left: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Flexible(
-                              child: Text(
-                                state.ong?.fantasia ?? '',
-                                style: ProjectFonts.h6LightBold,
-                                overflow: TextOverflow.ellipsis,
-                              ),
+                : SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        InkWell(
+                          onTap: () async {
+                            final source = await setImageSorce();
+                            if (source != null) {
+                              // ignore: use_build_context_synchronously
+                              context
+                                  .read<OngSpaceController>()
+                                  .pickAndSaveImage(source);
+                            }
+                          },
+                          child: Container(
+                            height: MediaQuery.of(context).size.height * 0.24,
+                            width: double.infinity,
+                            decoration: const BoxDecoration(
+                              color: ProjectColors.lightDark,
                             ),
-                            IconButton(
-                              onPressed: () {},
-                              icon: const Icon(
-                                Icons.edit,
-                                color: ProjectColors.light,
-                                size: 22,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                for (int i = 0; i < 5; i++)
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                      bottom: i == 4 ? 0.0 : 4.0,
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        Icon(
-                                          i == 0
-                                              ? Icons.info_outline_rounded
-                                              : i == 1
-                                                  ? Icons.email_outlined
-                                                  : i == 2
-                                                      ? Icons.phone_outlined
-                                                      : i == 3
-                                                          ? MaterialCommunityIcons
-                                                              .whatsapp
-                                                          : i == 4
-                                                              ? Icons
-                                                                  .home_outlined
-                                                              : null,
-                                          color: ProjectColors.light,
-                                          size: 18,
-                                        ),
-                                        const SizedBox(
-                                          width: 5,
-                                        ),
-                                        Flexible(
-                                          child: RichText(
-                                            text: TextSpan(
-                                              children: [
-                                                TextSpan(
-                                                  text: i == 0
-                                                      ? 'CNPJ: '
-                                                      : i == 1
-                                                          ? 'E-mail: '
-                                                          : i == 2
-                                                              ? 'Telefone: '
-                                                              : i == 3
-                                                                  ? 'WhatsApp: '
-                                                                  : i == 4
-                                                                      ? 'Endereço: '
-                                                                      : '',
-                                                  style:
-                                                      ProjectFonts.pLightBold,
-                                                ),
-                                                TextSpan(
-                                                  text: i == 0
-                                                      ? state.ong?.cnpj
-                                                      : i == 1
-                                                          ? state.ong?.email
-                                                          : i == 2
-                                                              ? state.ong
-                                                                      ?.telefone ??
-                                                                  '-'
-                                                              : i == 3
-                                                                  ? state.ong
-                                                                          ?.whatsapp ??
-                                                                      '-'
-                                                                  : i == 4
-                                                                      ? enderecoConcat
-                                                                      : '',
-                                                  style: ProjectFonts.pLight,
-                                                ),
-                                              ],
-                                            ),
+                            child: state.ong?.fotoUrl != null
+                                ? CachedNetworkImage(
+                                    placeholder: (context, url) => Container(
+                                      decoration: const BoxDecoration(
+                                        image: DecorationImage(
+                                          image: AssetImage(
+                                            'assets/images/loaders/filled_fading_balls.gif',
                                           ),
                                         ),
-                                      ],
+                                      ),
                                     ),
+                                    fadeInDuration:
+                                        const Duration(milliseconds: 700),
+                                    fadeOutDuration:
+                                        const Duration(milliseconds: 300),
+                                    imageUrl: state.ong?.fotoUrl ??
+                                        'https://firebasestorage.googleapis.com/v0/b/a-de-adote.appspot.com/o/logos%2Flogo_icon_white_1024.png?alt=media&token=8545f858-a26d-4a17-8b3c-3cdad23ae727',
+                                    height: 60,
+                                    width: 110,
+                                    fit: BoxFit.fitWidth,
+                                    errorWidget: (context, url, error) =>
+                                        const Icon(
+                                      Icons.error,
+                                      color: ProjectColors.danger,
+                                    ),
+                                  )
+                                : Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: const [
+                                      Icon(
+                                        Icons.photo_camera_outlined,
+                                        size: 36,
+                                        color: ProjectColors.secondaryDark,
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        'Adicione uma foto de sua ONG!',
+                                        style: ProjectFonts.h6SecundaryDark,
+                                      ),
+                                    ],
                                   ),
-                              ],
-                            ),
                           ),
-                          Column(
+                        ),
+                        Container(
+                          height: MediaQuery.of(context).size.height * 0.048,
+                          width: double.infinity,
+                          color: ProjectColors.primaryDark,
+                          padding: const EdgeInsets.only(left: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              CustomExpansionTile(
-                                isOng: true,
-                                title: 'Doação - Pix',
-                                edit: () => showChangeDescription,
-                                body: state.ong?.pix == null
-                                    ? Text(
-                                        'Sem formas de doação disponíveis. Adicione uma!',
-                                        style: ProjectFonts.pLight.copyWith(
-                                          fontStyle: FontStyle.italic,
-                                        ),
-                                      )
-                                    : Text(
-                                        state.ong!.pix.toString(),
-                                        style: ProjectFonts.pLight,
-                                      ),
+                              Flexible(
+                                child: Text(
+                                  state.ong?.fantasia ?? '',
+                                  style: ProjectFonts.h6LightBold,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              CustomExpansionTile(
-                                isOng: true,
-                                title: 'Sobre',
-                                edit: () async {
-                                  String? description =
-                                      await showChangeDescription(
-                                          state.ong?.informacoes);
-                                  if (description != null) {
-                                    // ignore: use_build_context_synchronously
-                                    context
-                                        .read<OngSpaceController>()
-                                        .updateDescriptionOng(description);
-                                  }
-                                },
-                                body: state.ong?.informacoes == null
-                                    ? Text(
-                                        'Sem informações sobre a ONG. Adicione-as!',
-                                        style: ProjectFonts.smallLight.copyWith(
-                                          fontStyle: FontStyle.italic,
-                                        ),
-                                      )
-                                    : Text(
-                                        state.ong!.informacoes!,
-                                        style: ProjectFonts.smallLight,
-                                      ),
+                              IconButton(
+                                onPressed: () {},
+                                icon: const Icon(
+                                  Icons.edit,
+                                  color: ProjectColors.light,
+                                  size: 22,
+                                ),
                               ),
                             ],
                           ),
-                        ],
-                      ),
-                    ],
+                        ),
+                        Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  for (int i = 0; i < 5; i++)
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                        bottom: i == 4 ? 0.0 : 4.0,
+                                      ),
+                                      child: Row(
+                                        children: [
+                                          Icon(
+                                            i == 0
+                                                ? Icons.info_outline_rounded
+                                                : i == 1
+                                                    ? Icons.email_outlined
+                                                    : i == 2
+                                                        ? Icons.phone_outlined
+                                                        : i == 3
+                                                            ? MaterialCommunityIcons
+                                                                .whatsapp
+                                                            : i == 4
+                                                                ? Icons
+                                                                    .home_outlined
+                                                                : null,
+                                            color: ProjectColors.light,
+                                            size: 18,
+                                          ),
+                                          const SizedBox(
+                                            width: 5,
+                                          ),
+                                          Flexible(
+                                            child: RichText(
+                                              text: TextSpan(
+                                                children: [
+                                                  TextSpan(
+                                                    text: i == 0
+                                                        ? 'CNPJ: '
+                                                        : i == 1
+                                                            ? 'E-mail: '
+                                                            : i == 2
+                                                                ? 'Telefone: '
+                                                                : i == 3
+                                                                    ? 'WhatsApp: '
+                                                                    : i == 4
+                                                                        ? 'Endereço: '
+                                                                        : '',
+                                                    style:
+                                                        ProjectFonts.pLightBold,
+                                                  ),
+                                                  TextSpan(
+                                                    text: i == 0
+                                                        ? state.ong?.cnpj
+                                                        : i == 1
+                                                            ? state.ong?.email
+                                                            : i == 2
+                                                                ? state.ong
+                                                                        ?.telefone ??
+                                                                    '-'
+                                                                : i == 3
+                                                                    ? state.ong
+                                                                            ?.whatsapp ??
+                                                                        '-'
+                                                                    : i == 4
+                                                                        ? enderecoConcat
+                                                                        : '',
+                                                    style: ProjectFonts.pLight,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                ],
+                              ),
+                            ),
+                            Column(
+                              children: [
+                                CustomExpansionTile(
+                                  isOng: true,
+                                  title: 'Doação - Pix',
+                                  edit: () => showChangeDescription,
+                                  body: state.ong?.pix == null
+                                      ? Text(
+                                          'Sem formas de doação disponíveis. Adicione uma!',
+                                          style: ProjectFonts.pLight.copyWith(
+                                            fontStyle: FontStyle.italic,
+                                          ),
+                                        )
+                                      : Text(
+                                          state.ong!.pix.toString(),
+                                          style: ProjectFonts.pLight,
+                                        ),
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                CustomExpansionTile(
+                                  isOng: true,
+                                  title: 'Sobre',
+                                  edit: () async {
+                                    String? description =
+                                        await showChangeDescription(
+                                            state.ong?.informacoes);
+                                    if (description != null) {
+                                      // ignore: use_build_context_synchronously
+                                      context
+                                          .read<OngSpaceController>()
+                                          .updateDescriptionOng(description);
+                                    }
+                                  },
+                                  body: state.ong?.informacoes == null
+                                      ? Text(
+                                          'Sem informações sobre a ONG. Adicione-as!',
+                                          style:
+                                              ProjectFonts.smallLight.copyWith(
+                                            fontStyle: FontStyle.italic,
+                                          ),
+                                        )
+                                      : Text(
+                                          state.ong!.informacoes!,
+                                          style: ProjectFonts.smallLight,
+                                        ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   );
           },
         ),

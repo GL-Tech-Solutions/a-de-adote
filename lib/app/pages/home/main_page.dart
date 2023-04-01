@@ -1,13 +1,10 @@
 import 'package:a_de_adote/app/core/ui/styles/project_colors.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_fonts.dart';
 import 'package:a_de_adote/app/pages/ong_profile/ong_profile_page.dart';
-import 'package:a_de_adote/app/pages/ongs/ongs_page.dart';
-import 'package:a_de_adote/app/pages/pets/pets_page.dart';
+import 'package:a_de_adote/app/pages/ongs/ongs_router.dart';
 import 'package:a_de_adote/app/pages/pets/pets_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-import '../ong_profile/ong_space/ong_space_router.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -72,7 +69,7 @@ class _MainPageState extends State<MainPage> {
                 ),
                 body: [
                   PetsRouter.page,
-                  const OngsPage(),
+                  OngsRouter.page,
                   const OngProfilePage(),
                 ][index],
               ),
