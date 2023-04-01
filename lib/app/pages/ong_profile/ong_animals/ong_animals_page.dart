@@ -64,9 +64,18 @@ class _OngAnimalsPageState extends State<OngAnimalsPage>
                     itemCount: length,
                     itemBuilder: (context, index) {
                       return OngAnimalCard(
-                        fotoUrl: state.listPets[index].fotoUrl,
-                        nome: state.listPets[index].nome,
-                        especie: state.listPets[index].especie,
+                        pet: state.listPets[index],
+                        editMethod: () async {
+                          await Navigator.pushNamed(
+                            context,
+                            '/pet_edit',
+                            arguments: state.listPets[index],
+                          );
+                          // ignore: use_build_context_synchronously
+                          context
+                              .read<OngAnimalsController>()
+                              .loadCurrentUserPets();
+                        },
                         deleteMethod: () async {
                           bool? action = await confimAction(
                               'Você tem certeza que gostaria de excluir este animal?');

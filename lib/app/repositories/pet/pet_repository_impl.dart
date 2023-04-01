@@ -12,11 +12,9 @@ import '../database/db_firestore.dart';
 class PetRepositoryImpl implements PetRepository {
   late FirebaseFirestore db;
   final AuthService auth;
-  final OngRepository ongRepository;
 
   PetRepositoryImpl({
     required this.auth,
-    required this.ongRepository,
   }) {
     _startFirestore();
   }

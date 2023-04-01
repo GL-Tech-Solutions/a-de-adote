@@ -49,4 +49,15 @@ class PhotosRepositoryImpl implements PhotosRepository {
       throw FirestoreException(e.message!);
     }
   }
+
+  @override
+  Future<void> deleteImage(String path) async {
+    try {
+      final ref = storage.refFromURL(path);
+      await ref.delete();
+    } on FirebaseException catch (e, s) {
+      log('Ocorreu um erro ao excluir a antiga foto', error: e, stackTrace: s);
+      throw FirestoreException('Ocorreu um erro ao excluir a antiga foto');
+    }
+  }
 }

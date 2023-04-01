@@ -1,21 +1,21 @@
 import 'package:a_de_adote/app/core/ui/styles/project_colors.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_fonts.dart';
+import 'package:a_de_adote/app/models/pet_model.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
 class OngAnimalCard extends StatelessWidget {
-  final String? fotoUrl;
-  final String nome;
-  final String especie;
+  final PetModel pet;
+  Function() editMethod;
   Function() deleteMethod;
 
-  OngAnimalCard(
-      {super.key,
-      required this.fotoUrl,
-      required this.nome,
-      required this.especie,
-      required this.deleteMethod});
+  OngAnimalCard({
+    super.key,
+    required this.pet,
+    required this.editMethod,
+    required this.deleteMethod,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class OngAnimalCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                fotoUrl == null
+                pet.fotoUrl == null
                     ? const SizedBox(
                         height: 60,
                         width: 110,
@@ -51,7 +51,7 @@ class OngAnimalCard extends StatelessWidget {
                           ),
                           fadeInDuration: const Duration(milliseconds: 700),
                           fadeOutDuration: const Duration(milliseconds: 300),
-                          imageUrl: fotoUrl ??
+                          imageUrl: pet.fotoUrl ??
                               'https://firebasestorage.googleapis.com/v0/b/a-de-adote.appspot.com/o/logos%2Flogo_icon_white_1024.png?alt=media&token=8545f858-a26d-4a17-8b3c-3cdad23ae727',
                           height: 70,
                           width: 110,
@@ -69,20 +69,20 @@ class OngAnimalCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      nome,
+                      pet.nome,
                       style: ProjectFonts.h6SecundaryDarkBold,
                     ),
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Icon(
-                          especie == 'Cachorro'
+                          pet.especie == 'Cachorro'
                               ? MaterialCommunityIcons.dog
-                              : especie == 'Gato'
+                              : pet.especie == 'Gato'
                                   ? MaterialCommunityIcons.cat
-                                  : especie == 'Pássaro'
+                                  : pet.especie == 'Pássaro'
                                       ? MaterialCommunityIcons.bird
-                                      : especie == 'Outro'
+                                      : pet.especie == 'Outro'
                                           ? MaterialCommunityIcons.paw
                                           : MaterialCommunityIcons.paw,
                           size: 14,
@@ -92,7 +92,7 @@ class OngAnimalCard extends StatelessWidget {
                           width: 2,
                         ),
                         Text(
-                          especie,
+                          pet.especie,
                           style: ProjectFonts.smallSecundaryDark.copyWith(
                             color: const Color(0xFF646464),
                           ),
@@ -114,7 +114,7 @@ class OngAnimalCard extends StatelessWidget {
                     child: Material(
                       color: Colors.transparent,
                       child: InkWell(
-                        onTap: () {},
+                        onTap: editMethod,
                         child: const Padding(
                           padding: EdgeInsets.all(10),
                           child: Icon(

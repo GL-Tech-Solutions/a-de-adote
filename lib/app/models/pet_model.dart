@@ -9,7 +9,7 @@ class PetModel {
   final String especie;
   final String sexo;
   final bool castrado;
-  final String? fotoUrl;
+  String? fotoUrl;
   final Map? vacinas;
   final String? descricao;
 
