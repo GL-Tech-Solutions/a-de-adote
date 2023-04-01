@@ -26,17 +26,12 @@ class CheckboxRow extends StatelessWidget {
           style: ProjectFonts.pLight,
         ),
         SizedBox(
-          width: gap ?? 11,
+          width: gap ?? 0,
         ),
-        Container(
-          alignment: Alignment.center,
-          height: 14,
-          width: 14,
-          color: ProjectColors.lightDark,
-          child: Checkbox(
-            value: value,
-            onChanged: checkboxCallback,
-          ),
+        Checkbox(
+          value: value,
+          onChanged: checkboxCallback,
+          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
         ),
       ],
     );

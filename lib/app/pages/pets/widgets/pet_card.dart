@@ -39,6 +39,8 @@ class PetCard extends StatelessWidget {
                       ),
                     ),
                   ),
+                  fadeInDuration: const Duration(milliseconds: 700),
+                  fadeOutDuration: const Duration(milliseconds: 300),
                   imageUrl: pet.fotoUrl ??
                       'https://firebasestorage.googleapis.com/v0/b/a-de-adote.appspot.com/o/logos%2Flogo_icon_white_1024.png?alt=media&token=8545f858-a26d-4a17-8b3c-3cdad23ae727',
                   fit: BoxFit.fitWidth,

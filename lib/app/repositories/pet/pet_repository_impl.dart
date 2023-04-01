@@ -1,7 +1,9 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:a_de_adote/app/models/pet_model.dart';
 import 'package:a_de_adote/app/repositories/pet/pet_repository.dart';
+import 'package:crypto/crypto.dart';
 import '../../core/exceptions/firestore_exception.dart';
 import '../../services/auth_service.dart';
 import '../database/db_firestore.dart';
@@ -24,6 +26,12 @@ class PetRepositoryImpl implements PetRepository {
   Future<List<PetModel>> getPets() {
    
   }*/
+
+  String generateIdPet(String imageUrl) {
+    var bytes = utf8.encode(imageUrl);
+    var id = md5.convert(bytes);
+    return id.toString();
+  }
 
   @override
   Future<List<PetModel>> getCurrentUserPets() async {
@@ -52,15 +60,11 @@ class PetRepositoryImpl implements PetRepository {
   @override
   Future<void> createPet(PetModel pet) async {
     try {
+      String id = generateIdPet(pet.fotoUrl!);
       await db
           .collection('ong/${auth.ongUser?.uid}/animais')
-          .add(pet.toMap())
-          .then(
-            (DocumentReference docRef) => db
-                .collection('ong/${auth.ongUser?.uid}/animais')
-                .doc(docRef.id)
-                .update(pet.copyWith(id: docRef.id).toMap()),
-          );
+          .doc(id)
+          .set(pet.copyWith(id: id).toMap());
     } on FirebaseException catch (e, s) {
       log('Houve um erro ao cadastrar o pet.', error: e, stackTrace: s);
       throw FirestoreException(

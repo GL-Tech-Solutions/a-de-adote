@@ -266,7 +266,7 @@ class _PetRegisterPageState extends State<PetRegisterPage>
                               ],
                             ),
                             const SizedBox(
-                              height: 10,
+                              height: 5,
                             ),
                             Padding(
                               padding: const EdgeInsets.only(right: 10.0),
@@ -304,7 +304,7 @@ class _PetRegisterPageState extends State<PetRegisterPage>
                               ),
                             ),
                             const SizedBox(
-                              height: 10,
+                              height: 0,
                             ),
                             Padding(
                               padding: const EdgeInsets.only(right: 10.0),
@@ -319,7 +319,7 @@ class _PetRegisterPageState extends State<PetRegisterPage>
                                       return CheckboxRow(
                                         labelText: 'Vacina 2',
                                         value: value,
-                                        gap: 14,
+                                        gap: 3,
                                         checkboxCallback: (state) {
                                           _vacina2.value = state!;
                                         },
@@ -343,7 +343,7 @@ class _PetRegisterPageState extends State<PetRegisterPage>
                               ),
                             ),
                             const SizedBox(
-                              height: 10,
+                              height: 5,
                             ),
                             ExpandedFormInput(
                               controller: _sobre,
