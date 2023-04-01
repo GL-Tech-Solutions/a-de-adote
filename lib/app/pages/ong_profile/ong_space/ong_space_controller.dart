@@ -40,6 +40,9 @@ class OngSpaceController extends Cubit<OngSpaceState> {
       final imageTemporary = File(image.path);
       emit(state.copyWith(status: OngSpaceStatus.loading));
       try {
+        if (state.ong?.fotoUrl != null) {
+          await _photosRepository.deleteImage(state.ong!.fotoUrl!);
+        }
         String url = await _photosRepository.uploadImageOng(imageTemporary);
         await _ongRepository.updateOng(state.ong!.copyWith(fotoUrl: url));
       } on FirestoreException catch (e) {
