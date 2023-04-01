@@ -4,6 +4,7 @@ import 'package:a_de_adote/app/core/ui/styles/project_fonts.dart';
 import 'package:a_de_adote/app/core/ui/widgets/standard_drawer.dart';
 import 'package:a_de_adote/app/pages/ong_profile/ong_space/ong_space_state.dart';
 import 'package:a_de_adote/app/pages/ong_profile/ong_space/widgets/custom_expansion_tile.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
@@ -78,19 +79,35 @@ class _OngSpacePageState extends State<OngSpacePage>
                         child: Container(
                           height: MediaQuery.of(context).size.height * 0.24,
                           width: double.infinity,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: ProjectColors.lightDark,
-                            image: state.ong?.fotoUrl == null
-                                ? null
-                                : DecorationImage(
-                                    image: Image.network(
-                                      state.ong!.fotoUrl!,
-                                    ).image,
-                                    fit: BoxFit.fitWidth,
-                                  ),
                           ),
                           child: state.ong?.fotoUrl != null
-                              ? null
+                              ? CachedNetworkImage(
+                                  placeholder: (context, url) => Container(
+                                    decoration: const BoxDecoration(
+                                      image: DecorationImage(
+                                        image: AssetImage(
+                                          'assets/images/loaders/filled_fading_balls.gif',
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  fadeInDuration:
+                                      const Duration(milliseconds: 700),
+                                  fadeOutDuration:
+                                      const Duration(milliseconds: 300),
+                                  imageUrl: state.ong?.fotoUrl ??
+                                      'https://firebasestorage.googleapis.com/v0/b/a-de-adote.appspot.com/o/logos%2Flogo_icon_white_1024.png?alt=media&token=8545f858-a26d-4a17-8b3c-3cdad23ae727',
+                                  height: 60,
+                                  width: 110,
+                                  fit: BoxFit.fitWidth,
+                                  errorWidget: (context, url, error) =>
+                                      const Icon(
+                                    Icons.error,
+                                    color: ProjectColors.danger,
+                                  ),
+                                )
                               : Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: const [

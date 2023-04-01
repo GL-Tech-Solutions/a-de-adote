@@ -1,4 +1,5 @@
 import 'package:a_de_adote/app/core/ui/styles/project_fonts.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
@@ -26,15 +27,21 @@ class PetCard extends StatelessWidget {
                   topLeft: Radius.circular(12),
                   topRight: Radius.circular(12),
                 ),
-                child: FadeInImage.assetNetwork(
+                child: CachedNetworkImage(
                   height: 100,
                   width: double.infinity,
-                  placeholderFit: BoxFit.scaleDown,
-                  placeholder:
-                      'assets/images/loaders/dog_run_loader_secondary.gif',
-                  fit: BoxFit.fitWidth,
-                  image: pet.fotoUrl ??
+                  placeholder: (context, url) => Container(
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(
+                          'assets/images/loaders/dog_run_loader_secondary.gif',
+                        ),
+                      ),
+                    ),
+                  ),
+                  imageUrl: pet.fotoUrl ??
                       'https://firebasestorage.googleapis.com/v0/b/a-de-adote.appspot.com/o/logos%2Flogo_icon_white_1024.png?alt=media&token=8545f858-a26d-4a17-8b3c-3cdad23ae727',
+                  fit: BoxFit.fitWidth,
                 ),
               ),
               Padding(

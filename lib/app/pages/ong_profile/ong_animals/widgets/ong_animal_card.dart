@@ -1,5 +1,6 @@
 import 'package:a_de_adote/app/core/ui/styles/project_colors.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_fonts.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
@@ -38,15 +39,27 @@ class OngAnimalCard extends StatelessWidget {
                           topLeft: Radius.circular(12),
                           bottomLeft: Radius.circular(12),
                         ),
-                        child: FadeInImage.assetNetwork(
-                          placeholderFit: BoxFit.scaleDown,
-                          placeholder:
-                              'assets/images/loaders/filled_fading_balls.gif',
-                          image: fotoUrl ??
+                        child: CachedNetworkImage(
+                          placeholder: (context, url) => Container(
+                            decoration: const BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage(
+                                  'assets/images/loaders/filled_fading_balls.gif',
+                                ),
+                              ),
+                            ),
+                          ),
+                          fadeInDuration: const Duration(milliseconds: 700),
+                          fadeOutDuration: const Duration(milliseconds: 300),
+                          imageUrl: fotoUrl ??
                               'https://firebasestorage.googleapis.com/v0/b/a-de-adote.appspot.com/o/logos%2Flogo_icon_white_1024.png?alt=media&token=8545f858-a26d-4a17-8b3c-3cdad23ae727',
                           height: 60,
                           width: 110,
                           fit: BoxFit.fitWidth,
+                          errorWidget: (context, url, error) => const Icon(
+                            Icons.error,
+                            color: ProjectColors.danger,
+                          ),
                         ),
                       ),
                 const SizedBox(
