@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 import '../../../core/ui/styles/project_colors.dart';
 import '../../../core/ui/styles/project_fonts.dart';
 
-class OngProfileAppbar extends StatelessWidget implements PreferredSizeWidget {
+class StandardSliverAppbar extends StatelessWidget
+    implements PreferredSizeWidget {
   final String title;
-  final TabBar tabBar;
+  final PreferredSize? bottom;
+  final bool? canPop;
 
-  const OngProfileAppbar({
+  const StandardSliverAppbar({
     super.key,
     required this.title,
-    required this.tabBar,
+    required this.bottom,
+    this.canPop,
   });
 
   @override
@@ -32,17 +35,14 @@ class OngProfileAppbar extends StatelessWidget implements PreferredSizeWidget {
         pinned: true,
         floating: true,
         snap: true,
-        leading: IconButton(
-          onPressed: () => Scaffold.of(context).openDrawer(),
-          icon: const Icon(Icons.menu),
-        ),
-        bottom: PreferredSize(
-          preferredSize: tabBar.preferredSize,
-          child: Material(
-            color: ProjectColors.secondaryDark,
-            child: tabBar,
-          ),
-        ),
+        automaticallyImplyLeading: canPop ?? true,
+        leading: canPop == true || canPop == null
+            ? null
+            : IconButton(
+                onPressed: () => Scaffold.of(context).openDrawer(),
+                icon: const Icon(Icons.menu),
+              ),
+        bottom: bottom,
       ),
     );
   }

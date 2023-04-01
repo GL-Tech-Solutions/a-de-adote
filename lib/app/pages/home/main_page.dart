@@ -3,6 +3,7 @@ import 'package:a_de_adote/app/core/ui/styles/project_fonts.dart';
 import 'package:a_de_adote/app/pages/ong_profile/ong_profile_page.dart';
 import 'package:a_de_adote/app/pages/ongs/ongs_page.dart';
 import 'package:a_de_adote/app/pages/pets/pets_page.dart';
+import 'package:a_de_adote/app/pages/pets/pets_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -70,7 +71,7 @@ class _MainPageState extends State<MainPage> {
                   ),
                 ),
                 body: [
-                  const PetsPage(),
+                  PetsRouter.page,
                   const OngsPage(),
                   const OngProfilePage(),
                 ][index],

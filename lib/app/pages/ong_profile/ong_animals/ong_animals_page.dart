@@ -55,13 +55,13 @@ class _OngAnimalsPageState extends State<OngAnimalsPage>
             loaded: () => true,
           ),
           builder: (context, state) {
-            int lenght = state.listPets.length;
+            int length = state.listPets.length;
 
             return _isLoading
                 ? const Center(child: CircularProgressIndicator())
                 : ListView.builder(
                     padding: const EdgeInsets.all(10),
-                    itemCount: lenght,
+                    itemCount: length,
                     itemBuilder: (context, index) {
                       return OngAnimalCard(
                         fotoUrl: state.listPets[index].fotoUrl,

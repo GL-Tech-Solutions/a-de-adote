@@ -24,6 +24,7 @@ class PetRegisterRouter {
           Provider<PetRepository>(
             create: ((context) => PetRepositoryImpl(
                   auth: context.read<AuthService>(),
+                  ongRepository: context.read<OngRepository>(),
                 )),
           ),
           Provider<PhotosRepository>(

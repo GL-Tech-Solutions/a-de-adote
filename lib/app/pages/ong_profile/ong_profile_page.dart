@@ -1,12 +1,10 @@
 import 'package:a_de_adote/app/core/ui/styles/project_colors.dart';
-import 'package:a_de_adote/app/pages/ong_profile/ong_animals/ong_animals_page.dart';
 import 'package:a_de_adote/app/pages/ong_profile/ong_animals/ong_animals_router.dart';
 import 'package:a_de_adote/app/pages/ong_profile/ong_space/ong_space_router.dart';
-import 'package:a_de_adote/app/pages/ong_profile/widgets/ong_profile_appbar.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-
 import '../../core/ui/widgets/standard_drawer.dart';
+import '../../core/ui/widgets/standard_sliver_appbar.dart';
 
 class OngProfilePage extends StatefulWidget {
   const OngProfilePage({super.key});
@@ -59,9 +57,15 @@ class _OngProfilePageState extends State<OngProfilePage>
             return NestedScrollView(
               headerSliverBuilder: (BuildContext context, innerBoxIsScrolled) {
                 return [
-                  OngProfileAppbar(
+                  StandardSliverAppbar(
                     title: 'Perfil',
-                    tabBar: _tabBar,
+                    bottom: PreferredSize(
+                      preferredSize: _tabBar.preferredSize,
+                      child: Material(
+                        color: ProjectColors.secondaryDark,
+                        child: _tabBar,
+                      ),
+                    ),
                   ),
                 ];
               },
