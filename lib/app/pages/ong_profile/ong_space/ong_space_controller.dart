@@ -96,4 +96,22 @@ class OngSpaceController extends Cubit<OngSpaceState> {
       );
     }
   }
+
+  Future<void> updateOngPix(Map<String, dynamic>? pix) async {
+    try {
+      if (pix == null) {
+        return;
+      }
+      emit(state.copyWith(status: OngSpaceStatus.loading));
+      await _ongRepository.updateOng(state.ong!.copyWith(pix: pix));
+      emit(state.copyWith(status: OngSpaceStatus.fieldUpdated));
+    } on FirestoreException catch (e) {
+      emit(
+        state.copyWith(
+          status: OngSpaceStatus.error,
+          errorMesssage: e.message,
+        ),
+      );
+    }
+  }
 }

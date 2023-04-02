@@ -157,6 +157,30 @@ class DropdownMenuItems {
           ),
         ),
       ];
+
+  List<DropdownMenuItem<String>> get donationOption => [
+        const DropdownMenuItem(
+          value: 'CNPJ',
+          child: Text(
+            'CNPJ',
+            style: ProjectFonts.pLight,
+          ),
+        ),
+        const DropdownMenuItem(
+          value: 'Celular',
+          child: Text(
+            'Celular',
+            style: ProjectFonts.pLight,
+          ),
+        ),
+        const DropdownMenuItem(
+          value: 'E-mail',
+          child: Text(
+            'E-mail',
+            style: ProjectFonts.pLight,
+          ),
+        ),
+      ];
 }
 
 extension DropdownMenuItemsExtension on BuildContext {

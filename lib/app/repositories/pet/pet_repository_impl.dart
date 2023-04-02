@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'package:a_de_adote/app/repositories/ong/ong_repository.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:a_de_adote/app/models/pet_model.dart';
 import 'package:a_de_adote/app/repositories/pet/pet_repository.dart';

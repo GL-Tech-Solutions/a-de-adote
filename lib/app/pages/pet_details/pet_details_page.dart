@@ -178,8 +178,8 @@ class PetDetailsPage extends StatelessWidget {
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(
-                          vertical: 10,
-                          horizontal: 12,
+                          vertical: 4,
+                          horizontal: 16,
                         ),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,

@@ -18,7 +18,7 @@ class OngModel extends Equatable {
   final String uf;
   final String? fotoUrl;
   final String? informacoes;
-  final Map? pix;
+  final Map<String, dynamic>? pix;
 
   const OngModel({
     this.id,
@@ -57,7 +57,7 @@ class OngModel extends Equatable {
     String? uf,
     String? fotoUrl,
     String? informacoes,
-    Map? pix,
+    Map<String, dynamic>? pix,
   }) {
     return OngModel(
       id: id ?? this.id,

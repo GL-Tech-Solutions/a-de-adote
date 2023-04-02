@@ -7,8 +7,10 @@ import 'package:a_de_adote/app/pages/ong_profile/ong_space/ong_space_state.dart'
 import 'package:a_de_adote/app/pages/ong_profile/ong_space/widgets/custom_expansion_tile.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import '../../../core/ui/helpers/update_dialog_ong_pix.dart';
 import '../../../core/ui/helpers/update_dialog_ong_data.dart';
 import '../../../core/ui/styles/project_colors.dart';
 import '../../../models/ong_model.dart';
@@ -25,7 +27,8 @@ class _OngSpacePageState extends State<OngSpacePage>
     with
         BottomSheetImageSource,
         UpdateDialogOngData,
-        UpdateDialogOngDescription {
+        UpdateDialogOngDescription,
+        UpdateDialogOngPix {
   bool _isLoading = false;
 
   @override
@@ -255,17 +258,98 @@ class _OngSpacePageState extends State<OngSpacePage>
                                 CustomExpansionTile(
                                   isOng: true,
                                   title: 'Doação - Pix',
-                                  edit: () => showChangeDescription,
+                                  edit: () async {
+                                    Map<String, dynamic>? newPix =
+                                        await showChangeOngPix(state.ong?.pix);
+                                    if (newPix != null) {
+                                      // ignore: use_build_context_synchronously
+                                      context
+                                          .read<OngSpaceController>()
+                                          .updateOngPix(newPix);
+                                    }
+                                  },
+                                  bodyPadding: const EdgeInsets.symmetric(
+                                    vertical: 0,
+                                    horizontal: 10,
+                                  ),
                                   body: state.ong?.pix == null
                                       ? Text(
-                                          'Sem formas de doação disponíveis. Adicione uma!',
+                                          'Sem informações de Pix. Adicione um!',
                                           style: ProjectFonts.pLight.copyWith(
                                             fontStyle: FontStyle.italic,
                                           ),
                                         )
-                                      : Text(
-                                          state.ong!.pix.toString(),
-                                          style: ProjectFonts.pLight,
+                                      : Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Icon(
+                                              state.ong?.pix?.keys.first ==
+                                                      'CNPJ'
+                                                  ? Icons.info_outline_rounded
+                                                  : state.ong?.pix?.keys
+                                                              .first ==
+                                                          'Celular'
+                                                      ? MaterialCommunityIcons
+                                                          .whatsapp
+                                                      : state.ong?.pix?.keys
+                                                                  .first ==
+                                                              'E-mail'
+                                                          ? Icons.email_outlined
+                                                          : null,
+                                              color: ProjectColors.light,
+                                              size: 18,
+                                            ),
+                                            const SizedBox(
+                                              width: 5,
+                                            ),
+                                            Flexible(
+                                              child: RichText(
+                                                text: TextSpan(
+                                                  children: [
+                                                    TextSpan(
+                                                      text:
+                                                          '${state.ong?.pix?.keys.first}: ',
+                                                      style: ProjectFonts
+                                                          .pLightBold,
+                                                    ),
+                                                    TextSpan(
+                                                      text: state.ong?.pix
+                                                          ?.values.first,
+                                                      style:
+                                                          ProjectFonts.pLight,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                            IconButton(
+                                              onPressed: () =>
+                                                  Clipboard.setData(
+                                                ClipboardData(
+                                                  text: state.ong?.pix?.values
+                                                      .first as String,
+                                                ),
+                                              ).then(
+                                                (_) {
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(
+                                                    const SnackBar(
+                                                      content: Text(
+                                                        'Pix copiado!',
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                              ),
+                                              icon: const Icon(
+                                                Icons.copy,
+                                                size: 16,
+                                                color:
+                                                    ProjectColors.primaryLight,
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                 ),
                                 const SizedBox(

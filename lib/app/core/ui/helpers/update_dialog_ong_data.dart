@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:a_de_adote/app/core/extensions/mask_formatters.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_colors.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_fonts.dart';
@@ -22,7 +20,6 @@ mixin UpdateDialogOngData<T extends StatefulWidget> on State<T> {
   final _complemento = TextEditingController();
   final _cidade = TextEditingController();
   final _uf = TextEditingController();
-  final _scrollController = ScrollController();
 
   @override
   void dispose() {
@@ -74,7 +71,6 @@ mixin UpdateDialogOngData<T extends StatefulWidget> on State<T> {
           child: Form(
             key: _formKey,
             child: SingleChildScrollView(
-              controller: _scrollController,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [

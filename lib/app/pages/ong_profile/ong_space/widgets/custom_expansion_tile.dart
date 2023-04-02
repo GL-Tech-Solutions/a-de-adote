@@ -6,6 +6,7 @@ class CustomExpansionTile extends StatefulWidget {
   final bool isOng;
   final String title;
   final Widget body;
+  final EdgeInsets? bodyPadding;
   Function() edit;
 
   CustomExpansionTile({
@@ -14,6 +15,7 @@ class CustomExpansionTile extends StatefulWidget {
     required this.title,
     required this.body,
     required this.edit,
+    this.bodyPadding,
   });
 
   @override
@@ -122,7 +124,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile>
                       ),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.all(10),
+                      padding: widget.bodyPadding ?? const EdgeInsets.all(10),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [

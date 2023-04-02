@@ -64,7 +64,7 @@ class _PetEditPageState extends State<PetEditPage> with BottomSheetImageSource {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const StandardAppBar(title: 'Cadastrar animal'),
+      appBar: const StandardAppBar(title: 'Editar animal'),
       body: BlocListener<PetEditController, PetEditState>(
         listener: (context, state) {
           state.status.matchAny(
