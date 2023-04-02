@@ -124,6 +124,7 @@ class _ONGSignUpFormPageState extends State<ONGSignUpFormPage> {
                                 controller: _whatsapp,
                                 labelText: 'WhatsApp',
                                 mask: [context.maskFormatters.maskTelFormatter],
+                                inputType: TextInputType.phone,
                                 trailing: const Tooltip(
                                   triggerMode: TooltipTriggerMode.tap,
                                   preferBelow: false,

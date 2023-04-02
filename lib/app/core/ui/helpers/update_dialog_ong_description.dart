@@ -21,7 +21,6 @@ mixin UpdateDialogOngDescription<T extends StatefulWidget> on State<T> {
       context: context,
       builder: (context) => AlertDialog(
         backgroundColor: ProjectColors.secondary,
-        //shadowColor: ProjectColors.secondary,
         surfaceTintColor: ProjectColors.secondary,
         titlePadding: const EdgeInsets.only(
           left: 12,

@@ -9,7 +9,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import '../../../core/ui/helpers/update_dialog_ong_data.dart';
 import '../../../core/ui/styles/project_colors.dart';
+import '../../../models/ong_model.dart';
 import 'ong_space_controller.dart';
 
 class OngSpacePage extends StatefulWidget {
@@ -20,7 +22,10 @@ class OngSpacePage extends StatefulWidget {
 }
 
 class _OngSpacePageState extends State<OngSpacePage>
-    with BottomSheetImageSource, UpdateDialogOngDescription {
+    with
+        BottomSheetImageSource,
+        UpdateDialogOngData,
+        UpdateDialogOngDescription {
   bool _isLoading = false;
 
   @override
@@ -145,7 +150,16 @@ class _OngSpacePageState extends State<OngSpacePage>
                                 ),
                               ),
                               IconButton(
-                                onPressed: () {},
+                                onPressed: () async {
+                                  OngModel? currentOng =
+                                      await showChangeOngData(state.ong!);
+                                  if (currentOng != null) {
+                                    // ignore: use_build_context_synchronously
+                                    context
+                                        .read<OngSpaceController>()
+                                        .updateOngData(currentOng);
+                                  }
+                                },
                                 icon: const Icon(
                                   Icons.edit,
                                   color: ProjectColors.light,

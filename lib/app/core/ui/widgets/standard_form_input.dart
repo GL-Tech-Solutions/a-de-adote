@@ -31,6 +31,7 @@ class StandardFormInput extends StatefulWidget {
   State<StandardFormInput> createState() => _StandardFormInputState();
 }
 
+// TODO Corrigir o a função do Focus selecionar todo o texto. Atualmente isso faz o scroll não ir até ele.
 class _StandardFormInputState extends State<StandardFormInput> {
   final _focusNode = FocusNode();
 

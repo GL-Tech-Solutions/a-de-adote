@@ -29,6 +29,7 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
   final _complemento = TextEditingController();
   final _cidade = TextEditingController();
   final _uf = TextEditingController();
+  final _controller = ScrollController();
 
   late OngModel? ongModel;
 
@@ -98,6 +99,7 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
               vertical: 30,
             ),
             child: SingleChildScrollView(
+              controller: _controller,
               physics: const BouncingScrollPhysics(),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -144,7 +146,6 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
                           StandardFormInput(
                             controller: _nomeFantasia,
                             labelText: Labels.nomeFantasia,
-                            fullSelectionText: true,
                             mask: [LengthLimitingTextInputFormatter(50)],
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -159,7 +160,6 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
                           StandardFormInput(
                             controller: _razaoSocial,
                             labelText: Labels.razaoSocial,
-                            fullSelectionText: true,
                             mask: [LengthLimitingTextInputFormatter(150)],
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -174,7 +174,6 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
                           StandardFormInput(
                             controller: _telefone,
                             labelText: Labels.tel,
-                            fullSelectionText: true,
                             mask: [context.maskFormatters.maskTelFormatter],
                             inputType: TextInputType.phone,
                           ),
@@ -184,7 +183,6 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
                           StandardFormInput(
                             controller: _cep,
                             labelText: Labels.cep,
-                            fullSelectionText: true,
                             mask: [context.maskFormatters.maskCEPFormatter],
                             inputType: TextInputType.number,
                             validator: (value) {
@@ -205,7 +203,6 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
                                 child: StandardFormInput(
                                   controller: _logradouro,
                                   labelText: Labels.logradouro,
-                                  fullSelectionText: true,
                                   mask: [LengthLimitingTextInputFormatter(100)],
                                   validator: (value) {
                                     if (value!.isEmpty) {
@@ -222,7 +219,6 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
                                 child: StandardFormInput(
                                   controller: _numero,
                                   labelText: Labels.n,
-                                  fullSelectionText: true,
                                   mask: [
                                     FilteringTextInputFormatter.digitsOnly,
                                     LengthLimitingTextInputFormatter(4),
@@ -244,7 +240,6 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
                           StandardFormInput(
                             controller: _bairro,
                             labelText: Labels.bairro,
-                            fullSelectionText: true,
                             mask: [LengthLimitingTextInputFormatter(30)],
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -259,7 +254,6 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
                           StandardFormInput(
                             controller: _complemento,
                             labelText: Labels.complemento,
-                            fullSelectionText: true,
                             mask: [LengthLimitingTextInputFormatter(100)],
                           ),
                           const SizedBox(
@@ -273,7 +267,6 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
                                 child: StandardFormInput(
                                   controller: _cidade,
                                   labelText: Labels.cidade,
-                                  fullSelectionText: true,
                                   mask: [LengthLimitingTextInputFormatter(30)],
                                   validator: (value) {
                                     if (value!.isEmpty) {
@@ -290,7 +283,6 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
                                 child: StandardFormInput(
                                   controller: _uf,
                                   labelText: Labels.uf,
-                                  fullSelectionText: true,
                                   mask: [
                                     FilteringTextInputFormatter.allow(
                                       RegExp(

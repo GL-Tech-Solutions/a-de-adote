@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:a_de_adote/app/core/exceptions/firestore_exception.dart';
+import 'package:a_de_adote/app/models/ong_model.dart';
 import 'package:a_de_adote/app/repositories/ong/ong_repository.dart';
 import 'package:a_de_adote/app/repositories/photos/photos_repository.dart';
 import 'package:bloc/bloc.dart';
@@ -70,6 +71,21 @@ class OngSpaceController extends Cubit<OngSpaceState> {
       emit(state.copyWith(status: OngSpaceStatus.loading));
       await _ongRepository
           .updateOng(state.ong!.copyWith(informacoes: description));
+      emit(state.copyWith(status: OngSpaceStatus.fieldUpdated));
+    } on FirestoreException catch (e) {
+      emit(
+        state.copyWith(
+          status: OngSpaceStatus.error,
+          errorMesssage: e.message,
+        ),
+      );
+    }
+  }
+
+  Future<void> updateOngData(OngModel ong) async {
+    try {
+      emit(state.copyWith(status: OngSpaceStatus.loading));
+      await _ongRepository.updateOng(ong);
       emit(state.copyWith(status: OngSpaceStatus.fieldUpdated));
     } on FirestoreException catch (e) {
       emit(

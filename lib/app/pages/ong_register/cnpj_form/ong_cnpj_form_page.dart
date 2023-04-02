@@ -4,6 +4,7 @@ import 'package:a_de_adote/app/pages/ong_register/cnpj_form/ong_cnpj_form_state.
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../core/ui/styles/project_colors.dart';
 import '../../../core/ui/styles/project_fonts.dart';
 import '../../../core/ui/widgets/form_button.dart';
@@ -58,46 +59,44 @@ class _ONGCNPJFormPageState extends State<ONGCNPJFormPage> {
             value: const SystemUiOverlayStyle(
               systemNavigationBarColor: ProjectColors.secondary,
             ),
-            child: Center(
-              child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                    maxHeight: MediaQuery.of(context).size.height / 2.5,
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
+            child: Stack(
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                        left: 30.0,
+                        right: 30.0,
+                        bottom: MediaQuery.of(context).size.height * 0.2,
+                      ),
+                      child: Column(
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 30),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
-                                Text(
-                                  Labels.iniciar,
-                                  style: ProjectFonts.h3LightBold,
-                                ),
-                              ],
-                            ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Text(
+                                Labels.iniciar,
+                                style: ProjectFonts.h3LightBold,
+                              ),
+                            ],
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 30),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
-                                Text(
-                                  Labels.insiraCnpj,
-                                  style: ProjectFonts.h5Light,
-                                ),
-                              ],
-                            ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Text(
+                                Labels.insiraCnpj,
+                                style: ProjectFonts.h5Light,
+                              ),
+                            ],
                           ),
                         ],
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 45),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 45),
+                      child: SingleChildScrollView(
+                        physics: const ClampingScrollPhysics(),
                         child: Form(
                           key: _formKey,
                           child: Column(
@@ -141,10 +140,52 @@ class _ONGCNPJFormPageState extends State<ONGCNPJFormPage> {
                           ),
                         ),
                       ),
+                    ),
+                  ],
+                ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Divider(
+                        color: ProjectColors.lightDark,
+                      ),
+                      TextButton(
+                        onPressed: () async {
+                          final navigator =
+                              Navigator.of(context, rootNavigator: true);
+                          final sp = await SharedPreferences.getInstance();
+                          sp.setString('userType', 'ong');
+                          navigator.popAndPushNamed('/login');
+                        },
+                        style: ButtonStyle(
+                          overlayColor: MaterialStateProperty.all(
+                            ProjectColors.primary.withOpacity(0.2),
+                          ),
+                        ),
+                        child: RichText(
+                          text: const TextSpan(
+                            children: [
+                              TextSpan(
+                                  text: 'Já possui cadastro?',
+                                  style: ProjectFonts.smallLight),
+                              TextSpan(
+                                text: ' Fazer login',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: ProjectColors.primaryLight,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
-              ),
+              ],
             ),
           );
         },
