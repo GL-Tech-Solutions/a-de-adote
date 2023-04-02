@@ -7,8 +7,13 @@ import '../../../models/pet_model.dart';
 
 class PetCard extends StatelessWidget {
   final PetModel pet;
+  final Function() onTap;
 
-  const PetCard({super.key, required this.pet});
+  const PetCard({
+    super.key,
+    required this.pet,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +21,7 @@ class PetCard extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: InkWell(
         borderRadius: BorderRadius.circular(12),
-        onTap: () {},
+        onTap: onTap,
         child: SizedBox(
           height: 175,
           width: MediaQuery.of(context).size.width * 0.445,

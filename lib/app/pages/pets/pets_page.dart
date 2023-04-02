@@ -3,9 +3,11 @@ import 'package:a_de_adote/app/core/ui/widgets/standard_appbar.dart';
 import 'package:a_de_adote/app/core/ui/widgets/standard_drawer.dart';
 import 'package:a_de_adote/app/core/ui/widgets/standard_sliver_appbar.dart';
 import 'package:a_de_adote/app/models/pet_model.dart';
+import 'package:a_de_adote/app/pages/pet_details/pet_details_page.dart';
 import 'package:a_de_adote/app/pages/pets/pets_controller.dart';
 import 'package:a_de_adote/app/pages/pets/pets_state.dart';
 import 'package:a_de_adote/app/pages/pets/widgets/pet_card.dart';
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -84,7 +86,22 @@ class _PetsPageState extends State<PetsPage> {
                               mainAxisSpacing: 10,
                               crossAxisSpacing: 5),
                       itemBuilder: (context, index) {
-                        return PetCard(pet: state.listPets[index]);
+                        return OpenContainer(
+                          tappable: false,
+                          closedColor: Colors.transparent,
+                          closedElevation: 0,
+                          closedShape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12)),
+                          transitionDuration: const Duration(milliseconds: 500),
+                          transitionType: ContainerTransitionType.fade,
+                          openBuilder: (context, _) =>
+                              PetDetailsPage(pet: state.listPets[index]),
+                          closedBuilder:
+                              (context, VoidCallback openContainer) => PetCard(
+                            pet: state.listPets[index],
+                            onTap: openContainer,
+                          ),
+                        );
                       },
                     );
             },

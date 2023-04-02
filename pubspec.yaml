@@ -54,6 +54,8 @@ dependencies:
   firebase_storage: ^11.0.16
   cached_network_image: ^3.2.3
   crypto: ^3.0.2
+  animations: ^2.0.7
+  animated_icon_button: ^1.0.2
 
 flutter_native_splash:
     color: "#242C3C"
