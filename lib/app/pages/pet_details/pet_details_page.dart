@@ -1,11 +1,17 @@
+import 'package:a_de_adote/app/core/exceptions/firestore_exception.dart';
+import 'package:a_de_adote/app/core/exceptions/launch_url_exception.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_colors.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_fonts.dart';
 import 'package:a_de_adote/app/pages/pet_details/widgets/info_chip.dart';
 import 'package:a_de_adote/app/pages/pet_details/widgets/info_container.dart';
+import 'package:a_de_adote/app/repositories/ong/ong_repository.dart';
+import 'package:a_de_adote/app/repositories/ong/ong_repository_impl.dart';
+import 'package:a_de_adote/app/services/whatsapp_launch_service.dart';
 import 'package:animated_icon_button/animated_icon_button.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:provider/provider.dart';
 
 import '../../models/pet_model.dart';
 
@@ -213,7 +219,33 @@ class PetDetailsPage extends StatelessWidget {
                       ),
                       elevation: 0,
                       padding: const EdgeInsets.symmetric(vertical: 10)),
-                  onPressed: () {},
+                  onPressed: () async {
+                    try {
+                      if (pet.ongId != null) {
+                        try {
+                          OngRepository _ongRepository = OngRepositoryImpl(
+                              dio: context.read(), auth: context.read());
+                          final ong =
+                              await _ongRepository.getOngById(pet.ongId!);
+                          await WhatsappLaunchService.openWhatsApp(
+                              ong.whatsapp!.replaceAll(RegExp(r'[^0-9]'), ''),
+                              'Olá! Vim pelo app A de Adote. Adorei o _*${pet.nome}*_ e gostaria de saber mais detalhes sobre ele.');
+                        } on FirestoreException catch (e) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(e.message),
+                            ),
+                          );
+                        }
+                      }
+                    } on LaunchUrlException catch (e) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(e.message),
+                        ),
+                      );
+                    }
+                  },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: const [

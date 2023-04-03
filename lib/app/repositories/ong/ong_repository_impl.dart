@@ -77,16 +77,35 @@ class OngRepositoryImpl implements OngRepository {
   }
 
   @override
+  Future<OngModel> getOngById(String id) async {
+    try {
+      final snapshot = await db.collection('ong').doc(id).get();
+      if (snapshot.exists) {
+        final ong = OngModel.fromMap(snapshot.data()!);
+        return ong;
+      } else {
+        throw FirestoreException(Labels.ongNaoEncontrada);
+      }
+    } on FirebaseException catch (e, s) {
+      log('Ocorreu um erro ao pesquisar a ONG.', error: e, stackTrace: s);
+      throw FirestoreException('Ocorreu um erro ao pesquisar a ONG.');
+    }
+  }
+
+  @override
   Future<OngModel> getCurrentOngUser() async {
-    if (auth.ongUser != null) {
-      final snapshot = await db
-          .collection('ong')
-          .where('id', isEqualTo: auth.ongUser!.uid)
-          .get();
-      final currentOngUser = OngModel.fromMap(snapshot.docs.last.data());
-      return currentOngUser;
-    } else {
-      throw Exception(Labels.ongNaoEncontrada);
+    try {
+      if (auth.ongUser != null) {
+        final snapshot =
+            await db.collection('ong').doc(auth.ongUser!.uid).get();
+        final currentOngUser = OngModel.fromMap(snapshot.data()!);
+        return currentOngUser;
+      } else {
+        throw FirestoreException(Labels.ongNaoEncontrada);
+      }
+    } on FirebaseException catch (e, s) {
+      log('Ocorreu um erro ao pesquisar a ONG.', error: e, stackTrace: s);
+      throw FirestoreException('Ocorreu um erro ao pesquisar a ONG.');
     }
   }
 
