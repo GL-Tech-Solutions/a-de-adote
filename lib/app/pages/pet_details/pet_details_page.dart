@@ -223,10 +223,10 @@ class PetDetailsPage extends StatelessWidget {
                     try {
                       if (pet.ongId != null) {
                         try {
-                          OngRepository _ongRepository = OngRepositoryImpl(
+                          OngRepository ongRepository = OngRepositoryImpl(
                               dio: context.read(), auth: context.read());
                           final ong =
-                              await _ongRepository.getOngById(pet.ongId!);
+                              await ongRepository.getOngById(pet.ongId!);
                           await WhatsappLaunchService.openWhatsApp(
                               ong.whatsapp!.replaceAll(RegExp(r'[^0-9]'), ''),
                               'Olá! Vim pelo app A de Adote. Adorei o _*${pet.nome}*_ e gostaria de saber mais detalhes sobre ele.');
