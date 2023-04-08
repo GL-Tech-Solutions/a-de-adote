@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:a_de_adote/app/core/extensions/capitalize_only_first_letter_extension.dart';
 import 'package:a_de_adote/app/core/ui/helpers/bottom_sheet_image_source.dart';
 import 'package:a_de_adote/app/core/ui/helpers/update_dialog_ong_description.dart';
@@ -154,13 +156,21 @@ class _OngSpacePageState extends State<OngSpacePage>
                               ),
                               IconButton(
                                 onPressed: () async {
+                                  final String ongNameFantasia =
+                                      state.ong!.fantasia;
                                   OngModel? currentOng =
                                       await showChangeOngData(state.ong!);
                                   if (currentOng != null) {
+                                    bool isNameChanged = false;
+                                    if (currentOng.fantasia !=
+                                        ongNameFantasia) {
+                                      isNameChanged = true;
+                                    }
                                     // ignore: use_build_context_synchronously
                                     context
                                         .read<OngSpaceController>()
-                                        .updateOngData(currentOng);
+                                        .updateOngData(
+                                            currentOng, isNameChanged);
                                   }
                                 },
                                 icon: const Icon(

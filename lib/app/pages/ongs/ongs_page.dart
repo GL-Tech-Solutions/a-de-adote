@@ -35,7 +35,7 @@ class _OngsPageState extends State<OngsPage> {
           headerSliverBuilder: (BuildContext context, innerBoxIsScrolled) {
             return [
               StandardSliverAppbar(
-                title: 'Pets',
+                title: 'ONGs',
                 canPop: false,
                 bottom: PreferredSize(
                   preferredSize: Size(

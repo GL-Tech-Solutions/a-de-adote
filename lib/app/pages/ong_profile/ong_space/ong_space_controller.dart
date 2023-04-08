@@ -2,7 +2,9 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:a_de_adote/app/core/exceptions/firestore_exception.dart';
 import 'package:a_de_adote/app/models/ong_model.dart';
+import 'package:a_de_adote/app/models/pet_model.dart';
 import 'package:a_de_adote/app/repositories/ong/ong_repository.dart';
+import 'package:a_de_adote/app/repositories/pet/pet_repository.dart';
 import 'package:a_de_adote/app/repositories/photos/photos_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/services.dart';
@@ -12,10 +14,14 @@ import 'ong_space_state.dart';
 
 class OngSpaceController extends Cubit<OngSpaceState> {
   final OngRepository _ongRepository;
+  final PetRepository _petRepository;
   final PhotosRepository _photosRepository;
 
-  OngSpaceController(this._ongRepository, this._photosRepository)
-      : super(const OngSpaceState.initial());
+  OngSpaceController(
+    this._ongRepository,
+    this._petRepository,
+    this._photosRepository,
+  ) : super(const OngSpaceState.initial());
 
   Future<void> loadOng() async {
     try {
@@ -82,10 +88,21 @@ class OngSpaceController extends Cubit<OngSpaceState> {
     }
   }
 
-  Future<void> updateOngData(OngModel ong) async {
+  Future<void> updateOngData(OngModel ong, bool isNameChanged) async {
     try {
       emit(state.copyWith(status: OngSpaceStatus.loading));
       await _ongRepository.updateOng(ong);
+      if (isNameChanged) {
+        List<PetModel> listPets = await _petRepository.getCurrentUserPets();
+        // ignore: avoid_function_literals_in_foreach_calls
+        listPets.forEach(
+          (pet) async {
+            await _petRepository.updatePet(
+              pet.copyWith(ongNome: ong.fantasia),
+            );
+          },
+        );
+      }
       emit(state.copyWith(status: OngSpaceStatus.fieldUpdated));
     } on FirestoreException catch (e) {
       emit(

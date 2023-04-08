@@ -1,8 +1,6 @@
 import 'package:a_de_adote/app/core/ui/widgets/container_research.dart';
-import 'package:a_de_adote/app/core/ui/widgets/standard_appbar.dart';
 import 'package:a_de_adote/app/core/ui/widgets/standard_drawer.dart';
 import 'package:a_de_adote/app/core/ui/widgets/standard_sliver_appbar.dart';
-import 'package:a_de_adote/app/models/pet_model.dart';
 import 'package:a_de_adote/app/pages/pet_details/pet_details_page.dart';
 import 'package:a_de_adote/app/pages/pets/pets_controller.dart';
 import 'package:a_de_adote/app/pages/pets/pets_state.dart';

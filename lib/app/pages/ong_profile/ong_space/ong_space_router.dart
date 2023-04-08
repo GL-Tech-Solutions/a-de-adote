@@ -1,3 +1,5 @@
+import 'package:a_de_adote/app/repositories/pet/pet_repository.dart';
+import 'package:a_de_adote/app/repositories/pet/pet_repository_impl.dart';
 import 'package:a_de_adote/app/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,12 +21,18 @@ class OngSpaceRouter {
                   auth: context.read<AuthService>(),
                 )),
           ),
+          Provider<PetRepository>(
+            create: ((context) => PetRepositoryImpl(
+                  auth: context.read<AuthService>(),
+                )),
+          ),
           Provider<PhotosRepository>(
             create: ((context) => PhotosRepositoryImpl()),
           ),
           Provider<OngSpaceController>(
             create: ((context) => OngSpaceController(
                   context.read<OngRepository>(),
+                  context.read<PetRepository>(),
                   context.read<PhotosRepository>(),
                 )),
           ),
