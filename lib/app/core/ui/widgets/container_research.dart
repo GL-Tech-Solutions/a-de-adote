@@ -1,3 +1,4 @@
+import 'package:a_de_adote/app/services/research_launch_service.dart';
 import 'package:flutter/material.dart';
 
 import '../styles/project_colors.dart';
@@ -9,7 +10,7 @@ class ContainerResearch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () async => await ResearchLaunchService.openForm(),
       child: Container(
         height: MediaQuery.of(context).size.height * 0.05,
         width: MediaQuery.of(context).size.width,

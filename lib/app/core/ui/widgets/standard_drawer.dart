@@ -1,6 +1,7 @@
 import 'package:a_de_adote/app/core/ui/styles/project_colors.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_fonts.dart';
 import 'package:a_de_adote/app/services/auth_service.dart';
+import 'package:a_de_adote/app/services/research_launch_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -41,8 +42,9 @@ class StandardDrawer extends StatelessWidget {
                       ),
                     ),
                     ListTile(
-                      onTap: () {
+                      onTap: () async {
                         Navigator.of(context).pop();
+                        await ResearchLaunchService.openForm();
                       },
                       title: Row(
                         children: [
