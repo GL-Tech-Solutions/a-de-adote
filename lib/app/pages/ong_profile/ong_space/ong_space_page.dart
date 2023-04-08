@@ -100,7 +100,7 @@ class _OngSpacePageState extends State<OngSpacePage>
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(
-                              height: 20,
+                              height: 19,
                               width: MediaQuery.of(context).size.width * 0.6,
                               child: const StandardShimmerEffect(),
                             ),
@@ -108,7 +108,7 @@ class _OngSpacePageState extends State<OngSpacePage>
                               height: 10,
                             ),
                             SizedBox(
-                              height: 20,
+                              height: 19,
                               width: MediaQuery.of(context).size.width * 0.95,
                               child: const StandardShimmerEffect(),
                             ),
@@ -116,7 +116,7 @@ class _OngSpacePageState extends State<OngSpacePage>
                               height: 10,
                             ),
                             SizedBox(
-                              height: 20,
+                              height: 19,
                               width: MediaQuery.of(context).size.width * 0.5,
                               child: const StandardShimmerEffect(),
                             ),
@@ -124,7 +124,7 @@ class _OngSpacePageState extends State<OngSpacePage>
                               height: 10,
                             ),
                             SizedBox(
-                              height: 20,
+                              height: 19,
                               width: MediaQuery.of(context).size.width * 0.6,
                               child: const StandardShimmerEffect(),
                             ),

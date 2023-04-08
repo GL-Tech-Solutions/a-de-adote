@@ -17,7 +17,7 @@ class StandardShimmerEffect extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(radiusValue ?? 12),
-          color: ProjectColors.light,
+          color: ProjectColors.secondaryLight.withOpacity(0.8),
         ),
       ),
     );
