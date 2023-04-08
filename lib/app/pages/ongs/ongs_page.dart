@@ -1,4 +1,5 @@
 import 'package:a_de_adote/app/core/ui/widgets/standard_drawer.dart';
+import 'package:a_de_adote/app/core/ui/widgets/standard_shimmer_effect.dart';
 import 'package:a_de_adote/app/pages/ongs/ongs_controller.dart';
 import 'package:a_de_adote/app/pages/ongs/ongs_state.dart';
 import 'package:a_de_adote/app/pages/ongs/widgets/ong_card.dart';
@@ -72,7 +73,20 @@ class _OngsPageState extends State<OngsPage> {
               int length = state.listOngs.length;
 
               return _isLoading
-                  ? const Center(child: CircularProgressIndicator())
+                  ? ListView.builder(
+                      padding: const EdgeInsets.all(10),
+                      itemCount: 2,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: EdgeInsets.only(top: index == 0 ? 0 : 15.0),
+                          child: const SizedBox(
+                            height: 285,
+                            child: StandardShimmerEffect(),
+                          ),
+                        );
+                      },
+                    )
+                  //const Center(child: CircularProgressIndicator())
                   : ListView.builder(
                       padding: const EdgeInsets.all(10),
                       itemCount: length,

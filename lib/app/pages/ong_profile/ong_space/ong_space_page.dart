@@ -5,6 +5,7 @@ import 'package:a_de_adote/app/core/ui/helpers/bottom_sheet_image_source.dart';
 import 'package:a_de_adote/app/core/ui/helpers/update_dialog_ong_description.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_fonts.dart';
 import 'package:a_de_adote/app/core/ui/widgets/standard_drawer.dart';
+import 'package:a_de_adote/app/core/ui/widgets/standard_shimmer_effect.dart';
 import 'package:a_de_adote/app/pages/ong_profile/ong_space/ong_space_state.dart';
 import 'package:a_de_adote/app/pages/ong_profile/ong_space/widgets/custom_expansion_tile.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -74,7 +75,88 @@ class _OngSpacePageState extends State<OngSpacePage>
                 '${state.ong?.logradouro.stringAdjusted}, ${state.ong?.numero} - ${state.ong?.bairro.stringAdjusted} / ${state.ong?.municipio.stringAdjusted} - ${state.ong?.uf} / ${state.ong?.cep}';
 
             return _isLoading
-                ? const Center(child: CircularProgressIndicator())
+                ? Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.24,
+                        width: double.infinity,
+                        child: const StandardShimmerEffect(radiusValue: 0),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.048,
+                        width: double.infinity,
+                        child: const StandardShimmerEffect(radiusValue: 0),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              height: 20,
+                              width: MediaQuery.of(context).size.width * 0.6,
+                              child: const StandardShimmerEffect(),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            SizedBox(
+                              height: 20,
+                              width: MediaQuery.of(context).size.width * 0.95,
+                              child: const StandardShimmerEffect(),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            SizedBox(
+                              height: 20,
+                              width: MediaQuery.of(context).size.width * 0.5,
+                              child: const StandardShimmerEffect(),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            SizedBox(
+                              height: 20,
+                              width: MediaQuery.of(context).size.width * 0.6,
+                              child: const StandardShimmerEffect(),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            SizedBox(
+                              height: 40,
+                              width: MediaQuery.of(context).size.width * 0.95,
+                              child: const StandardShimmerEffect(),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.048,
+                        width: double.infinity,
+                        child: const StandardShimmerEffect(radiusValue: 0),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.048,
+                        width: double.infinity,
+                        child: const StandardShimmerEffect(radiusValue: 0),
+                      ),
+                    ],
+                  ) //const Center(child: CircularProgressIndicator())
                 : SingleChildScrollView(
                     child: Column(
                       children: [
