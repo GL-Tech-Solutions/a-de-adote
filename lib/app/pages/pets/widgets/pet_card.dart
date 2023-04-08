@@ -84,7 +84,7 @@ class PetCard extends StatelessWidget {
                                 pet.especie == 'Cachorro'
                                     ? MaterialCommunityIcons.dog
                                     : pet.especie == 'Gato'
-                                        ? MaterialCommunityIcons.dog
+                                        ? MaterialCommunityIcons.cat
                                         : pet.especie == 'Pássaro'
                                             ? MaterialCommunityIcons.bird
                                             : pet.especie == 'Outro'
