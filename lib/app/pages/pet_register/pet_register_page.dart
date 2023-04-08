@@ -94,8 +94,8 @@ class _PetRegisterPageState extends State<PetRegisterPage>
                                 ),
                                 fit: state.status.matchAny(
                                   any: () => BoxFit.scaleDown,
-                                  loading: () => BoxFit.fitWidth,
-                                  imageLoaded: () => BoxFit.fitWidth,
+                                  loading: () => BoxFit.cover,
+                                  imageLoaded: () => BoxFit.cover,
                                 ),
                               ),
                             ),

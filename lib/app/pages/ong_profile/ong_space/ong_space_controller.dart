@@ -8,6 +8,7 @@ import 'package:a_de_adote/app/repositories/pet/pet_repository.dart';
 import 'package:a_de_adote/app/repositories/photos/photos_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'ong_space_state.dart';
@@ -45,12 +46,20 @@ class OngSpaceController extends Cubit<OngSpaceState> {
       if (image == null) return;
 
       final imageTemporary = File(image.path);
+      final imageCompressed = await FlutterImageCompress.compressAndGetFile(
+        imageTemporary.path,
+        '${imageTemporary.path}_compressed.jpeg',
+        minHeight: 480,
+        minWidth: 854,
+        quality: 90,
+      );
+
       emit(state.copyWith(status: OngSpaceStatus.loading));
       try {
         if (state.ong?.fotoUrl != null) {
           await _photosRepository.deleteImage(state.ong!.fotoUrl!);
         }
-        String url = await _photosRepository.uploadImageOng(imageTemporary);
+        String url = await _photosRepository.uploadImageOng(imageCompressed!);
         await _ongRepository.updateOng(state.ong!.copyWith(fotoUrl: url));
       } on FirestoreException catch (e) {
         emit(

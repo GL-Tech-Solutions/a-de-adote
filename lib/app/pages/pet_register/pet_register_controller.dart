@@ -7,6 +7,7 @@ import 'package:bloc/bloc.dart';
 import 'package:a_de_adote/app/pages/pet_register/pet_register_state.dart';
 import 'package:a_de_adote/app/repositories/pet/pet_repository.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../models/pet_model.dart';
 
@@ -53,10 +54,18 @@ class PetRegisterController extends Cubit<PetRegisterState> {
       if (image == null) return;
 
       final imageTemporary = File(image.path);
+      final imageCompressed = await FlutterImageCompress.compressAndGetFile(
+        imageTemporary.path,
+        '${imageTemporary.path}_compressed.jpeg',
+        minHeight: 480,
+        minWidth: 854,
+        quality: 90,
+      );
+
       emit(
         state.copyWith(
           status: PetRegisterStatus.imageLoaded,
-          image: imageTemporary,
+          image: imageCompressed,
         ),
       );
     } on PlatformException catch (e, s) {

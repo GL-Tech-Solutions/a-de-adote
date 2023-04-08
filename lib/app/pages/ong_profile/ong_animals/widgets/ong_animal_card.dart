@@ -55,7 +55,7 @@ class OngAnimalCard extends StatelessWidget {
                               'https://firebasestorage.googleapis.com/v0/b/a-de-adote.appspot.com/o/logos%2Flogo_icon_white_1024.png?alt=media&token=8545f858-a26d-4a17-8b3c-3cdad23ae727',
                           height: 70,
                           width: 110,
-                          fit: BoxFit.fitWidth,
+                          fit: BoxFit.cover,
                           errorWidget: (context, url, error) => const Icon(
                             Icons.error,
                             color: ProjectColors.danger,
