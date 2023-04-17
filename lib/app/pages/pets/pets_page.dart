@@ -12,6 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../core/ui/widgets/search_bar_pet.dart';
+
 class PetsPage extends StatefulWidget {
   const PetsPage({super.key});
 
@@ -90,33 +92,46 @@ class _PetsPageState extends State<PetsPage> {
                         return const StandardShimmerEffect();
                       },
                     ) //const Center(child: CircularProgressIndicator())
-                  : GridView.builder(
-                      padding: const EdgeInsets.all(10),
-                      itemCount: length,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 10,
-                        crossAxisSpacing: 5,
-                      ),
-                      itemBuilder: (context, index) {
-                        return OpenContainer(
-                          tappable: false,
-                          closedColor: Colors.transparent,
-                          closedElevation: 0,
-                          closedShape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12)),
-                          transitionDuration: const Duration(milliseconds: 500),
-                          transitionType: ContainerTransitionType.fade,
-                          openBuilder: (context, _) =>
-                              PetDetailsPage(pet: state.listPets[index]),
-                          closedBuilder:
-                              (context, VoidCallback openContainer) => PetCard(
-                            pet: state.listPets[index],
-                            onTap: openContainer,
+                  : Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              left: 10, right: 10, top: 10, bottom: 0),
+                          child: SearchBarPet(listaPets: state.listPets),
+                        ),
+                        Expanded(
+                          child: GridView.builder(
+                            padding: const EdgeInsets.all(10),
+                            itemCount: length,
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 10,
+                              crossAxisSpacing: 5,
+                            ),
+                            itemBuilder: (context, index) {
+                              return OpenContainer(
+                                tappable: false,
+                                closedColor: Colors.transparent,
+                                closedElevation: 0,
+                                closedShape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12)),
+                                transitionDuration:
+                                    const Duration(milliseconds: 500),
+                                transitionType: ContainerTransitionType.fade,
+                                openBuilder: (context, _) =>
+                                    PetDetailsPage(pet: state.listPets[index]),
+                                closedBuilder:
+                                    (context, VoidCallback openContainer) =>
+                                        PetCard(
+                                  pet: state.listPets[index],
+                                  onTap: openContainer,
+                                ),
+                              );
+                            },
                           ),
-                        );
-                      },
+                        ),
+                      ],
                     );
             },
           ),
