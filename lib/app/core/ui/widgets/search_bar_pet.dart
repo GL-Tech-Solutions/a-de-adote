@@ -11,19 +11,21 @@ class SearchBarPet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Autocomplete<PetModel>(
-      displayStringForOption: (PetModel pet) => pet.nome,
+    return Autocomplete<String>(
       optionsBuilder: (TextEditingValue textEditingValue) {
         if (textEditingValue.text == '') {
           return const Iterable.empty();
         }
-        return listaPets.where(
-          (PetModel option) {
-            return option.nome.toLowerCase().contains(
-                  textEditingValue.text.toLowerCase(),
-                );
-          },
-        );
+        return listaPets
+            .where(
+              (PetModel option) {
+                return option.nome.toLowerCase().startsWith(
+                      textEditingValue.text.toLowerCase(),
+                    );
+              },
+            )
+            .map((pet) => pet.nome)
+            .toSet();
       },
       fieldViewBuilder:
           (context, textEditingController, focusNode, onFieldSubmitted) =>
@@ -77,7 +79,7 @@ class SearchBarPet extends StatelessWidget {
                     height: 50,
                     child: ListTile(
                       title: Text(
-                        options.elementAt(index).nome,
+                        options.elementAt(index), //.nome,
                         style: ProjectFonts.smallSecundaryDark.copyWith(
                           color: ProjectColors.darkLight,
                         ),
