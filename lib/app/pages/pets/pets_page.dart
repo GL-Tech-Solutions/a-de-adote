@@ -74,9 +74,11 @@ class _PetsPageState extends State<PetsPage> {
               initial: () => false,
               loading: () => true,
               loaded: () => true,
+              loadedFiltered: () => true,
             ),
             builder: (context, state) {
-              int length = state.listPets.length;
+              int lengthListPets = state.listPets.length;
+              int lengthListPetsFiltered = state.listPetsFiltered.length;
 
               return _isLoading
                   ? GridView.builder(
@@ -97,12 +99,19 @@ class _PetsPageState extends State<PetsPage> {
                         Padding(
                           padding: const EdgeInsets.only(
                               left: 10, right: 10, top: 10, bottom: 0),
-                          child: SearchBarPet(listaPets: state.listPets),
+                          child: SearchBarPet(
+                            listaNomes:
+                                state.listPets.map((pet) => pet.nome).toList(),
+                            searchFunction:
+                                context.read<PetsController>().loadPetsSearched,
+                          ),
                         ),
                         Expanded(
                           child: GridView.builder(
                             padding: const EdgeInsets.all(10),
-                            itemCount: length,
+                            itemCount: lengthListPetsFiltered == 0
+                                ? lengthListPets
+                                : lengthListPetsFiltered,
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
@@ -119,12 +128,17 @@ class _PetsPageState extends State<PetsPage> {
                                 transitionDuration:
                                     const Duration(milliseconds: 500),
                                 transitionType: ContainerTransitionType.fade,
-                                openBuilder: (context, _) =>
-                                    PetDetailsPage(pet: state.listPets[index]),
+                                openBuilder: (context, _) => PetDetailsPage(
+                                  pet: state.listPetsFiltered.isEmpty
+                                      ? state.listPets[index]
+                                      : state.listPetsFiltered[index],
+                                ),
                                 closedBuilder:
                                     (context, VoidCallback openContainer) =>
                                         PetCard(
-                                  pet: state.listPets[index],
+                                  pet: state.listPetsFiltered.isEmpty
+                                      ? state.listPets[index]
+                                      : state.listPetsFiltered[index],
                                   onTap: openContainer,
                                 ),
                               );

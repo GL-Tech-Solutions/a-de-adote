@@ -30,4 +30,35 @@ class PetsController extends Cubit<PetsState> {
       );
     }
   }
+
+  void loadPetsSearched(String option) async {
+    emit(state.copyWith(status: PetsStatus.loading));
+    if (option == '') {
+      emit(
+        state.copyWith(
+          status: PetsStatus.error,
+          errorMessage: 'Por favor, digite um nome.',
+        ),
+      );
+    } else {
+      final listPetsSearched = state.listPets
+          .where((pet) => pet.nome.toLowerCase() == option.toLowerCase())
+          .toList();
+      if (listPetsSearched.isNotEmpty) {
+        emit(
+          state.copyWith(
+            status: PetsStatus.loadedFiltered,
+            listPetsFiltered: listPetsSearched,
+          ),
+        );
+      } else {
+        emit(
+          state.copyWith(
+            status: PetsStatus.error,
+            errorMessage: 'Não foi encontrado nenhum animal.',
+          ),
+        );
+      }
+    }
+  }
 }

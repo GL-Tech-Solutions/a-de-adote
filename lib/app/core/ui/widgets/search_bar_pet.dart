@@ -1,13 +1,21 @@
 import 'package:a_de_adote/app/core/ui/styles/project_colors.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_fonts.dart';
-import 'package:a_de_adote/app/models/pet_model.dart';
+import 'package:a_de_adote/app/core/ui/widgets/popup_menu_button_pet_filter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
+// ignore: must_be_immutable
 class SearchBarPet extends StatelessWidget {
-  final List<PetModel> listaPets;
+  final List<String> listaNomes;
+  final void Function(String option) searchFunction;
 
-  const SearchBarPet({super.key, required this.listaPets});
+  SearchBarPet({
+    super.key,
+    required this.listaNomes,
+    required this.searchFunction,
+  });
+
+  late FocusNode focus;
 
   @override
   Widget build(BuildContext context) {
@@ -16,51 +24,48 @@ class SearchBarPet extends StatelessWidget {
         if (textEditingValue.text == '') {
           return const Iterable.empty();
         }
-        return listaPets
-            .where(
-              (PetModel option) {
-                return option.nome.toLowerCase().startsWith(
-                      textEditingValue.text.toLowerCase(),
-                    );
-              },
-            )
-            .map((pet) => pet.nome)
-            .toSet();
+        return listaNomes.where(
+          (String option) {
+            return option.toLowerCase().startsWith(
+                  textEditingValue.text.toLowerCase(),
+                );
+          },
+        ).toSet();
       },
       fieldViewBuilder:
-          (context, textEditingController, focusNode, onFieldSubmitted) =>
-              TextField(
-        controller: textEditingController,
-        focusNode: focusNode,
-        onEditingComplete: onFieldSubmitted,
-        textAlignVertical: TextAlignVertical.center,
-        style: ProjectFonts.pLight.copyWith(color: ProjectColors.darkLight),
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: ProjectColors.light,
-          isCollapsed: true,
-          border: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(28),
+          (context, textEditingController, focusNode, onFieldSubmitted) {
+        focus = focusNode;
+        return TextField(
+          controller: textEditingController,
+          focusNode: focusNode,
+          onEditingComplete: onFieldSubmitted,
+          textAlignVertical: TextAlignVertical.center,
+          style: ProjectFonts.pLight.copyWith(color: ProjectColors.darkLight),
+          decoration: InputDecoration(
+            filled: true,
+            fillColor: ProjectColors.light,
+            isCollapsed: true,
+            border: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(28),
+              ),
             ),
-          ),
-          prefixIcon: IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              MaterialCommunityIcons.filter_variant,
+            prefixIcon: const PopupMenuButtonPetFilter(),
+            suffixIcon: IconButton(
+              onPressed: () {
+                searchFunction(textEditingController.text);
+                focus.unfocus();
+              },
+              icon: const Icon(
+                Icons.search,
+              ),
             ),
+            hintText: 'Pesquise um nome',
+            hintStyle:
+                ProjectFonts.pLight.copyWith(color: ProjectColors.darkLight),
           ),
-          suffixIcon: IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.search,
-            ),
-          ),
-          hintText: 'Pesquise um nome',
-          hintStyle:
-              ProjectFonts.pLight.copyWith(color: ProjectColors.darkLight),
-        ),
-      ),
+        );
+      },
       optionsViewBuilder: (context, onSelected, options) => Align(
         alignment: Alignment.topLeft,
         child: Material(
@@ -93,6 +98,10 @@ class SearchBarPet extends StatelessWidget {
           ),
         ),
       ),
+      onSelected: (option) {
+        searchFunction(option);
+        focus.unfocus();
+      },
     );
   }
 }

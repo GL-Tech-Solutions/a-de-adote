@@ -1,40 +1,36 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'pets_state.dart';
+part of 'dropdown_ong_state.dart';
 
 // **************************************************************************
 // MatchExtensionGenerator
 // **************************************************************************
 
-extension PetsStatusMatch on PetsStatus {
+extension DropdownOngStatusMatch on DropdownOngStatus {
   T match<T>(
       {required T Function() initial,
       required T Function() loading,
       required T Function() loaded,
-      required T Function() loadedFiltered,
       required T Function() error}) {
     final v = this;
-    if (v == PetsStatus.initial) {
+    if (v == DropdownOngStatus.initial) {
       return initial();
     }
 
-    if (v == PetsStatus.loading) {
+    if (v == DropdownOngStatus.loading) {
       return loading();
     }
 
-    if (v == PetsStatus.loaded) {
+    if (v == DropdownOngStatus.loaded) {
       return loaded();
     }
 
-    if (v == PetsStatus.loadedFiltered) {
-      return loadedFiltered();
-    }
-
-    if (v == PetsStatus.error) {
+    if (v == DropdownOngStatus.error) {
       return error();
     }
 
-    throw Exception('PetsStatus.match failed, found no match for: $this');
+    throw Exception(
+        'DropdownOngStatus.match failed, found no match for: $this');
   }
 
   T matchAny<T>(
@@ -42,26 +38,21 @@ extension PetsStatusMatch on PetsStatus {
       T Function()? initial,
       T Function()? loading,
       T Function()? loaded,
-      T Function()? loadedFiltered,
       T Function()? error}) {
     final v = this;
-    if (v == PetsStatus.initial && initial != null) {
+    if (v == DropdownOngStatus.initial && initial != null) {
       return initial();
     }
 
-    if (v == PetsStatus.loading && loading != null) {
+    if (v == DropdownOngStatus.loading && loading != null) {
       return loading();
     }
 
-    if (v == PetsStatus.loaded && loaded != null) {
+    if (v == DropdownOngStatus.loaded && loaded != null) {
       return loaded();
     }
 
-    if (v == PetsStatus.loadedFiltered && loadedFiltered != null) {
-      return loadedFiltered();
-    }
-
-    if (v == PetsStatus.error && error != null) {
+    if (v == DropdownOngStatus.error && error != null) {
       return error();
     }
 
