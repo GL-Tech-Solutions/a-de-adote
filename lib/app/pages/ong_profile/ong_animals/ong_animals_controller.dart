@@ -44,4 +44,40 @@ class OngAnimalsController extends Cubit<OngAnimalsState> {
       );
     }
   }
+
+  void loadPetsSearched(String option) {
+    emit(state.copyWith(status: OngAnimalStatus.loading));
+    if (option == '') {
+      emit(
+        state.copyWith(
+          status: OngAnimalStatus.error,
+          errorMessage: 'Por favor, digite um nome.',
+        ),
+      );
+    } else {
+      final listPetsSearched = state.listPets
+          .where((pet) => pet.nome.toLowerCase() == option.toLowerCase())
+          .toList();
+      if (listPetsSearched.isNotEmpty) {
+        emit(
+          state.copyWith(
+            status: OngAnimalStatus.loadedFiltered,
+            listPetsFiltered: listPetsSearched,
+          ),
+        );
+      } else {
+        emit(
+          state.copyWith(
+            status: OngAnimalStatus.error,
+            errorMessage: 'Não foi encontrado nenhum animal.',
+          ),
+        );
+      }
+    }
+  }
+
+  void clearPetsSearched() {
+    state.listPetsFiltered = [];
+    emit(state.copyWith(status: OngAnimalStatus.loaded));
+  }
 }

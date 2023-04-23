@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:a_de_adote/app/pages/pets/pets_state.dart';
 import 'package:a_de_adote/app/repositories/pet/pet_repository.dart';
 import 'package:bloc/bloc.dart';
@@ -31,7 +33,7 @@ class PetsController extends Cubit<PetsState> {
     }
   }
 
-  void loadPetsSearched(String option) async {
+  void loadPetsSearched(String option) {
     emit(state.copyWith(status: PetsStatus.loading));
     if (option == '') {
       emit(
@@ -60,5 +62,10 @@ class PetsController extends Cubit<PetsState> {
         );
       }
     }
+  }
+
+  void clearPetsSearched() {
+    state.listPetsFiltered = [];
+    emit(state.copyWith(status: PetsStatus.loaded));
   }
 }

@@ -5,8 +5,12 @@ import 'package:a_de_adote/app/pages/ongs/ongs_state.dart';
 import 'package:a_de_adote/app/pages/ongs/widgets/ong_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import '../../core/ui/helpers/bottom_sheet_ong_filter.dart';
+import '../../core/ui/styles/project_colors.dart';
 import '../../core/ui/widgets/container_research.dart';
 import '../../core/ui/widgets/standard_sliver_appbar.dart';
+import '../../core/ui/widgets/standard_sliver_search_bar.dart';
 
 class OngsPage extends StatefulWidget {
   const OngsPage({super.key});
@@ -15,7 +19,8 @@ class OngsPage extends StatefulWidget {
   State<OngsPage> createState() => _OngsPageState();
 }
 
-class _OngsPageState extends State<OngsPage> {
+class _OngsPageState extends State<OngsPage> with BottomSheetOngFilter {
+  final ValueNotifier<bool> _isSearchBar = ValueNotifier(false);
   bool _isLoading = false;
 
   @override
@@ -27,77 +32,132 @@ class _OngsPageState extends State<OngsPage> {
   }
 
   @override
+  void dispose() {
+    _isSearchBar.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
         drawer: const StandardDrawer(),
-        body: NestedScrollView(
-          headerSliverBuilder: (BuildContext context, innerBoxIsScrolled) {
-            return [
-              StandardSliverAppbar(
-                title: 'ONGs',
-                canPop: false,
-                bottom: PreferredSize(
-                  preferredSize: Size(
-                    MediaQuery.of(context).size.width,
-                    MediaQuery.of(context).size.height * 0.05,
-                  ),
-                  child: const ContainerResearch(),
-                ),
-              ),
-            ];
-          },
-          body: BlocConsumer<OngsController, OngsState>(
-            listener: (context, state) {
-              state.status.matchAny(
-                any: () => _isLoading = false,
-                loading: () => _isLoading = true,
-                error: () {
-                  _isLoading = false;
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(state.errorMessage ?? ''),
-                    ),
+        body: ValueListenableBuilder(
+          valueListenable: _isSearchBar,
+          builder: (BuildContext context, bool isSearchBar, Widget? child) {
+            return NestedScrollView(
+              headerSliverBuilder: (BuildContext context, innerBoxIsScrolled) {
+                return [
+                  isSearchBar
+                      ? BlocBuilder<OngsController, OngsState>(
+                          builder: (context, state) {
+                            return StandardSliverSearchBar(
+                              listaNomes: state.listOngs
+                                  .map((ong) => ong.fantasia)
+                                  .toList(),
+                              backButtonFunction: () {
+                                context
+                                    .read<OngsController>()
+                                    .clearOngsSearched();
+                                _isSearchBar.value = false;
+                              },
+                              searchFunction: context
+                                  .read<OngsController>()
+                                  .loadOngsSearched,
+                              bottom: PreferredSize(
+                                preferredSize: Size(
+                                  MediaQuery.of(context).size.width,
+                                  MediaQuery.of(context).size.height * 0.05,
+                                ),
+                                child: const ContainerResearch(),
+                              ),
+                            );
+                          },
+                        )
+                      : StandardSliverAppbar(
+                          title: 'ONGs',
+                          canPop: false,
+                          alternateAppbar: () => _isSearchBar.value = true,
+                          bottom: PreferredSize(
+                            preferredSize: Size(
+                              MediaQuery.of(context).size.width,
+                              MediaQuery.of(context).size.height * 0.05,
+                            ),
+                            child: const ContainerResearch(),
+                          ),
+                        ),
+                ];
+              },
+              body: BlocConsumer<OngsController, OngsState>(
+                listener: (context, state) {
+                  state.status.matchAny(
+                    any: () => _isLoading = false,
+                    loading: () => _isLoading = true,
+                    error: () {
+                      _isLoading = false;
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(state.errorMessage ?? ''),
+                        ),
+                      );
+                    },
                   );
                 },
-              );
-            },
-            buildWhen: (previous, current) => current.status.matchAny(
-              any: () => false,
-              initial: () => false,
-              loading: () => true,
-              loaded: () => true,
-            ),
-            builder: (context, state) {
-              int length = state.listOngs.length;
+                buildWhen: (previous, current) => current.status.matchAny(
+                  any: () => false,
+                  initial: () => false,
+                  loading: () => true,
+                  loaded: () => true,
+                  loadedFiltered: () => true,
+                ),
+                builder: (context, state) {
+                  int lengthListOngs = state.listOngs.length;
+                  int lengthListOngsFiltered = state.listOngsFiltered.length;
 
-              return _isLoading
-                  ? ListView.builder(
-                      padding: const EdgeInsets.all(10),
-                      itemCount: 2,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: EdgeInsets.only(top: index == 0 ? 0 : 15.0),
-                          child: const SizedBox(
-                            height: 285,
-                            child: StandardShimmerEffect(),
-                          ),
+                  return _isLoading
+                      ? ListView.builder(
+                          padding: const EdgeInsets.all(10),
+                          itemCount: 2,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding:
+                                  EdgeInsets.only(top: index == 0 ? 0 : 15.0),
+                              child: const SizedBox(
+                                height: 285,
+                                child: StandardShimmerEffect(),
+                              ),
+                            );
+                          },
+                        )
+                      : ListView.builder(
+                          padding: const EdgeInsets.all(10),
+                          itemCount: lengthListOngsFiltered == 0
+                              ? lengthListOngs
+                              : lengthListOngsFiltered,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding:
+                                  EdgeInsets.only(top: index == 0 ? 0 : 10.0),
+                              child: OngCard(
+                                ong: state.listOngsFiltered.isEmpty
+                                    ? state.listOngs[index]
+                                    : state.listOngsFiltered[index],
+                              ),
+                            );
+                          },
                         );
-                      },
-                    )
-                  //const Center(child: CircularProgressIndicator())
-                  : ListView.builder(
-                      padding: const EdgeInsets.all(10),
-                      itemCount: length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: EdgeInsets.only(top: index == 0 ? 0 : 10.0),
-                          child: OngCard(ong: state.listOngs[index]),
-                        );
-                      },
-                    );
-            },
+                },
+              ),
+            );
+          },
+        ),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: ProjectColors.primary,
+          onPressed: () async => await setOngFilter(),
+          child: const Icon(
+            MaterialCommunityIcons.filter_variant,
+            color: ProjectColors.light,
           ),
         ),
       ),

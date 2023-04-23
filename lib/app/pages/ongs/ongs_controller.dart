@@ -30,4 +30,40 @@ class OngsController extends Cubit<OngsState> {
       );
     }
   }
+
+  void loadOngsSearched(String option) {
+    emit(state.copyWith(status: OngsStatus.loading));
+    if (option == '') {
+      emit(
+        state.copyWith(
+          status: OngsStatus.error,
+          errorMessage: 'Por favor, digite um nome.',
+        ),
+      );
+    } else {
+      final listOngsSearched = state.listOngs
+          .where((ong) => ong.fantasia.toLowerCase() == option.toLowerCase())
+          .toList();
+      if (listOngsSearched.isNotEmpty) {
+        emit(
+          state.copyWith(
+            status: OngsStatus.loadedFiltered,
+            listOngsFiltered: listOngsSearched,
+          ),
+        );
+      } else {
+        emit(
+          state.copyWith(
+            status: OngsStatus.error,
+            errorMessage: 'Não foi encontrado nenhuma ong.',
+          ),
+        );
+      }
+    }
+  }
+
+  void clearOngsSearched() {
+    state.listOngsFiltered = [];
+    emit(state.copyWith(status: OngsStatus.loaded));
+  }
 }

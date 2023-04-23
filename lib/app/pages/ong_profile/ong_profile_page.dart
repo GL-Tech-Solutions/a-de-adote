@@ -32,6 +32,12 @@ class _OngProfilePageState extends State<OngProfilePage>
     });
   }
 
+  @override
+  void dispose() {
+    _currentTab.dispose();
+    super.dispose();
+  }
+
   TabBar get _tabBar => TabBar(
         indicatorColor: ProjectColors.primaryLight,
         labelColor: ProjectColors.light,
@@ -52,34 +58,35 @@ class _OngProfilePageState extends State<OngProfilePage>
     return Scaffold(
       drawer: const StandardDrawer(),
       body: ValueListenableBuilder(
-          valueListenable: _currentTab,
-          builder: (BuildContext context, int tab, Widget? child) {
-            return NestedScrollView(
-              headerSliverBuilder: (BuildContext context, innerBoxIsScrolled) {
-                return [
-                  StandardSliverAppbar(
-                    title: 'Perfil',
-                    bottom: PreferredSize(
-                      preferredSize: _tabBar.preferredSize,
-                      child: Material(
-                        color: ProjectColors.secondaryDark,
-                        child: _tabBar,
-                      ),
+        valueListenable: _currentTab,
+        builder: (BuildContext context, int tab, Widget? child) {
+          return NestedScrollView(
+            headerSliverBuilder: (BuildContext context, innerBoxIsScrolled) {
+              return [
+                StandardSliverAppbar(
+                  title: 'Perfil',
+                  bottom: PreferredSize(
+                    preferredSize: _tabBar.preferredSize,
+                    child: Material(
+                      color: ProjectColors.secondaryDark,
+                      child: _tabBar,
                     ),
                   ),
-                ];
-              },
-              body: TabBarView(
-                dragStartBehavior: DragStartBehavior.start,
-                controller: _tabController,
-                physics: const ClampingScrollPhysics(),
-                children: [
-                  OngSpaceRouter.page,
-                  OngAnimalsRouter.page,
-                ],
-              ),
-            );
-          }),
+                ),
+              ];
+            },
+            body: TabBarView(
+              dragStartBehavior: DragStartBehavior.start,
+              controller: _tabController,
+              physics: const ClampingScrollPhysics(),
+              children: [
+                OngSpaceRouter.page,
+                OngAnimalsRouter.page,
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }

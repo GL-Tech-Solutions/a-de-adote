@@ -1,5 +1,6 @@
 import 'package:a_de_adote/app/core/ui/styles/project_colors.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_fonts.dart';
+import 'package:a_de_adote/app/core/ui/widgets/standard_search_bar.dart';
 import 'package:a_de_adote/app/core/ui/widgets/standard_shimmer_effect.dart';
 import 'package:a_de_adote/app/pages/ong_profile/ong_animals/ong_animals_controller.dart';
 import 'package:a_de_adote/app/pages/ong_profile/ong_animals/ong_animals_state.dart';
@@ -7,8 +8,8 @@ import 'package:a_de_adote/app/pages/ong_profile/ong_animals/widgets/ong_animal_
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
-
 import '../../../core/ui/helpers/alert_dialog_confirmation_message.dart';
+import '../../../core/ui/helpers/bottom_sheet_pet_filter.dart';
 
 class OngAnimalsPage extends StatefulWidget {
   const OngAnimalsPage({super.key});
@@ -18,7 +19,7 @@ class OngAnimalsPage extends StatefulWidget {
 }
 
 class _OngAnimalsPageState extends State<OngAnimalsPage>
-    with AlertDialogConfirmationMessage {
+    with AlertDialogConfirmationMessage, BottomSheetPetFilter {
   bool _isLoading = false;
 
   @override
@@ -56,25 +57,45 @@ class _OngAnimalsPageState extends State<OngAnimalsPage>
             initial: () => false,
             loading: () => true,
             loaded: () => true,
+            loadedFiltered: () => true,
           ),
           builder: (context, state) {
-            int length = state.listPets.length;
+            int lengthListPets = state.listPets.length;
+            int lengthListPetsFiltered = state.listPetsFiltered.length;
 
             return _isLoading
-                ? ListView.builder(
-                    padding: const EdgeInsets.all(10),
-                    itemCount: 8,
-                    itemBuilder: (context, index) {
-                      return const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 4),
-                        child: SizedBox(
-                          height: 70,
-                          child: StandardShimmerEffect(),
+                ? Column(
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(
+                          left: 10,
+                          right: 10,
+                          top: 10,
+                          bottom: 0,
                         ),
-                      );
-                    },
+                        child: SizedBox(
+                          height: 48,
+                          child: StandardShimmerEffect(radiusValue: 28),
+                        ),
+                      ),
+                      Expanded(
+                        child: ListView.builder(
+                          padding: const EdgeInsets.all(10),
+                          itemCount: 8,
+                          itemBuilder: (context, index) {
+                            return const Padding(
+                              padding: EdgeInsets.symmetric(vertical: 4),
+                              child: SizedBox(
+                                height: 70,
+                                child: StandardShimmerEffect(),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
                   ) //const Center(child: CircularProgressIndicator())
-                : length == 0
+                : lengthListPets == 0
                     ? Center(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -129,51 +150,96 @@ class _OngAnimalsPageState extends State<OngAnimalsPage>
                           ],
                         ),
                       )
-                    : ListView.builder(
-                        padding: const EdgeInsets.all(10),
-                        itemCount: length,
-                        itemBuilder: (context, index) {
-                          return OngAnimalCard(
-                            pet: state.listPets[index],
-                            editMethod: () async {
-                              await Navigator.pushNamed(
-                                context,
-                                '/pet_edit',
-                                arguments: state.listPets[index],
-                              );
-                              // ignore: use_build_context_synchronously
-                              context
+                    : Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                left: 10, right: 10, top: 10, bottom: 0),
+                            child: StandardSearchBar(
+                              listaNomes: state.listPets
+                                  .map((pet) => pet.nome)
+                                  .toList(),
+                              searchFunction: context
                                   .read<OngAnimalsController>()
-                                  .loadCurrentUserPets();
-                            },
-                            deleteMethod: () async {
-                              bool? action = await confimAction(
-                                  'Você tem certeza que gostaria de excluir este animal?');
-                              if (action == null || action == false) {
-                                null;
-                              } else {
-                                // ignore: use_build_context_synchronously
-                                context
-                                    .read<OngAnimalsController>()
-                                    .deletePet(state.listPets[index]);
-                              }
-                            },
-                          );
-                        },
+                                  .loadPetsSearched,
+                              cancelSearchFunction: () => context
+                                  .read<OngAnimalsController>()
+                                  .clearPetsSearched(),
+                            ),
+                          ),
+                          Expanded(
+                            child: ListView.builder(
+                              padding: const EdgeInsets.all(10),
+                              itemCount: lengthListPetsFiltered == 0
+                                  ? lengthListPets
+                                  : lengthListPetsFiltered,
+                              itemBuilder: (context, index) {
+                                return OngAnimalCard(
+                                  pet: state.listPetsFiltered.isEmpty
+                                      ? state.listPets[index]
+                                      : state.listPetsFiltered[index],
+                                  editMethod: () async {
+                                    await Navigator.pushNamed(
+                                      context,
+                                      '/pet_edit',
+                                      arguments: state.listPets[index],
+                                    );
+                                    // ignore: use_build_context_synchronously
+                                    context
+                                        .read<OngAnimalsController>()
+                                        .loadCurrentUserPets();
+                                  },
+                                  deleteMethod: () async {
+                                    bool? action = await confimAction(
+                                        'Você tem certeza que gostaria de excluir este animal?');
+                                    if (action == null || action == false) {
+                                      null;
+                                    } else {
+                                      // ignore: use_build_context_synchronously
+                                      context
+                                          .read<OngAnimalsController>()
+                                          .deletePet(state.listPets[index]);
+                                    }
+                                  },
+                                );
+                              },
+                            ),
+                          ),
+                        ],
                       );
           },
         ),
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: ProjectColors.primary,
-          onPressed: () async {
-            await Navigator.pushNamed(context, '/pet_register');
-            // ignore: use_build_context_synchronously
-            context.read<OngAnimalsController>().loadCurrentUserPets();
-          },
-          child: const Icon(
-            Icons.add,
-            color: ProjectColors.light,
-          ),
+        floatingActionButton: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            FloatingActionButton(
+              mini: true,
+              backgroundColor: ProjectColors.lightDark,
+              onPressed: () async => await setPetFilter(false),
+              heroTag: null,
+              child: const Icon(
+                MaterialCommunityIcons.filter_variant,
+                color: ProjectColors.darkLight,
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            FloatingActionButton(
+              backgroundColor: ProjectColors.primary,
+              onPressed: () async {
+                await Navigator.pushNamed(context, '/pet_register');
+                // ignore: use_build_context_synchronously
+                context.read<OngAnimalsController>().loadCurrentUserPets();
+              },
+              child: const Icon(
+                Icons.add,
+                color: ProjectColors.light,
+              ),
+            ),
+          ],
         ),
       ),
     );

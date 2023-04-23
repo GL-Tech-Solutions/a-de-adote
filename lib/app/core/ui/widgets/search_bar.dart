@@ -1,15 +1,13 @@
 import 'package:a_de_adote/app/core/ui/styles/project_colors.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_fonts.dart';
-import 'package:a_de_adote/app/core/ui/widgets/popup_menu_button_pet_filter.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
 // ignore: must_be_immutable
-class SearchBarPet extends StatelessWidget {
+class SearchBar extends StatelessWidget {
   final List<String> listaNomes;
   final void Function(String option) searchFunction;
 
-  SearchBarPet({
+  SearchBar({
     super.key,
     required this.listaNomes,
     required this.searchFunction,
@@ -26,7 +24,7 @@ class SearchBarPet extends StatelessWidget {
         }
         return listaNomes.where(
           (String option) {
-            return option.toLowerCase().startsWith(
+            return option.toLowerCase().contains(
                   textEditingValue.text.toLowerCase(),
                 );
           },
@@ -38,27 +36,24 @@ class SearchBarPet extends StatelessWidget {
         return TextField(
           controller: textEditingController,
           focusNode: focusNode,
+          autofocus: true,
           onEditingComplete: onFieldSubmitted,
+          onTapOutside: (event) => focus.unfocus(),
+          onSubmitted: (_) => focus.unfocus(),
           textAlignVertical: TextAlignVertical.center,
           style: ProjectFonts.pLight.copyWith(color: ProjectColors.darkLight),
           decoration: InputDecoration(
             filled: true,
             fillColor: ProjectColors.light,
             isCollapsed: true,
-            border: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(28),
-              ),
-            ),
-            prefixIcon: const PopupMenuButtonPetFilter(),
+            border: InputBorder.none,
             suffixIcon: IconButton(
-              onPressed: () {
-                searchFunction(textEditingController.text);
-                focus.unfocus();
-              },
+              onPressed: () => textEditingController.clear(),
               icon: const Icon(
-                Icons.search,
+                Icons.close,
+                color: ProjectColors.secondaryDark,
               ),
+              splashColor: Colors.transparent,
             ),
             hintText: 'Pesquise um nome',
             hintStyle:
@@ -71,7 +66,7 @@ class SearchBarPet extends StatelessWidget {
         child: Material(
           elevation: 4,
           child: SizedBox(
-            width: MediaQuery.of(context).size.width - 20,
+            width: MediaQuery.of(context).size.width * 0.7,
             child: ConstrainedBox(
               constraints: BoxConstraints(
                   maxHeight: MediaQuery.of(context).size.height * 0.4),

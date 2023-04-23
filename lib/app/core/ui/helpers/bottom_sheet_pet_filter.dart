@@ -1,24 +1,14 @@
-import 'dart:developer';
-
-import 'package:a_de_adote/app/core/ui/styles/project_colors.dart';
-import 'package:a_de_adote/app/core/ui/widgets/dropdown_ong/dropdown_ong_router.dart';
-import 'package:a_de_adote/app/core/ui/widgets/radio_row.dart';
-import 'package:a_de_adote/app/core/ui/widgets/standard_choice_chip.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:stepper_counter_swipe/stepper_counter_swipe.dart';
+
+import '../styles/project_colors.dart';
 import '../styles/project_fonts.dart';
-import 'checkbox_row.dart';
+import '../widgets/checkbox_row.dart';
+import '../widgets/dropdown_ong/dropdown_ong_router.dart';
+import '../widgets/radio_row.dart';
+import '../widgets/standard_choice_chip.dart';
 
-class PopupMenuButtonPetFilter extends StatefulWidget {
-  const PopupMenuButtonPetFilter({super.key});
-
-  @override
-  State<PopupMenuButtonPetFilter> createState() =>
-      _PopupMenuButtonPetFilterState();
-}
-
-class _PopupMenuButtonPetFilterState extends State<PopupMenuButtonPetFilter> {
+mixin BottomSheetPetFilter<T extends StatefulWidget> on State<T> {
   final ValueNotifier<String?> _ong = ValueNotifier('Todas');
   final ValueNotifier<bool> _dog = ValueNotifier(true);
   final ValueNotifier<bool> _cat = ValueNotifier(true);
@@ -42,61 +32,76 @@ class _PopupMenuButtonPetFilterState extends State<PopupMenuButtonPetFilter> {
     super.dispose();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return PopupMenuButton(
-      shadowColor: ProjectColors.lightDark,
-      surfaceTintColor: ProjectColors.lightDark,
-      constraints: BoxConstraints(
-        maxWidth: MediaQuery.of(context).size.width,
-      ),
-      position: PopupMenuPosition.under,
-      icon: const Icon(
-        MaterialCommunityIcons.filter_variant,
-      ),
-      itemBuilder: (context) => [
-        PopupMenuItem(
-          enabled: false,
-          child: Container(
-            padding: const EdgeInsets.all(6),
-            width: MediaQuery.of(context).size.width,
+  Future<Map?> setPetFilter(bool haveOngDropdown) async {
+    await showModalBottomSheet(
+      context: context,
+      builder: (_) {
+        return Container(
+          padding: const EdgeInsets.all(15),
+          width: MediaQuery.of(context).size.width,
+          child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Column(
-                  mainAxisSize: MainAxisSize.min,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: const [
-                        Text(
-                          'ONG',
-                          style: ProjectFonts.smallSecundaryDarkBold,
-                        ),
-                      ],
+                    const Text(
+                      'Filtros',
+                      style: ProjectFonts.h6SecundaryDarkBold,
                     ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: ValueListenableBuilder(
-                            valueListenable: _ong,
-                            builder: (BuildContext context, String? value,
-                                Widget? child) {
-                              return DropdownOngRouter(
-                                value: value!,
-                                dropdownCallback: (selected) {
-                                  _ong.value = selected;
-                                },
-                              ).page;
-                            },
-                          ),
-                        ),
-                      ],
+                    TextButton.icon(
+                      onPressed: () => Navigator.of(context).pop(),
+                      icon: const Icon(
+                        Icons.close,
+                        size: 16,
+                        color: ProjectColors.danger,
+                      ),
+                      label: Text(
+                        'FECHAR',
+                        style: ProjectFonts.smallLight
+                            .copyWith(color: ProjectColors.danger),
+                      ),
                     ),
                   ],
                 ),
-                const Divider(),
+                Visibility(
+                  visible: haveOngDropdown,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: const [
+                          Text(
+                            'ONG',
+                            style: ProjectFonts.smallSecundaryDarkBold,
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: ValueListenableBuilder(
+                              valueListenable: _ong,
+                              builder: (BuildContext context, String? value,
+                                  Widget? child) {
+                                return DropdownOngRouter(
+                                  value: value!,
+                                  dropdownCallback: (selected) {
+                                    _ong.value = selected;
+                                  },
+                                ).page;
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                      const Divider(),
+                    ],
+                  ),
+                ),
                 Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -410,8 +415,8 @@ class _PopupMenuButtonPetFilterState extends State<PopupMenuButtonPetFilter> {
               ],
             ),
           ),
-        ),
-      ],
+        );
+      },
     );
   }
 }

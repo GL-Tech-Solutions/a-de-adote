@@ -1,21 +1,22 @@
-import 'package:a_de_adote/app/core/ui/styles/project_colors.dart';
-import 'package:a_de_adote/app/core/ui/styles/project_fonts.dart';
 import 'package:flutter/material.dart';
+import '../styles/project_fonts.dart';
 
 // ignore: must_be_immutable
-class CheckboxRow extends StatelessWidget {
+class RadioRow extends StatelessWidget {
   final String labelText;
   final TextStyle? labelStyle;
-  bool value;
-  final void Function(bool?)? checkboxCallback;
+  int state;
+  int value;
+  final void Function(int?)? radioCallback;
   final double? gap;
 
-  CheckboxRow({
+  RadioRow({
     super.key,
     required this.labelText,
     this.labelStyle,
+    required this.state,
     required this.value,
-    required this.checkboxCallback,
+    required this.radioCallback,
     this.gap,
   });
 
@@ -31,9 +32,10 @@ class CheckboxRow extends StatelessWidget {
         SizedBox(
           width: gap ?? 0,
         ),
-        Checkbox(
+        Radio(
+          groupValue: state,
           value: value,
-          onChanged: checkboxCallback,
+          onChanged: radioCallback,
           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
         ),
       ],

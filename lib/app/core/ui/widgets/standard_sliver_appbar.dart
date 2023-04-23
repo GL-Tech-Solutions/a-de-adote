@@ -7,12 +7,14 @@ class StandardSliverAppbar extends StatelessWidget
   final String title;
   final PreferredSize? bottom;
   final bool? canPop;
+  final void Function()? alternateAppbar;
 
   const StandardSliverAppbar({
     super.key,
     required this.title,
     required this.bottom,
     this.canPop,
+    this.alternateAppbar,
   });
 
   @override
@@ -43,6 +45,15 @@ class StandardSliverAppbar extends StatelessWidget
                 icon: const Icon(Icons.menu),
               ),
         bottom: bottom,
+        actions: alternateAppbar == null
+            ? null
+            : [
+                IconButton(
+                  onPressed: alternateAppbar,
+                  icon: const Icon(Icons.search),
+                  splashColor: Colors.transparent,
+                ),
+              ],
       ),
     );
   }
