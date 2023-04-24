@@ -18,63 +18,60 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async => false,
-      child: ValueListenableBuilder(
-          valueListenable: currentPageIndex,
-          builder: (BuildContext context, int index, Widget? child) {
-            return AnnotatedRegion<SystemUiOverlayStyle>(
-              value: const SystemUiOverlayStyle(
-                systemNavigationBarColor: ProjectColors.secondaryDark,
-              ),
-              child: Scaffold(
-                bottomNavigationBar: NavigationBarTheme(
-                  data: const NavigationBarThemeData(
-                    height: 70,
-                    backgroundColor: ProjectColors.secondaryDark,
-                    shadowColor: ProjectColors.primaryLight,
-                    surfaceTintColor: ProjectColors.secondaryDark,
-                    indicatorColor: ProjectColors.primary,
-                    iconTheme: MaterialStatePropertyAll(
-                      IconThemeData(color: ProjectColors.light),
-                    ),
-                    labelBehavior:
-                        NavigationDestinationLabelBehavior.onlyShowSelected,
-                    labelTextStyle: MaterialStatePropertyAll(
-                      ProjectFonts.smallLight,
-                    ),
-                  ),
-                  child: NavigationBar(
-                    onDestinationSelected: (page) =>
-                        currentPageIndex.value = page,
-                    selectedIndex: index,
-                    destinations: const [
-                      NavigationDestination(
-                        selectedIcon: Icon(Icons.pets),
-                        icon: Icon(Icons.pets_outlined),
-                        label: 'Pets',
-                      ),
-                      NavigationDestination(
-                        selectedIcon: Icon(Icons.home),
-                        icon: Icon(Icons.home_outlined),
-                        label: 'ONGs',
-                      ),
-                      NavigationDestination(
-                        selectedIcon: Icon(Icons.person),
-                        icon: Icon(Icons.person_outlined),
-                        label: 'Perfil',
-                      ),
-                    ],
-                  ),
+    return ValueListenableBuilder(
+      valueListenable: currentPageIndex,
+      builder: (BuildContext context, int index, Widget? child) {
+        return AnnotatedRegion<SystemUiOverlayStyle>(
+          value: const SystemUiOverlayStyle(
+            systemNavigationBarColor: ProjectColors.secondaryDark,
+          ),
+          child: Scaffold(
+            bottomNavigationBar: NavigationBarTheme(
+              data: const NavigationBarThemeData(
+                height: 70,
+                backgroundColor: ProjectColors.secondaryDark,
+                shadowColor: ProjectColors.primaryLight,
+                surfaceTintColor: ProjectColors.secondaryDark,
+                indicatorColor: ProjectColors.primary,
+                iconTheme: MaterialStatePropertyAll(
+                  IconThemeData(color: ProjectColors.light),
                 ),
-                body: [
-                  PetsRouter.page,
-                  OngsRouter.page,
-                  const OngProfilePage(),
-                ][index],
+                labelBehavior:
+                    NavigationDestinationLabelBehavior.onlyShowSelected,
+                labelTextStyle: MaterialStatePropertyAll(
+                  ProjectFonts.smallLight,
+                ),
               ),
-            );
-          }),
+              child: NavigationBar(
+                onDestinationSelected: (page) => currentPageIndex.value = page,
+                selectedIndex: index,
+                destinations: const [
+                  NavigationDestination(
+                    selectedIcon: Icon(Icons.pets),
+                    icon: Icon(Icons.pets_outlined),
+                    label: 'Pets',
+                  ),
+                  NavigationDestination(
+                    selectedIcon: Icon(Icons.home),
+                    icon: Icon(Icons.home_outlined),
+                    label: 'ONGs',
+                  ),
+                  NavigationDestination(
+                    selectedIcon: Icon(Icons.person),
+                    icon: Icon(Icons.person_outlined),
+                    label: 'Perfil',
+                  ),
+                ],
+              ),
+            ),
+            body: [
+              PetsRouter.page,
+              OngsRouter.page,
+              const OngProfilePage(),
+            ][index],
+          ),
+        );
+      },
     );
   }
 }

@@ -61,8 +61,8 @@ class OngAnimalsController extends Cubit<OngAnimalsState> {
       if (listPetsSearched.isNotEmpty) {
         emit(
           state.copyWith(
-            status: OngAnimalStatus.loadedFiltered,
-            listPetsFiltered: listPetsSearched,
+            status: OngAnimalStatus.loadedSearched,
+            listPetsSearched: listPetsSearched,
           ),
         );
       } else {
@@ -76,8 +76,96 @@ class OngAnimalsController extends Cubit<OngAnimalsState> {
     }
   }
 
+  void loadPetsFiltered(Map<String, dynamic>? filters) {
+    if (filters == null) {
+      clearPetsFiltered();
+      return;
+    }
+
+    List<PetModel> currentList = state.listPetsSearched.isNotEmpty
+        ? state.listPetsSearched
+        : state.listPets;
+    List<PetModel> newListFiltered = currentList.where(
+      (pet) {
+        if ((filters['dog'] == false) &&
+            (filters['cat'] == false) &&
+            (filters['bird'] == false) &&
+            (filters['other'] == false)) {
+          return true;
+        }
+
+        return (filters['dog'] ? pet.especie == 'Cachorro' : false) ||
+            (filters['cat'] ? pet.especie == 'Gato' : false) ||
+            (filters['bird'] ? pet.especie == 'Pássaro' : false) ||
+            (filters['other'] ? pet.especie == 'Outro' : false);
+      },
+    ).where(
+      (pet) {
+        if (pet.idadeAproximada
+                .replaceAll(RegExp('[0-9]'), '')
+                .replaceAll(' ', '') ==
+            'meses') {
+          return true;
+        }
+        return int.parse(
+              pet.idadeAproximada.replaceAll(RegExp(r'[^0-9]'), ''),
+            ) <=
+            filters['idadeMaxima'];
+      },
+    ).where(
+      (pet) {
+        if (filters['sexo'] == 1) {
+          return pet.sexo == 'Masculino';
+        } else if (filters['sexo'] == 2) {
+          return pet.sexo == 'Feminino';
+        } else {
+          return true;
+        }
+      },
+    ).where(
+      (pet) {
+        if ((filters['mini'] == false) &&
+            (filters['pequeno'] == false) &&
+            (filters['medio'] == false) &&
+            (filters['grande'] == false)) {
+          return true;
+        }
+
+        return (filters['mini'] ? pet.porte == 'Mini' : false) ||
+            (filters['pequeno'] ? pet.porte == 'Pequeno' : false) ||
+            (filters['medio'] ? pet.porte == 'Médio' : false) ||
+            (filters['grande'] ? pet.porte == 'Grande' : false);
+      },
+    ).toList();
+
+    if (newListFiltered.isNotEmpty) {
+      emit(
+        state.copyWith(
+          status: OngAnimalStatus.loadedFiltered,
+          listPetsFiltered: newListFiltered,
+          currentFilters: filters,
+        ),
+      );
+    } else {
+      emit(
+        state.copyWith(
+          status: OngAnimalStatus.error,
+          errorMessage: 'Não foi possível encontrar nenhum animal.',
+        ),
+      );
+    }
+  }
+
   void clearPetsSearched() {
-    state.listPetsFiltered = [];
+    state.listPetsSearched = [];
     emit(state.copyWith(status: OngAnimalStatus.loaded));
+  }
+
+  void clearPetsFiltered() {
+    state.listPetsFiltered = [];
+    state.currentFilters = null;
+    emit(
+      state.copyWith(status: OngAnimalStatus.loaded),
+    );
   }
 }

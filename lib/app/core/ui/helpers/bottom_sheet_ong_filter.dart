@@ -13,7 +13,17 @@ mixin BottomSheetOngFilter<T extends StatefulWidget> on State<T> {
     super.dispose();
   }
 
-  Future<Map?> setOngFilter() async {
+  Future<Map?> setOngFilter(Map<String, dynamic>? currentFilters) async {
+    Map<String, dynamic>? filters;
+
+    if (currentFilters == null) {
+      _municipio.value = 'Todos';
+    } else {
+      _municipio.value = currentFilters['municipio'];
+
+      filters = currentFilters;
+    }
+
     await showModalBottomSheet(
       context: context,
       builder: (_) {
@@ -86,7 +96,11 @@ mixin BottomSheetOngFilter<T extends StatefulWidget> on State<T> {
                 children: [
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        _municipio.value = 'Todos';
+                        filters = null;
+                        Navigator.of(context).pop();
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: ProjectColors.light,
                         elevation: 0,
@@ -109,7 +123,13 @@ mixin BottomSheetOngFilter<T extends StatefulWidget> on State<T> {
                   ),
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        filters = {
+                          'municipio': _municipio.value,
+                        };
+
+                        Navigator.of(context).pop();
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: ProjectColors.primary,
                         elevation: 0,
@@ -131,5 +151,7 @@ mixin BottomSheetOngFilter<T extends StatefulWidget> on State<T> {
         );
       },
     );
+
+    return filters;
   }
 }

@@ -57,10 +57,12 @@ class _OngAnimalsPageState extends State<OngAnimalsPage>
             initial: () => false,
             loading: () => true,
             loaded: () => true,
+            loadedSearched: () => true,
             loadedFiltered: () => true,
           ),
           builder: (context, state) {
             int lengthListPets = state.listPets.length;
+            int lengthListPetsSearched = state.listPetsSearched.length;
             int lengthListPetsFiltered = state.listPetsFiltered.length;
 
             return _isLoading
@@ -94,7 +96,7 @@ class _OngAnimalsPageState extends State<OngAnimalsPage>
                         ),
                       ),
                     ],
-                  ) //const Center(child: CircularProgressIndicator())
+                  )
                 : lengthListPets == 0
                     ? Center(
                         child: Column(
@@ -162,22 +164,34 @@ class _OngAnimalsPageState extends State<OngAnimalsPage>
                               searchFunction: context
                                   .read<OngAnimalsController>()
                                   .loadPetsSearched,
-                              cancelSearchFunction: () => context
+                              cancelSearchFunction: () {
+                                context
+                                    .read<OngAnimalsController>()
+                                    .clearPetsFiltered();
+                                context
+                                    .read<OngAnimalsController>()
+                                    .clearPetsSearched();
+                              },
+                              onTapFunction: context
                                   .read<OngAnimalsController>()
-                                  .clearPetsSearched(),
+                                  .clearPetsFiltered,
                             ),
                           ),
                           Expanded(
                             child: ListView.builder(
                               padding: const EdgeInsets.all(10),
-                              itemCount: lengthListPetsFiltered == 0
-                                  ? lengthListPets
-                                  : lengthListPetsFiltered,
+                              itemCount: lengthListPetsFiltered != 0
+                                  ? lengthListPetsFiltered
+                                  : lengthListPetsSearched != 0
+                                      ? lengthListPetsSearched
+                                      : lengthListPets,
                               itemBuilder: (context, index) {
                                 return OngAnimalCard(
-                                  pet: state.listPetsFiltered.isEmpty
-                                      ? state.listPets[index]
-                                      : state.listPetsFiltered[index],
+                                  pet: state.listPetsFiltered.isNotEmpty
+                                      ? state.listPetsFiltered[index]
+                                      : state.listPetsSearched.isNotEmpty
+                                          ? state.listPetsSearched[index]
+                                          : state.listPets[index],
                                   editMethod: () async {
                                     await Navigator.pushNamed(
                                       context,
@@ -214,15 +228,22 @@ class _OngAnimalsPageState extends State<OngAnimalsPage>
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            FloatingActionButton(
-              mini: true,
-              backgroundColor: ProjectColors.lightDark,
-              onPressed: () async => await setPetFilter(false),
-              heroTag: null,
-              child: const Icon(
-                MaterialCommunityIcons.filter_variant,
-                color: ProjectColors.darkLight,
-              ),
+            BlocBuilder<OngAnimalsController, OngAnimalsState>(
+              builder: (context, state) {
+                return FloatingActionButton(
+                  mini: true,
+                  backgroundColor: ProjectColors.lightDark,
+                  onPressed: () async => context
+                      .read<OngAnimalsController>()
+                      .loadPetsFiltered(
+                          await setPetFilter(false, state.currentFilters)),
+                  heroTag: null,
+                  child: const Icon(
+                    MaterialCommunityIcons.filter_variant,
+                    color: ProjectColors.darkLight,
+                  ),
+                );
+              },
             ),
             const SizedBox(
               height: 10,

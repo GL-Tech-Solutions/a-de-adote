@@ -42,7 +42,14 @@ class _PetsPageState extends State<PetsPage> with BottomSheetPetFilter {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () async => false,
+      onWillPop: () async {
+        if (_isSearchBar.value == true) {
+          context.read<PetsController>().clearPetsFiltered();
+        }
+        context.read<PetsController>().clearPetsSearched();
+        _isSearchBar.value = false;
+        return false;
+      },
       child: Scaffold(
         drawer: const StandardDrawer(),
         body: ValueListenableBuilder(
@@ -59,6 +66,9 @@ class _PetsPageState extends State<PetsPage> with BottomSheetPetFilter {
                                   .map((pet) => pet.nome)
                                   .toList(),
                               backButtonFunction: () {
+                                context
+                                    .read<PetsController>()
+                                    .clearPetsFiltered();
                                 context
                                     .read<PetsController>()
                                     .clearPetsSearched();
@@ -80,7 +90,10 @@ class _PetsPageState extends State<PetsPage> with BottomSheetPetFilter {
                       : StandardSliverAppbar(
                           title: 'Pets',
                           canPop: false,
-                          alternateAppbar: () => _isSearchBar.value = true,
+                          alternateAppbar: () {
+                            context.read<PetsController>().clearPetsFiltered();
+                            _isSearchBar.value = true;
+                          },
                           bottom: PreferredSize(
                             preferredSize: Size(
                               MediaQuery.of(context).size.width,
@@ -111,10 +124,12 @@ class _PetsPageState extends State<PetsPage> with BottomSheetPetFilter {
                   initial: () => false,
                   loading: () => true,
                   loaded: () => true,
+                  loadedSearched: () => true,
                   loadedFiltered: () => true,
                 ),
                 builder: (context, state) {
                   int lengthListPets = state.listPets.length;
+                  int lengthListPetsSearched = state.listPetsSearched.length;
                   int lengthListPetsFiltered = state.listPetsFiltered.length;
 
                   return _isLoading
@@ -136,9 +151,11 @@ class _PetsPageState extends State<PetsPage> with BottomSheetPetFilter {
                             Expanded(
                               child: GridView.builder(
                                 padding: const EdgeInsets.all(10),
-                                itemCount: lengthListPetsFiltered == 0
-                                    ? lengthListPets
-                                    : lengthListPetsFiltered,
+                                itemCount: lengthListPetsFiltered != 0
+                                    ? lengthListPetsFiltered
+                                    : lengthListPetsSearched != 0
+                                        ? lengthListPetsSearched
+                                        : lengthListPets,
                                 gridDelegate:
                                     const SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 2,
@@ -158,16 +175,20 @@ class _PetsPageState extends State<PetsPage> with BottomSheetPetFilter {
                                     transitionType:
                                         ContainerTransitionType.fade,
                                     openBuilder: (context, _) => PetDetailsPage(
-                                      pet: state.listPetsFiltered.isEmpty
-                                          ? state.listPets[index]
-                                          : state.listPetsFiltered[index],
+                                      pet: state.listPetsFiltered.isNotEmpty
+                                          ? state.listPetsFiltered[index]
+                                          : state.listPetsSearched.isNotEmpty
+                                              ? state.listPetsSearched[index]
+                                              : state.listPets[index],
                                     ),
                                     closedBuilder:
                                         (context, VoidCallback openContainer) =>
                                             PetCard(
-                                      pet: state.listPetsFiltered.isEmpty
-                                          ? state.listPets[index]
-                                          : state.listPetsFiltered[index],
+                                      pet: state.listPetsFiltered.isNotEmpty
+                                          ? state.listPetsFiltered[index]
+                                          : state.listPetsSearched.isNotEmpty
+                                              ? state.listPetsSearched[index]
+                                              : state.listPets[index],
                                       onTap: openContainer,
                                     ),
                                   );
@@ -181,13 +202,20 @@ class _PetsPageState extends State<PetsPage> with BottomSheetPetFilter {
             );
           },
         ),
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: ProjectColors.primary,
-          onPressed: () async => await setPetFilter(true),
-          child: const Icon(
-            MaterialCommunityIcons.filter_variant,
-            color: ProjectColors.light,
-          ),
+        floatingActionButton: BlocBuilder<PetsController, PetsState>(
+          builder: (context, state) {
+            return FloatingActionButton(
+              backgroundColor: ProjectColors.primary,
+              onPressed: () async => context
+                  .read<PetsController>()
+                  .loadPetsFiltered(
+                      await setPetFilter(true, state.currentFilters)),
+              child: const Icon(
+                MaterialCommunityIcons.filter_variant,
+                color: ProjectColors.light,
+              ),
+            );
+          },
         ),
       ),
     );

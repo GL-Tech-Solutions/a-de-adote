@@ -1,3 +1,4 @@
+import 'package:a_de_adote/app/models/ong_model.dart';
 import 'package:a_de_adote/app/pages/ongs/ongs_state.dart';
 import 'package:a_de_adote/app/repositories/ong/ong_repository.dart';
 import 'package:bloc/bloc.dart';
@@ -47,23 +48,67 @@ class OngsController extends Cubit<OngsState> {
       if (listOngsSearched.isNotEmpty) {
         emit(
           state.copyWith(
-            status: OngsStatus.loadedFiltered,
-            listOngsFiltered: listOngsSearched,
+            status: OngsStatus.loadedSearched,
+            listOngsSearched: listOngsSearched,
           ),
         );
       } else {
         emit(
           state.copyWith(
             status: OngsStatus.error,
-            errorMessage: 'Não foi encontrado nenhuma ong.',
+            errorMessage: 'Não foi encontrada nenhuma ong.',
           ),
         );
       }
     }
   }
 
+  void loadOngsFiltered(Map<String, dynamic>? filters) {
+    if (filters == null) {
+      clearOngsFiltered();
+      return;
+    }
+
+    List<OngModel> currentList = state.listOngsSearched.isNotEmpty
+        ? state.listOngsSearched
+        : state.listOngs;
+    List<OngModel> newListFiltered = currentList.where(
+      (ong) {
+        if (filters['municipio'] != 'Todos') {
+          return ong.municipio == filters['municipio'];
+        }
+        return true;
+      },
+    ).toList();
+
+    if (newListFiltered.isNotEmpty) {
+      emit(
+        state.copyWith(
+          status: OngsStatus.loadedFiltered,
+          listOngsFiltered: newListFiltered,
+          currentFilters: filters,
+        ),
+      );
+    } else {
+      emit(
+        state.copyWith(
+          status: OngsStatus.error,
+          errorMessage: 'Não foi possível encontrar nenhuma ong.',
+        ),
+      );
+    }
+  }
+
   void clearOngsSearched() {
-    state.listOngsFiltered = [];
+    state.listOngsSearched = [];
     emit(state.copyWith(status: OngsStatus.loaded));
+  }
+
+  void clearOngsFiltered() {
+    state.listOngsFiltered = [];
+    state.currentFilters = null;
+    emit(
+      state.copyWith(status: OngsStatus.loaded),
+    );
   }
 }

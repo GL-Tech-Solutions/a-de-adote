@@ -7,12 +7,14 @@ class StandardSearchBar extends StatelessWidget {
   final List<String> listaNomes;
   final void Function(String option) searchFunction;
   final void Function() cancelSearchFunction;
+  final void Function()? onTapFunction;
 
   StandardSearchBar({
     super.key,
     required this.listaNomes,
     required this.searchFunction,
     required this.cancelSearchFunction,
+    this.onTapFunction,
   });
 
   late FocusNode focus;
@@ -39,6 +41,7 @@ class StandardSearchBar extends StatelessWidget {
           controller: textEditingController,
           focusNode: focusNode,
           onEditingComplete: onFieldSubmitted,
+          onTap: onTapFunction,
           onTapOutside: (event) => focus.unfocus(),
           onSubmitted: (_) => focus.unfocus(),
           textAlignVertical: TextAlignVertical.center,

@@ -85,6 +85,7 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
     }
   }
 
+  //TODO Alterar para não permitir cnpj e nomes fantasia repetidos.
   @override
   Widget build(BuildContext context) {
     return Scaffold(

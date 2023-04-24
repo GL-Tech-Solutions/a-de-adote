@@ -59,7 +59,7 @@ class _ONGSignUpFormPageState extends State<ONGSignUpFormPage> {
             userCreated: () {
               _isLoading = false;
               Navigator.of(context, rootNavigator: true)
-                  .popAndPushNamed('/ong_profile');
+                  .popAndPushNamed('/main');
             },
             error: () {
               _isLoading = false;

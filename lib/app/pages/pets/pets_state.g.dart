@@ -11,6 +11,7 @@ extension PetsStatusMatch on PetsStatus {
       {required T Function() initial,
       required T Function() loading,
       required T Function() loaded,
+      required T Function() loadedSearched,
       required T Function() loadedFiltered,
       required T Function() error}) {
     final v = this;
@@ -24,6 +25,10 @@ extension PetsStatusMatch on PetsStatus {
 
     if (v == PetsStatus.loaded) {
       return loaded();
+    }
+
+    if (v == PetsStatus.loadedSearched) {
+      return loadedSearched();
     }
 
     if (v == PetsStatus.loadedFiltered) {
@@ -42,6 +47,7 @@ extension PetsStatusMatch on PetsStatus {
       T Function()? initial,
       T Function()? loading,
       T Function()? loaded,
+      T Function()? loadedSearched,
       T Function()? loadedFiltered,
       T Function()? error}) {
     final v = this;
@@ -55,6 +61,10 @@ extension PetsStatusMatch on PetsStatus {
 
     if (v == PetsStatus.loaded && loaded != null) {
       return loaded();
+    }
+
+    if (v == PetsStatus.loadedSearched && loadedSearched != null) {
+      return loadedSearched();
     }
 
     if (v == PetsStatus.loadedFiltered && loadedFiltered != null) {

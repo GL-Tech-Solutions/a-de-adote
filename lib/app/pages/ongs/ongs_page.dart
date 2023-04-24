@@ -40,7 +40,14 @@ class _OngsPageState extends State<OngsPage> with BottomSheetOngFilter {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () async => false,
+      onWillPop: () async {
+        if (_isSearchBar.value == true) {
+          context.read<OngsController>().clearOngsFiltered();
+        }
+        context.read<OngsController>().clearOngsSearched();
+        _isSearchBar.value = false;
+        return false;
+      },
       child: Scaffold(
         drawer: const StandardDrawer(),
         body: ValueListenableBuilder(
@@ -57,6 +64,9 @@ class _OngsPageState extends State<OngsPage> with BottomSheetOngFilter {
                                   .map((ong) => ong.fantasia)
                                   .toList(),
                               backButtonFunction: () {
+                                context
+                                    .read<OngsController>()
+                                    .clearOngsFiltered();
                                 context
                                     .read<OngsController>()
                                     .clearOngsSearched();
@@ -78,7 +88,10 @@ class _OngsPageState extends State<OngsPage> with BottomSheetOngFilter {
                       : StandardSliverAppbar(
                           title: 'ONGs',
                           canPop: false,
-                          alternateAppbar: () => _isSearchBar.value = true,
+                          alternateAppbar: () {
+                            context.read<OngsController>().clearOngsFiltered();
+                            _isSearchBar.value = true;
+                          },
                           bottom: PreferredSize(
                             preferredSize: Size(
                               MediaQuery.of(context).size.width,
@@ -109,10 +122,12 @@ class _OngsPageState extends State<OngsPage> with BottomSheetOngFilter {
                   initial: () => false,
                   loading: () => true,
                   loaded: () => true,
+                  loadedSearched: () => true,
                   loadedFiltered: () => true,
                 ),
                 builder: (context, state) {
                   int lengthListOngs = state.listOngs.length;
+                  int lengthListOngsSearched = state.listOngsSearched.length;
                   int lengthListOngsFiltered = state.listOngsFiltered.length;
 
                   return _isLoading
@@ -132,17 +147,21 @@ class _OngsPageState extends State<OngsPage> with BottomSheetOngFilter {
                         )
                       : ListView.builder(
                           padding: const EdgeInsets.all(10),
-                          itemCount: lengthListOngsFiltered == 0
-                              ? lengthListOngs
-                              : lengthListOngsFiltered,
+                          itemCount: lengthListOngsFiltered != 0
+                              ? lengthListOngsFiltered
+                              : lengthListOngsSearched != 0
+                                  ? lengthListOngsSearched
+                                  : lengthListOngs,
                           itemBuilder: (context, index) {
                             return Padding(
                               padding:
                                   EdgeInsets.only(top: index == 0 ? 0 : 10.0),
                               child: OngCard(
-                                ong: state.listOngsFiltered.isEmpty
-                                    ? state.listOngs[index]
-                                    : state.listOngsFiltered[index],
+                                ong: state.listOngsFiltered.isNotEmpty
+                                    ? state.listOngsFiltered[index]
+                                    : state.listOngsSearched.isNotEmpty
+                                        ? state.listOngsSearched[index]
+                                        : state.listOngs[index],
                               ),
                             );
                           },
@@ -152,13 +171,20 @@ class _OngsPageState extends State<OngsPage> with BottomSheetOngFilter {
             );
           },
         ),
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: ProjectColors.primary,
-          onPressed: () async => await setOngFilter(),
-          child: const Icon(
-            MaterialCommunityIcons.filter_variant,
-            color: ProjectColors.light,
-          ),
+        floatingActionButton: BlocBuilder<OngsController, OngsState>(
+          builder: (context, state) {
+            return FloatingActionButton(
+              backgroundColor: ProjectColors.primary,
+              onPressed: () async => context
+                  .read<OngsController>()
+                  .loadOngsFiltered((await setOngFilter(state.currentFilters))
+                      ?.cast<String, dynamic>()),
+              child: const Icon(
+                MaterialCommunityIcons.filter_variant,
+                color: ProjectColors.light,
+              ),
+            );
+          },
         ),
       ),
     );

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:stepper_counter_swipe/stepper_counter_swipe.dart';
-
 import '../styles/project_colors.dart';
 import '../styles/project_fonts.dart';
 import '../widgets/checkbox_row.dart';
@@ -10,16 +9,16 @@ import '../widgets/standard_choice_chip.dart';
 
 mixin BottomSheetPetFilter<T extends StatefulWidget> on State<T> {
   final ValueNotifier<String?> _ong = ValueNotifier('Todas');
-  final ValueNotifier<bool> _dog = ValueNotifier(true);
-  final ValueNotifier<bool> _cat = ValueNotifier(true);
-  final ValueNotifier<bool> _bird = ValueNotifier(true);
-  final ValueNotifier<bool> _other = ValueNotifier(true);
-  int _idadeMaxima = 10;
+  final ValueNotifier<bool> _dog = ValueNotifier(false);
+  final ValueNotifier<bool> _cat = ValueNotifier(false);
+  final ValueNotifier<bool> _bird = ValueNotifier(false);
+  final ValueNotifier<bool> _other = ValueNotifier(false);
+  final ValueNotifier<int> _idadeMaxima = ValueNotifier(10);
   final ValueNotifier<int> _sexo = ValueNotifier(0);
-  final ValueNotifier<bool> _mini = ValueNotifier(true);
-  final ValueNotifier<bool> _pequeno = ValueNotifier(true);
-  final ValueNotifier<bool> _medio = ValueNotifier(true);
-  final ValueNotifier<bool> _grande = ValueNotifier(true);
+  final ValueNotifier<bool> _mini = ValueNotifier(false);
+  final ValueNotifier<bool> _pequeno = ValueNotifier(false);
+  final ValueNotifier<bool> _medio = ValueNotifier(false);
+  final ValueNotifier<bool> _grande = ValueNotifier(false);
 
   @override
   void dispose() {
@@ -28,11 +27,47 @@ mixin BottomSheetPetFilter<T extends StatefulWidget> on State<T> {
     _cat.dispose();
     _bird.dispose();
     _other.dispose();
+    _idadeMaxima.dispose();
     _sexo.dispose();
+    _mini.dispose();
+    _pequeno.dispose();
+    _medio.dispose();
+    _grande.dispose();
     super.dispose();
   }
 
-  Future<Map?> setPetFilter(bool haveOngDropdown) async {
+  Future<Map<String, dynamic>?> setPetFilter(
+      bool haveOngDropdown, Map<String, dynamic>? currentFilters) async {
+    Map<String, dynamic>? filters;
+
+    if (currentFilters == null) {
+      _ong.value = 'Todas';
+      _dog.value = false;
+      _cat.value = false;
+      _bird.value = false;
+      _other.value = false;
+      _idadeMaxima.value = 10;
+      _sexo.value = 0;
+      _mini.value = false;
+      _pequeno.value = false;
+      _medio.value = false;
+      _grande.value = false;
+    } else {
+      _ong.value = currentFilters['ong'];
+      _dog.value = currentFilters['dog'];
+      _cat.value = currentFilters['cat'];
+      _bird.value = currentFilters['bird'];
+      _other.value = currentFilters['other'];
+      _idadeMaxima.value = currentFilters['idadeMaxima'];
+      _sexo.value = currentFilters['sexo'];
+      _mini.value = currentFilters['mini'];
+      _pequeno.value = currentFilters['pequeno'];
+      _medio.value = currentFilters['medio'];
+      _grande.value = currentFilters['grande'];
+
+      filters = currentFilters;
+    }
+
     await showModalBottomSheet(
       context: context,
       builder: (_) {
@@ -201,10 +236,10 @@ mixin BottomSheetPetFilter<T extends StatefulWidget> on State<T> {
                           height: 45,
                           padding: const EdgeInsets.all(4),
                           child: StepperSwipe(
-                            initialValue: 10,
+                            initialValue: _idadeMaxima.value,
                             speedTransitionLimitCount: 3,
                             onChanged: (int value) {
-                              _idadeMaxima = value;
+                              _idadeMaxima.value = value;
                             },
                             firstIncrementDuration: const Duration(
                               milliseconds: 250,
@@ -372,7 +407,22 @@ mixin BottomSheetPetFilter<T extends StatefulWidget> on State<T> {
                   children: [
                     Expanded(
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          _ong.value = 'Todas';
+                          _dog.value = false;
+                          _cat.value = false;
+                          _bird.value = false;
+                          _other.value = false;
+                          _idadeMaxima.value = 10;
+                          _sexo.value = 0;
+                          _mini.value = false;
+                          _pequeno.value = false;
+                          _medio.value = false;
+                          _grande.value = false;
+
+                          filters = null;
+                          Navigator.of(context).pop();
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: ProjectColors.light,
                           elevation: 0,
@@ -395,7 +445,23 @@ mixin BottomSheetPetFilter<T extends StatefulWidget> on State<T> {
                     ),
                     Expanded(
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          filters = {
+                            'ong': _ong.value,
+                            'dog': _dog.value,
+                            'cat': _cat.value,
+                            'bird': _bird.value,
+                            'other': _other.value,
+                            'idadeMaxima': _idadeMaxima.value,
+                            'sexo': _sexo.value,
+                            'mini': _mini.value,
+                            'pequeno': _pequeno.value,
+                            'medio': _medio.value,
+                            'grande': _grande.value,
+                          };
+
+                          Navigator.of(context).pop();
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: ProjectColors.primary,
                           elevation: 0,
@@ -418,5 +484,7 @@ mixin BottomSheetPetFilter<T extends StatefulWidget> on State<T> {
         );
       },
     );
+
+    return filters;
   }
 }

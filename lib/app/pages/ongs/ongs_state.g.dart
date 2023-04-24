@@ -11,6 +11,7 @@ extension OngsStatusMatch on OngsStatus {
       {required T Function() initial,
       required T Function() loading,
       required T Function() loaded,
+      required T Function() loadedSearched,
       required T Function() loadedFiltered,
       required T Function() error}) {
     final v = this;
@@ -24,6 +25,10 @@ extension OngsStatusMatch on OngsStatus {
 
     if (v == OngsStatus.loaded) {
       return loaded();
+    }
+
+    if (v == OngsStatus.loadedSearched) {
+      return loadedSearched();
     }
 
     if (v == OngsStatus.loadedFiltered) {
@@ -42,6 +47,7 @@ extension OngsStatusMatch on OngsStatus {
       T Function()? initial,
       T Function()? loading,
       T Function()? loaded,
+      T Function()? loadedSearched,
       T Function()? loadedFiltered,
       T Function()? error}) {
     final v = this;
@@ -55,6 +61,10 @@ extension OngsStatusMatch on OngsStatus {
 
     if (v == OngsStatus.loaded && loaded != null) {
       return loaded();
+    }
+
+    if (v == OngsStatus.loadedSearched && loadedSearched != null) {
+      return loadedSearched();
     }
 
     if (v == OngsStatus.loadedFiltered && loadedFiltered != null) {
