@@ -49,8 +49,11 @@ class _PetDetailsPageState extends State<PetDetailsPage>
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        Navigator.pop(context, _edited);
-        return false;
+        if (widget.isEditable ?? false) {
+          Navigator.pop(context, _edited);
+          return false;
+        }
+        return true;
       },
       child: Scaffold(
         body: BlocConsumer<PetDetailsController, PetDetailsState>(
@@ -277,63 +280,71 @@ class _PetDetailsPageState extends State<PetDetailsPage>
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                        vertical: 10,
-                        horizontal: MediaQuery.of(context).size.width * 0.1,
-                      ),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: ProjectColors.primary,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            elevation: 0,
-                            padding: const EdgeInsets.symmetric(vertical: 10)),
-                        onPressed: () async {
-                          try {
-                            if (state.pet!.ongId != null) {
-                              try {
-                                OngRepository ongRepository = OngRepositoryImpl(
-                                    dio: context.read(), auth: context.read());
-                                final ong = await ongRepository
-                                    .getOngById(state.pet!.ongId!);
-                                await WhatsappLaunchService.openWhatsApp(
-                                    ong.whatsapp!
-                                        .replaceAll(RegExp(r'[^0-9]'), ''),
-                                    'Olá! Vim pelo app A de Adote. Adorei o _*${state.pet!.nome}*_ e gostaria de saber mais detalhes sobre ele.');
-                              } on FirestoreException catch (e) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(e.message),
-                                  ),
-                                );
-                              }
-                            }
-                          } on LaunchUrlException catch (e) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(e.message),
+                    Visibility(
+                      visible: !((widget.isEditable ?? false) &&
+                          context.read<AuthService>().ongUser?.uid ==
+                              widget.pet.ongId),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          vertical: 10,
+                          horizontal: MediaQuery.of(context).size.width * 0.1,
+                        ),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: ProjectColors.primary,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
                               ),
-                            );
-                          }
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Text(
-                              'FALE COM A ONG',
-                              style: ProjectFonts.pLightBold,
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Icon(
-                              MaterialCommunityIcons.whatsapp,
-                              size: 24,
-                              color: ProjectColors.light,
-                            ),
-                          ],
+                              elevation: 0,
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 10)),
+                          onPressed: () async {
+                            try {
+                              if (state.pet!.ongId != null) {
+                                try {
+                                  OngRepository ongRepository =
+                                      OngRepositoryImpl(
+                                          dio: context.read(),
+                                          auth: context.read());
+                                  final ong = await ongRepository
+                                      .getOngById(state.pet!.ongId!);
+                                  await WhatsappLaunchService.openWhatsApp(
+                                      ong.whatsapp!
+                                          .replaceAll(RegExp(r'[^0-9]'), ''),
+                                      'Olá! Vim pelo app A de Adote. Adorei o _*${state.pet!.nome}*_ e gostaria de saber mais detalhes sobre ele.');
+                                } on FirestoreException catch (e) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(e.message),
+                                    ),
+                                  );
+                                }
+                              }
+                            } on LaunchUrlException catch (e) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(e.message),
+                                ),
+                              );
+                            }
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Text(
+                                'FALE COM A ONG',
+                                style: ProjectFonts.pLightBold,
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Icon(
+                                MaterialCommunityIcons.whatsapp,
+                                size: 24,
+                                color: ProjectColors.light,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -352,7 +363,13 @@ class _PetDetailsPageState extends State<PetDetailsPage>
                         size: 24,
                         color: ProjectColors.light,
                       ),
-                      onPressed: () => Navigator.pop(context, _edited),
+                      onPressed: () {
+                        if (widget.isEditable ?? false) {
+                          Navigator.pop(context, _edited);
+                        } else {
+                          Navigator.of(context).pop();
+                        }
+                      },
                     ),
                   ),
                 ),
@@ -395,11 +412,6 @@ class _PetDetailsPageState extends State<PetDetailsPage>
                                         RouteSettings(arguments: state.pet),
                                   ),
                                 );
-                                /*await Navigator.pushNamed(
-                                  context,
-                                  '/pet_edit',
-                                  arguments: state.pet,
-                                );*/
                                 if (petUpdated != null) {
                                   // ignore: use_build_context_synchronously
                                   context
