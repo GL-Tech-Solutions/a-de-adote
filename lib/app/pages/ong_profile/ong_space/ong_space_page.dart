@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:a_de_adote/app/core/extensions/capitalize_only_first_letter_extension.dart';
 import 'package:a_de_adote/app/core/ui/helpers/bottom_sheet_image_source.dart';
 import 'package:a_de_adote/app/core/ui/helpers/update_dialog_ong_description.dart';

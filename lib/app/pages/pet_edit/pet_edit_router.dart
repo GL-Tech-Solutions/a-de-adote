@@ -1,7 +1,5 @@
 import 'package:a_de_adote/app/pages/pet_edit/pet_edit_controller.dart';
 import 'package:a_de_adote/app/pages/pet_edit/pet_edit_page.dart';
-import 'package:a_de_adote/app/repositories/ong/ong_repository.dart';
-import 'package:a_de_adote/app/repositories/ong/ong_repository_impl.dart';
 import 'package:a_de_adote/app/repositories/pet/pet_repository_impl.dart';
 import 'package:a_de_adote/app/repositories/photos/photos_repository.dart';
 import 'package:a_de_adote/app/repositories/photos/photos_repository_impl.dart';

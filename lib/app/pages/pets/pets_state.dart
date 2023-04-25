@@ -14,6 +14,7 @@ enum PetsStatus {
   error,
 }
 
+// ignore: must_be_immutable
 class PetsState extends Equatable {
   final PetsStatus status;
   List<PetModel> listPets;

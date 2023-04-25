@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:a_de_adote/app/core/exceptions/firestore_exception.dart';
 import 'package:a_de_adote/app/core/exceptions/launch_url_exception.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_colors.dart';
@@ -18,6 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:like_button/like_button.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/ui/helpers/alert_dialog_confirmation_message.dart';
 import '../../models/pet_model.dart';
 
@@ -130,35 +129,85 @@ class _PetDetailsPageState extends State<PetDetailsPage>
                                       ),
                                     ],
                                   ),
-                                  Visibility(
-                                    visible: context
-                                            .read<AuthService>()
-                                            .ongUser ==
-                                        null, // Significa que é uma Ong acessando os detalhes do Pet.
-                                    child: LikeButton(
-                                      size: 26,
-                                      circleColor: const CircleColor(
-                                        start: ProjectColors.primaryLight,
-                                        end: ProjectColors.primaryLight,
-                                      ),
-                                      bubblesColor: const BubblesColor(
-                                        dotPrimaryColor:
-                                            ProjectColors.primaryLight,
-                                        dotSecondaryColor:
-                                            ProjectColors.primaryLight,
-                                      ),
-                                      likeBuilder: (bool isLiked) {
-                                        return Icon(
-                                          isLiked
-                                              ? Icons.favorite
-                                              : Icons.favorite_outline,
-                                          color: isLiked
-                                              ? ProjectColors.primaryLight
-                                              : ProjectColors.light,
+                                  FutureBuilder(
+                                    future: SharedPreferences.getInstance(),
+                                    builder: (context, sp) {
+                                      if (!sp.hasData) {
+                                        return const SizedBox.shrink();
+                                      }
+                                      List<String>? favoriteList =
+                                          (sp.data as SharedPreferences)
+                                              .getStringList('favoriteList');
+                                      bool isLiked = (favoriteList ?? [])
+                                              .contains(state.pet?.id)
+                                          ? true
+                                          : false;
+
+                                      return Visibility(
+                                        visible: context
+                                                .read<AuthService>()
+                                                .ongUser ==
+                                            null, // Significa que não é uma Ong acessando os detalhes do Pet.
+                                        child: LikeButton(
                                           size: 26,
-                                        );
-                                      },
-                                    ),
+                                          circleColor: const CircleColor(
+                                            start: ProjectColors.primaryLight,
+                                            end: ProjectColors.primaryLight,
+                                          ),
+                                          bubblesColor: const BubblesColor(
+                                            dotPrimaryColor:
+                                                ProjectColors.primaryLight,
+                                            dotSecondaryColor:
+                                                ProjectColors.primaryLight,
+                                          ),
+                                          isLiked: isLiked,
+                                          likeBuilder: (bool isLiked) {
+                                            return Icon(
+                                              isLiked
+                                                  ? Icons.favorite
+                                                  : Icons.favorite_outline,
+                                              color: isLiked
+                                                  ? ProjectColors.primaryLight
+                                                  : ProjectColors.light,
+                                              size: 26,
+                                            );
+                                          },
+                                          onTap: (bool isLiked) async {
+                                            if (isLiked) {
+                                              context
+                                                  .read<PetDetailsController>()
+                                                  .removeFromFavorites(
+                                                      state.pet!.id!);
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                const SnackBar(
+                                                  content: Text(
+                                                      'Removido dos favoritos'),
+                                                  duration:
+                                                      Duration(seconds: 1),
+                                                ),
+                                              );
+                                              return false;
+                                            } else {
+                                              context
+                                                  .read<PetDetailsController>()
+                                                  .addToFavorites(
+                                                      state.pet!.id!);
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                const SnackBar(
+                                                  content: Text(
+                                                      'Adicionado aos favoritos'),
+                                                  duration:
+                                                      Duration(seconds: 1),
+                                                ),
+                                              );
+                                              return true;
+                                            }
+                                          },
+                                        ),
+                                      );
+                                    },
                                   ),
                                 ],
                               ),

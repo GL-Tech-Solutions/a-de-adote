@@ -1,9 +1,13 @@
+import 'package:a_de_adote/app/core/ui/styles/project_colors.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_fonts.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../models/pet_model.dart';
+import '../../../services/auth_service.dart';
 
 class PetCard extends StatelessWidget {
   final PetModel pet;
@@ -58,12 +62,43 @@ class PetCard extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Flexible(
-                      child: Text(
-                        pet.nome,
-                        style: ProjectFonts.h6SecundaryDarkBold
-                            .copyWith(overflow: TextOverflow.ellipsis),
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Flexible(
+                          child: Text(
+                            pet.nome,
+                            style: ProjectFonts.h6SecundaryDarkBold
+                                .copyWith(overflow: TextOverflow.ellipsis),
+                          ),
+                        ),
+                        FutureBuilder(
+                          future: SharedPreferences.getInstance(),
+                          builder: (context, sp) {
+                            if (!sp.hasData) {
+                              return const SizedBox.shrink();
+                            }
+
+                            List<String>? favoriteList =
+                                (sp.data as SharedPreferences)
+                                    .getStringList('favoriteList');
+                            bool isLiked = (favoriteList ?? []).contains(pet.id)
+                                ? true
+                                : false;
+
+                            return Visibility(
+                              visible:
+                                  context.read<AuthService>().ongUser == null &&
+                                      isLiked,
+                              child: const Icon(
+                                Icons.favorite,
+                                size: 14,
+                                color: ProjectColors.primaryLight,
+                              ),
+                            );
+                          },
+                        ),
+                      ],
                     ),
                     Flexible(
                       child: Text(

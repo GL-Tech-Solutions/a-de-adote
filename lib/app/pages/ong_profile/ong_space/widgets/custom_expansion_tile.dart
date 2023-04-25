@@ -60,7 +60,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile>
               children: [
                 Text(
                   widget.title,
-                  style: ProjectFonts.h6LightBold,
+                  style: ProjectFonts.pLightBold,
                 ),
                 Row(
                   mainAxisSize: MainAxisSize.min,

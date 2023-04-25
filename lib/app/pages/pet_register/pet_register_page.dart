@@ -38,6 +38,7 @@ class _PetRegisterPageState extends State<PetRegisterPage>
   final ValueNotifier<bool> _vacina3 = ValueNotifier(false);
   final _sobre = TextEditingController();
 
+  //TODO Alterar o salvamento de "anos" para o singular quando for apenas 1
   @override
   Widget build(BuildContext context) {
     return Scaffold(

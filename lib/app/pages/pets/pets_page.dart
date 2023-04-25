@@ -5,7 +5,6 @@ import 'package:a_de_adote/app/core/ui/widgets/standard_drawer.dart';
 import 'package:a_de_adote/app/core/ui/widgets/standard_shimmer_effect.dart';
 import 'package:a_de_adote/app/core/ui/widgets/standard_sliver_appbar.dart';
 import 'package:a_de_adote/app/core/ui/widgets/standard_sliver_search_bar.dart';
-import 'package:a_de_adote/app/pages/pet_details/pet_details_page.dart';
 import 'package:a_de_adote/app/pages/pet_details/pet_details_router.dart';
 import 'package:a_de_adote/app/pages/pets/pets_controller.dart';
 import 'package:a_de_adote/app/pages/pets/pets_state.dart';

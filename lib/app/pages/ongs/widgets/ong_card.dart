@@ -7,8 +7,9 @@ import '../../../models/ong_model.dart';
 
 class OngCard extends StatelessWidget {
   final OngModel ong;
+  final Function() onTap;
 
-  const OngCard({super.key, required this.ong});
+  const OngCard({super.key, required this.ong, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class OngCard extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: InkWell(
         borderRadius: BorderRadius.circular(12),
-        onTap: () {},
+        onTap: onTap,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [

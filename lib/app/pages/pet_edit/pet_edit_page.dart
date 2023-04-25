@@ -1,5 +1,4 @@
 import 'package:a_de_adote/app/core/extensions/dropdown_menu_items.dart';
-import 'package:a_de_adote/app/core/ui/helpers/alert_dialog_alert.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_colors.dart';
 import 'package:a_de_adote/app/core/ui/widgets/checkbox_row.dart';
 import 'package:a_de_adote/app/core/ui/widgets/expanded_form_input.dart';

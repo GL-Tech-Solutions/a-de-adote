@@ -12,6 +12,7 @@ enum DropdownOngStatus {
   error,
 }
 
+// ignore: must_be_immutable
 class DropdownOngState extends Equatable {
   final DropdownOngStatus status;
   List<OngModel> listOngs;

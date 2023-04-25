@@ -162,6 +162,7 @@ class _OngsPageState extends State<OngsPage> with BottomSheetOngFilter {
                                     : state.listOngsSearched.isNotEmpty
                                         ? state.listOngsSearched[index]
                                         : state.listOngs[index],
+                                onTap: () {},
                               ),
                             );
                           },

@@ -1,10 +1,7 @@
-import 'dart:developer';
-
 import 'package:a_de_adote/app/models/pet_model.dart';
 import 'package:a_de_adote/app/pages/pets/pets_state.dart';
 import 'package:a_de_adote/app/repositories/pet/pet_repository.dart';
 import 'package:bloc/bloc.dart';
-
 import '../../core/exceptions/firestore_exception.dart';
 
 class PetsController extends Cubit<PetsState> {

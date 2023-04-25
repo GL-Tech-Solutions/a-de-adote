@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-
 import '../styles/project_colors.dart';
 import '../styles/project_fonts.dart';
 
+// ignore: must_be_immutable
 class FormButton extends StatefulWidget {
   final GlobalKey<FormState> formKey;
   final String text;

@@ -1,7 +1,7 @@
 import 'package:a_de_adote/app/pages/pet_details/pet_details_state.dart';
 import 'package:a_de_adote/app/repositories/pet/pet_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/exceptions/firestore_exception.dart';
 import '../../models/pet_model.dart';
 
@@ -41,5 +41,26 @@ class PetDetailsController extends Cubit<PetDetailsState> {
         ),
       );
     }
+  }
+
+  void addToFavorites(String petId) async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    List<String>? favoritePets = sp.getStringList('favoriteList');
+
+    favoritePets = favoritePets ?? [];
+    favoritePets.add(petId);
+
+    sp.setStringList('favoriteList', favoritePets);
+  }
+
+  void removeFromFavorites(String petId) async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    List<String>? favoritePets = sp.getStringList('favoriteList');
+
+    if (favoritePets != null && favoritePets.contains(petId)) {
+      favoritePets.remove(petId);
+    }
+
+    sp.setStringList('favoriteList', favoritePets ?? []);
   }
 }

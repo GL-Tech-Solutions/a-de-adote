@@ -1,4 +1,3 @@
-import 'package:a_de_adote/app/core/ui/styles/project_colors.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_fonts.dart';
 import 'package:flutter/material.dart';
 

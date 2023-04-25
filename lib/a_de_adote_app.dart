@@ -1,5 +1,7 @@
 import 'package:a_de_adote/app/core/provider/application_binding.dart';
 import 'package:a_de_adote/app/core/ui/theme/theme_config.dart';
+import 'package:a_de_adote/app/pages/favorite_pets/favorite_pets_page.dart';
+import 'package:a_de_adote/app/pages/favorite_pets/favorite_pets_router.dart';
 import 'package:a_de_adote/app/pages/initial/initial_page_check.dart';
 import 'package:a_de_adote/app/pages/ong_profile/ong_profile_page.dart';
 import 'package:a_de_adote/app/pages/pet_edit/pet_edit_router.dart';
@@ -39,6 +41,7 @@ class AdeAdoteApp extends StatelessWidget {
           '/ong_profile': (_) => const OngProfilePage(),
           '/pet_register': (_) => PetRegisterRouter.page,
           '/pet_edit': (_) => PetEditRouter.page,
+          '/favorite_pets': (_) => FavoritePetsRouter.page,
         },
       ),
     );
