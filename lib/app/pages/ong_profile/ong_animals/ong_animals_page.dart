@@ -264,9 +264,14 @@ class _OngAnimalsPageState extends State<OngAnimalsPage>
                       .loadPetsFiltered(
                           await setPetFilter(false, state.currentFilters)),
                   heroTag: null,
-                  child: const Icon(
-                    MaterialCommunityIcons.filter_variant,
-                    color: ProjectColors.darkLight,
+                  child: Badge(
+                    isLabelVisible: state.currentFilters != null,
+                    backgroundColor: ProjectColors.primaryLight,
+                    label: const Text('!'),
+                    child: const Icon(
+                      MaterialCommunityIcons.filter_variant,
+                      color: ProjectColors.darkLight,
+                    ),
                   ),
                 );
               },

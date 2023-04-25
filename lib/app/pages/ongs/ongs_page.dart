@@ -1,8 +1,11 @@
+import 'package:a_de_adote/app/core/ui/helpers/filters_state.dart';
 import 'package:a_de_adote/app/core/ui/widgets/standard_drawer.dart';
 import 'package:a_de_adote/app/core/ui/widgets/standard_shimmer_effect.dart';
+import 'package:a_de_adote/app/pages/ong_details/ong_details_page.dart';
 import 'package:a_de_adote/app/pages/ongs/ongs_controller.dart';
 import 'package:a_de_adote/app/pages/ongs/ongs_state.dart';
 import 'package:a_de_adote/app/pages/ongs/widgets/ong_card.dart';
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
@@ -153,16 +156,35 @@ class _OngsPageState extends State<OngsPage> with BottomSheetOngFilter {
                                   ? lengthListOngsSearched
                                   : lengthListOngs,
                           itemBuilder: (context, index) {
-                            return Padding(
-                              padding:
-                                  EdgeInsets.only(top: index == 0 ? 0 : 10.0),
-                              child: OngCard(
+                            return OpenContainer(
+                              tappable: false,
+                              closedColor: Colors.transparent,
+                              closedElevation: 0,
+                              closedShape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12)),
+                              transitionDuration:
+                                  const Duration(milliseconds: 500),
+                              transitionType: ContainerTransitionType.fade,
+                              openBuilder: (context, _) => OngDetailsPage(
                                 ong: state.listOngsFiltered.isNotEmpty
                                     ? state.listOngsFiltered[index]
                                     : state.listOngsSearched.isNotEmpty
                                         ? state.listOngsSearched[index]
                                         : state.listOngs[index],
-                                onTap: () {},
+                              ),
+                              closedBuilder:
+                                  (context, VoidCallback openContainer) =>
+                                      Padding(
+                                padding:
+                                    EdgeInsets.only(top: index == 0 ? 0 : 10.0),
+                                child: OngCard(
+                                  ong: state.listOngsFiltered.isNotEmpty
+                                      ? state.listOngsFiltered[index]
+                                      : state.listOngsSearched.isNotEmpty
+                                          ? state.listOngsSearched[index]
+                                          : state.listOngs[index],
+                                  onTap: openContainer,
+                                ),
                               ),
                             );
                           },
@@ -178,11 +200,17 @@ class _OngsPageState extends State<OngsPage> with BottomSheetOngFilter {
               backgroundColor: ProjectColors.primary,
               onPressed: () async => context
                   .read<OngsController>()
-                  .loadOngsFiltered((await setOngFilter(state.currentFilters))
-                      ?.cast<String, dynamic>()),
-              child: const Icon(
-                MaterialCommunityIcons.filter_variant,
-                color: ProjectColors.light,
+                  .loadOngsFiltered(
+                      (await setOngFilter(FiltersState.ongCurrentFilters))
+                          ?.cast<String, dynamic>()),
+              child: Badge(
+                isLabelVisible: state.currentFilters != null,
+                backgroundColor: ProjectColors.primaryDark,
+                label: const Text('!'),
+                child: const Icon(
+                  MaterialCommunityIcons.filter_variant,
+                  color: ProjectColors.light,
+                ),
               ),
             );
           },

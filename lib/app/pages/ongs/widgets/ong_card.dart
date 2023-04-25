@@ -1,7 +1,10 @@
 import 'package:a_de_adote/app/core/extensions/capitalize_only_first_letter_extension.dart';
+import 'package:a_de_adote/app/core/ui/helpers/filters_state.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_colors.dart';
+import 'package:a_de_adote/app/pages/home/tabs_state.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../../core/ui/styles/project_fonts.dart';
 import '../../../models/ong_model.dart';
 
@@ -84,7 +87,24 @@ class OngCard extends StatelessWidget {
                         height: 30,
                         width: 110,
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            final filter = {
+                              'ong': ong.fantasia,
+                              'dog': false,
+                              'cat': false,
+                              'bird': false,
+                              'other': false,
+                              'idadeMaxima': 20,
+                              'sexo': 0,
+                              'mini': false,
+                              'pequeno': false,
+                              'medio': false,
+                              'grande': false,
+                            };
+
+                            FiltersState.petCurrentFilters = filter;
+                            context.read<TabsState>().setTabIndex(0);
+                          },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: ProjectColors.primaryLight,
                             elevation: 0,

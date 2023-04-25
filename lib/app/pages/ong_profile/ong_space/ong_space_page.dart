@@ -154,7 +154,7 @@ class _OngSpacePageState extends State<OngSpacePage>
                         child: const StandardShimmerEffect(radiusValue: 0),
                       ),
                     ],
-                  ) //const Center(child: CircularProgressIndicator())
+                  )
                 : SingleChildScrollView(
                     child: Column(
                       children: [
@@ -358,8 +358,8 @@ class _OngSpacePageState extends State<OngSpacePage>
                                           .updateOngPix(newPix);
                                     }
                                   },
-                                  bodyPadding: const EdgeInsets.symmetric(
-                                    vertical: 0,
+                                  bodyPadding: EdgeInsets.symmetric(
+                                    vertical: state.ong?.pix == null ? 10 : 0,
                                     horizontal: 10,
                                   ),
                                   body: state.ong?.pix == null

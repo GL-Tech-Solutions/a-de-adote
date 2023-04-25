@@ -1,3 +1,5 @@
+import 'package:a_de_adote/app/core/ui/helpers/filters_state.dart';
+import 'package:a_de_adote/app/pages/home/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:stepper_counter_swipe/stepper_counter_swipe.dart';
 import '../styles/project_colors.dart';
@@ -13,7 +15,7 @@ mixin BottomSheetPetFilter<T extends StatefulWidget> on State<T> {
   final ValueNotifier<bool> _cat = ValueNotifier(false);
   final ValueNotifier<bool> _bird = ValueNotifier(false);
   final ValueNotifier<bool> _other = ValueNotifier(false);
-  final ValueNotifier<int> _idadeMaxima = ValueNotifier(10);
+  final ValueNotifier<int> _idadeMaxima = ValueNotifier(20);
   final ValueNotifier<int> _sexo = ValueNotifier(0);
   final ValueNotifier<bool> _mini = ValueNotifier(false);
   final ValueNotifier<bool> _pequeno = ValueNotifier(false);
@@ -46,7 +48,7 @@ mixin BottomSheetPetFilter<T extends StatefulWidget> on State<T> {
       _cat.value = false;
       _bird.value = false;
       _other.value = false;
-      _idadeMaxima.value = 10;
+      _idadeMaxima.value = 20;
       _sexo.value = 0;
       _mini.value = false;
       _pequeno.value = false;
@@ -413,7 +415,7 @@ mixin BottomSheetPetFilter<T extends StatefulWidget> on State<T> {
                           _cat.value = false;
                           _bird.value = false;
                           _other.value = false;
-                          _idadeMaxima.value = 10;
+                          _idadeMaxima.value = 20;
                           _sexo.value = 0;
                           _mini.value = false;
                           _pequeno.value = false;
@@ -421,6 +423,7 @@ mixin BottomSheetPetFilter<T extends StatefulWidget> on State<T> {
                           _grande.value = false;
 
                           filters = null;
+                          FiltersState.petCurrentFilters = null;
                           Navigator.of(context).pop();
                         },
                         style: ElevatedButton.styleFrom(
@@ -460,6 +463,7 @@ mixin BottomSheetPetFilter<T extends StatefulWidget> on State<T> {
                             'grande': _grande.value,
                           };
 
+                          FiltersState.petCurrentFilters = filters;
                           Navigator.of(context).pop();
                         },
                         style: ElevatedButton.styleFrom(

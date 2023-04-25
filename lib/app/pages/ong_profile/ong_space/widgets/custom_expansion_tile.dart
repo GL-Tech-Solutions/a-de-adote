@@ -7,16 +7,18 @@ class CustomExpansionTile extends StatefulWidget {
   final bool isOng;
   final String title;
   final Widget body;
+  final bool? isInitialExpanded;
   final EdgeInsets? bodyPadding;
-  Function() edit;
+  final void Function()? edit;
 
-  CustomExpansionTile({
+  const CustomExpansionTile({
     super.key,
     required this.isOng,
     required this.title,
     required this.body,
-    required this.edit,
+    this.isInitialExpanded,
     this.bodyPadding,
+    this.edit,
   });
 
   @override
@@ -25,7 +27,7 @@ class CustomExpansionTile extends StatefulWidget {
 
 class _CustomExpansionTileState extends State<CustomExpansionTile>
     with TickerProviderStateMixin {
-  ValueNotifier<bool> isExpanded = ValueNotifier(true);
+  late ValueNotifier<bool> isExpanded;
   late final AnimationController _controllerArrow;
   late final AnimationController _controllerBody;
 
@@ -37,6 +39,8 @@ class _CustomExpansionTileState extends State<CustomExpansionTile>
 
     _controllerBody = AnimationController(vsync: this);
     _controllerBody.duration = const Duration(milliseconds: 200);
+
+    isExpanded = ValueNotifier((widget.isInitialExpanded ?? true));
   }
 
   @override

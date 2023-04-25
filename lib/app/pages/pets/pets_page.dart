@@ -1,5 +1,9 @@
+import 'dart:developer';
+
 import 'package:a_de_adote/app/core/ui/helpers/bottom_sheet_pet_filter.dart';
+import 'package:a_de_adote/app/core/ui/helpers/filters_state.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_colors.dart';
+import 'package:a_de_adote/app/core/ui/styles/project_fonts.dart';
 import 'package:a_de_adote/app/core/ui/widgets/container_research.dart';
 import 'package:a_de_adote/app/core/ui/widgets/standard_drawer.dart';
 import 'package:a_de_adote/app/core/ui/widgets/standard_shimmer_effect.dart';
@@ -210,10 +214,15 @@ class _PetsPageState extends State<PetsPage> with BottomSheetPetFilter {
               onPressed: () async => context
                   .read<PetsController>()
                   .loadPetsFiltered(
-                      await setPetFilter(true, state.currentFilters)),
-              child: const Icon(
-                MaterialCommunityIcons.filter_variant,
-                color: ProjectColors.light,
+                      await setPetFilter(true, FiltersState.petCurrentFilters)),
+              child: Badge(
+                isLabelVisible: state.currentFilters != null,
+                backgroundColor: ProjectColors.primaryDark,
+                label: const Text('!'),
+                child: const Icon(
+                  MaterialCommunityIcons.filter_variant,
+                  color: ProjectColors.light,
+                ),
               ),
             );
           },

@@ -4,6 +4,7 @@ import 'package:a_de_adote/app/repositories/ong/ong_repository.dart';
 import 'package:bloc/bloc.dart';
 
 import '../../core/exceptions/firestore_exception.dart';
+import '../../core/ui/helpers/filters_state.dart';
 
 class OngsController extends Cubit<OngsState> {
   final OngRepository _ongRepository;
@@ -16,12 +17,12 @@ class OngsController extends Cubit<OngsState> {
     try {
       emit(state.copyWith(status: OngsStatus.loading));
       final listOngs = await _ongRepository.getOngs();
-      emit(
-        state.copyWith(
-          status: OngsStatus.loaded,
-          listOngs: listOngs,
-        ),
-      );
+      state.listOngs = listOngs;
+      if (FiltersState.ongCurrentFilters == null) {
+        emit(state.copyWith(status: OngsStatus.loaded));
+      } else {
+        loadOngsFiltered(FiltersState.ongCurrentFilters);
+      }
     } on FirestoreException catch (e) {
       emit(
         state.copyWith(
@@ -107,6 +108,7 @@ class OngsController extends Cubit<OngsState> {
   void clearOngsFiltered() {
     state.listOngsFiltered = [];
     state.currentFilters = null;
+    FiltersState.ongCurrentFilters = null;
     emit(
       state.copyWith(status: OngsStatus.loaded),
     );

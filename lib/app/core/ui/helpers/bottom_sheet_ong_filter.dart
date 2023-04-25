@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../styles/project_colors.dart';
 import '../styles/project_fonts.dart';
 import '../widgets/dropdown_municipio_ong/dropdown_municipio_ong_router.dart';
+import 'filters_state.dart';
 
 mixin BottomSheetOngFilter<T extends StatefulWidget> on State<T> {
   final ValueNotifier<String?> _municipio = ValueNotifier('Todos');
@@ -99,6 +100,7 @@ mixin BottomSheetOngFilter<T extends StatefulWidget> on State<T> {
                       onPressed: () {
                         _municipio.value = 'Todos';
                         filters = null;
+                        FiltersState.ongCurrentFilters = null;
                         Navigator.of(context).pop();
                       },
                       style: ElevatedButton.styleFrom(
@@ -127,7 +129,7 @@ mixin BottomSheetOngFilter<T extends StatefulWidget> on State<T> {
                         filters = {
                           'municipio': _municipio.value,
                         };
-
+                        FiltersState.ongCurrentFilters = filters;
                         Navigator.of(context).pop();
                       },
                       style: ElevatedButton.styleFrom(

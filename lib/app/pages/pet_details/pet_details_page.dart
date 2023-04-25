@@ -387,10 +387,13 @@ class _PetDetailsPageState extends State<PetDetailsPage>
                               SizedBox(
                                 width: 5,
                               ),
-                              Icon(
-                                MaterialCommunityIcons.whatsapp,
-                                size: 24,
-                                color: ProjectColors.light,
+                              Padding(
+                                padding: EdgeInsets.only(bottom: 3),
+                                child: Icon(
+                                  MaterialCommunityIcons.whatsapp,
+                                  size: 24,
+                                  color: ProjectColors.light,
+                                ),
                               ),
                             ],
                           ),

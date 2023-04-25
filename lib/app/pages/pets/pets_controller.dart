@@ -1,3 +1,4 @@
+import 'package:a_de_adote/app/core/ui/helpers/filters_state.dart';
 import 'package:a_de_adote/app/models/pet_model.dart';
 import 'package:a_de_adote/app/pages/pets/pets_state.dart';
 import 'package:a_de_adote/app/repositories/pet/pet_repository.dart';
@@ -15,12 +16,12 @@ class PetsController extends Cubit<PetsState> {
     try {
       emit(state.copyWith(status: PetsStatus.loading));
       final listPets = await _petRepository.getPets();
-      emit(
-        state.copyWith(
-          status: PetsStatus.loaded,
-          listPets: listPets,
-        ),
-      );
+      state.listPets = listPets;
+      if (FiltersState.petCurrentFilters == null) {
+        emit(state.copyWith(status: PetsStatus.loaded));
+      } else {
+        loadPetsFiltered(FiltersState.petCurrentFilters);
+      }
     } on FirestoreException catch (e) {
       emit(
         state.copyWith(
@@ -158,6 +159,7 @@ class PetsController extends Cubit<PetsState> {
   void clearPetsFiltered() {
     state.listPetsFiltered = [];
     state.currentFilters = null;
+    FiltersState.petCurrentFilters = null;
     emit(
       state.copyWith(status: PetsStatus.loaded),
     );
