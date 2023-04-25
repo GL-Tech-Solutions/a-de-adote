@@ -14,6 +14,7 @@ enum OngsStatus {
   error,
 }
 
+// ignore: must_be_immutable
 class OngsState extends Equatable {
   final OngsStatus status;
   List<OngModel> listOngs;

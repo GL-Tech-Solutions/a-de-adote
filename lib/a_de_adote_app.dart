@@ -1,6 +1,5 @@
 import 'package:a_de_adote/app/core/provider/application_binding.dart';
 import 'package:a_de_adote/app/core/ui/theme/theme_config.dart';
-import 'package:a_de_adote/app/pages/favorite_pets/favorite_pets_page.dart';
 import 'package:a_de_adote/app/pages/favorite_pets/favorite_pets_router.dart';
 import 'package:a_de_adote/app/pages/initial/initial_page_check.dart';
 import 'package:a_de_adote/app/pages/ong_profile/ong_profile_page.dart';

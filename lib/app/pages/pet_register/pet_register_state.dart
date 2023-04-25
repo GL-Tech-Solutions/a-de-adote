@@ -15,6 +15,7 @@ enum PetRegisterStatus {
   error,
 }
 
+// ignore: must_be_immutable
 class PetRegisterState extends Equatable {
   final PetRegisterStatus status;
   File? image;

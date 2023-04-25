@@ -14,6 +14,7 @@ enum OngAnimalStatus {
   error,
 }
 
+// ignore: must_be_immutable
 class OngAnimalsState extends Equatable {
   final OngAnimalStatus status;
   List<PetModel> listPets;

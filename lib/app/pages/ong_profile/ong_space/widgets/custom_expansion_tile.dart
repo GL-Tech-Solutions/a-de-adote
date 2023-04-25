@@ -2,6 +2,7 @@ import 'package:a_de_adote/app/core/ui/styles/project_colors.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_fonts.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class CustomExpansionTile extends StatefulWidget {
   final bool isOng;
   final String title;
