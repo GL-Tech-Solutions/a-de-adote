@@ -7,12 +7,14 @@ import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
 class OngAnimalCard extends StatelessWidget {
   final PetModel pet;
-  Function() editMethod;
-  Function() deleteMethod;
+  final Function() onTap;
+  final Function() editMethod;
+  final Function() deleteMethod;
 
-  OngAnimalCard({
+  const OngAnimalCard({
     super.key,
     required this.pet,
+    required this.onTap,
     required this.editMethod,
     required this.deleteMethod,
   });
@@ -23,7 +25,7 @@ class OngAnimalCard extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: InkWell(
         borderRadius: BorderRadius.circular(12),
-        onTap: () {},
+        onTap: onTap,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

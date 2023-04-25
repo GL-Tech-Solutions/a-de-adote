@@ -69,7 +69,7 @@ class _PetEditPageState extends State<PetEditPage> with BottomSheetImageSource {
         listener: (context, state) {
           state.status.matchAny(
             any: () => null,
-            petUpdated: () => Navigator.of(context).pop(),
+            petUpdated: () => Navigator.pop(context, petModel),
             error: () => ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(state.errorMessage ?? ''),
@@ -401,6 +401,7 @@ class _PetEditPageState extends State<PetEditPage> with BottomSheetImageSource {
                                         },
                                         descricao: _sobre.text,
                                       );
+                                      petModel = pet;
                                       context
                                           .read<PetEditController>()
                                           .updatePet(pet, state.image);

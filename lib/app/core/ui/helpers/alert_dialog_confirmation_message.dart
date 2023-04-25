@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
 mixin AlertDialogConfirmationMessage<T extends StatefulWidget> on State<T> {
-  Future<bool?> confimAction(String message) async {
+  Future<bool?> confirmAction(String message) async {
     bool? confirm;
     await showDialog(
       context: context,

@@ -6,6 +6,7 @@ import 'package:a_de_adote/app/core/ui/widgets/standard_shimmer_effect.dart';
 import 'package:a_de_adote/app/core/ui/widgets/standard_sliver_appbar.dart';
 import 'package:a_de_adote/app/core/ui/widgets/standard_sliver_search_bar.dart';
 import 'package:a_de_adote/app/pages/pet_details/pet_details_page.dart';
+import 'package:a_de_adote/app/pages/pet_details/pet_details_router.dart';
 import 'package:a_de_adote/app/pages/pets/pets_controller.dart';
 import 'package:a_de_adote/app/pages/pets/pets_state.dart';
 import 'package:a_de_adote/app/pages/pets/widgets/pet_card.dart';
@@ -174,13 +175,14 @@ class _PetsPageState extends State<PetsPage> with BottomSheetPetFilter {
                                         const Duration(milliseconds: 500),
                                     transitionType:
                                         ContainerTransitionType.fade,
-                                    openBuilder: (context, _) => PetDetailsPage(
+                                    openBuilder: (context, _) =>
+                                        PetDetailsRouter(
                                       pet: state.listPetsFiltered.isNotEmpty
                                           ? state.listPetsFiltered[index]
                                           : state.listPetsSearched.isNotEmpty
                                               ? state.listPetsSearched[index]
                                               : state.listPets[index],
-                                    ),
+                                    ).page,
                                     closedBuilder:
                                         (context, VoidCallback openContainer) =>
                                             PetCard(
