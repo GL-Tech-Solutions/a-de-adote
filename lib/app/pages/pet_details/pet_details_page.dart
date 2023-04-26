@@ -375,7 +375,7 @@ class _PetDetailsPageState extends State<PetDetailsPage>
                                   await WhatsappLaunchService.openWhatsApp(
                                       ong.whatsapp!
                                           .replaceAll(RegExp(r'[^0-9]'), ''),
-                                      'Olá! Vim pelo app A de Adote. Adorei o _*${state.pet!.nome}*_ e gostaria de saber mais detalhes sobre ele.');
+                                      'Olá! Vim pelo app A de Adote. Adorei o(a) _*${state.pet!.nome}*_ e gostaria de saber mais detalhes dele/dela.');
                                 } on FirestoreException catch (e) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
