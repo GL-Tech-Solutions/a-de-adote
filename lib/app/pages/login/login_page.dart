@@ -9,8 +9,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/ui/styles/project_colors.dart';
 import '../../core/ui/styles/project_fonts.dart';
 import '../../core/ui/widgets/form_button.dart';
-import 'package:a_de_adote/app/core/constantes/labels.dart';
-import 'package:a_de_adote/app/core/constantes/botoes.dart';
+import 'package:a_de_adote/app/core/constants/labels.dart';
+import 'package:a_de_adote/app/core/constants/buttons.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -135,7 +135,7 @@ class _LoginPageState extends State<LoginPage> {
                                           onPressed: () => Navigator.pushNamed(
                                               context, '/login/reset_password'),
                                           child: const Text(
-                                              Botoes.recuperarSenha,
+                                              Buttons.recuperarSenha,
                                               style: ProjectFonts.smallLight),
                                         ),
                                       ),
@@ -148,7 +148,7 @@ class _LoginPageState extends State<LoginPage> {
                                     builder: (context, state) {
                                       return FormButton(
                                         formKey: _formKey,
-                                        text: Botoes.entrar,
+                                        text: Buttons.entrar,
                                         action: () {
                                           bool valid = _formKey.currentState
                                                   ?.validate() ??

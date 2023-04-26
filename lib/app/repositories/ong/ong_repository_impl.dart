@@ -1,5 +1,5 @@
 import 'dart:developer';
-import 'package:a_de_adote/app/core/constantes/labels.dart';
+import 'package:a_de_adote/app/core/constants/labels.dart';
 import 'package:a_de_adote/app/repositories/database/db_firestore.dart';
 import 'package:a_de_adote/app/services/auth_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

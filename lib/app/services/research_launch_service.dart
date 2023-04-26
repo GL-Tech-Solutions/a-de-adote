@@ -1,5 +1,4 @@
 import 'package:url_launcher/url_launcher.dart';
-
 import '../core/exceptions/launch_url_exception.dart';
 
 class ResearchLaunchService {
@@ -11,18 +10,9 @@ class ResearchLaunchService {
     if (await canLaunchUrl(urlAndroid)) {
       await launchUrl(
         urlAndroid,
-        //mode: LaunchMode.externalApplication,
       );
     } else {
       throw LaunchUrlException('Não foi possível carregar o WhatsApp.');
     }
-    /*try {
-      await launchUrl(
-        urlAndroid,
-        mode: LaunchMode.externalNonBrowserApplication,
-      );
-    } on Exception catch (e) {
-      throw LaunchUrlException(e.toString());
-    }*/
   }
 }

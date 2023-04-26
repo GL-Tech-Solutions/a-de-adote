@@ -1,5 +1,5 @@
-import 'package:a_de_adote/app/core/constantes/botoes.dart';
-import 'package:a_de_adote/app/core/constantes/labels.dart';
+import 'package:a_de_adote/app/core/constants/buttons.dart';
+import 'package:a_de_adote/app/core/constants/labels.dart';
 import 'package:a_de_adote/app/core/extensions/mask_formatters.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -308,7 +308,7 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
                           ),
                           FormButton(
                             formKey: _formKey,
-                            text: Botoes.proximo,
+                            text: Buttons.proximo,
                             action: salvar,
                           ),
                         ],

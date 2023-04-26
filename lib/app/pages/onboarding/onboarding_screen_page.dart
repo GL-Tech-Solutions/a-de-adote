@@ -1,10 +1,10 @@
-import 'package:a_de_adote/app/core/constantes/botoes.dart';
 import 'package:a_de_adote/app/pages/onboarding/onboarding_screen_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../core/constantes/labels.dart';
+import '../../core/constants/buttons.dart';
+import '../../core/constants/labels.dart';
 import '../../core/ui/styles/project_colors.dart';
 import '../../core/ui/styles/project_fonts.dart';
 import '../../core/ui/widgets/animated_button.dart';
@@ -94,7 +94,7 @@ class _OnboardingScreenPageState extends State<OnboardingScreenPage> {
                           curve: Curves.ease,
                         ),
                         child: const Text(
-                          Botoes.pular,
+                          Buttons.pular,
                           style: ProjectFonts.smallLightBold,
                         ),
                       ),
@@ -242,7 +242,7 @@ class _OnboardingScreenPageState extends State<OnboardingScreenPage> {
                                   mainAxisSize: MainAxisSize.min,
                                   children: const [
                                     Text(
-                                      Botoes.proximo,
+                                      Buttons.proximo,
                                       style: ProjectFonts.pLightBold,
                                     ),
                                     SizedBox(

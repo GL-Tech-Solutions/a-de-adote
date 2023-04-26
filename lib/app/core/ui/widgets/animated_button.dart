@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../constantes/botoes.dart';
+import '../../constants/buttons.dart';
 import '../styles/project_colors.dart';
 import '../styles/project_fonts.dart';
 
@@ -63,7 +63,7 @@ class _AnimatedButtonState extends State<AnimatedButton>
             mainAxisAlignment: MainAxisAlignment.center,
             children: const [
               Text(
-                Botoes.vamosComecar,
+                Buttons.vamosComecar,
                 style: ProjectFonts.pLightBold,
               )
             ],

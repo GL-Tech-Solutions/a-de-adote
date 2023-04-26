@@ -9,8 +9,8 @@ import '../../../core/ui/styles/project_colors.dart';
 import '../../../core/ui/styles/project_fonts.dart';
 import '../../../core/ui/widgets/form_button.dart';
 import '../../../core/ui/widgets/standard_form_input.dart';
-import 'package:a_de_adote/app/core/constantes/labels.dart';
-import 'package:a_de_adote/app/core/constantes/botoes.dart';
+import 'package:a_de_adote/app/core/constants/labels.dart';
+import 'package:a_de_adote/app/core/constants/buttons.dart';
 
 class ONGCNPJFormPage extends StatefulWidget {
   const ONGCNPJFormPage({super.key});
@@ -120,7 +120,7 @@ class _ONGCNPJFormPageState extends State<ONGCNPJFormPage> {
                               ),
                               FormButton(
                                 formKey: _formKey,
-                                text: Botoes.proximo,
+                                text: Buttons.proximo,
                                 action: () {
                                   final valid =
                                       _formKey.currentState?.validate() ??

@@ -1,7 +1,6 @@
 class PetModel {
   final String? id;
-  final String?
-      ongId; //* Para faciliar em consultas futuras. Porém, talvez dá pra puxar a ONG responsável de acordo com o Parent Doc
+  final String? ongId;
   final String? ongNome;
   final String nome;
   final String idadeAproximada;

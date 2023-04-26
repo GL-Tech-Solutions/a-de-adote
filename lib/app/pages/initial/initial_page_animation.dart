@@ -1,4 +1,4 @@
-import 'package:a_de_adote/app/core/constantes/botoes.dart';
+import 'package:a_de_adote/app/core/constants/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../core/ui/styles/project_colors.dart';
@@ -90,7 +90,7 @@ class InitialPageAnimation extends StatelessWidget {
                                   ),
                                   SizedBox(width: 5),
                                   Text(
-                                    Botoes.souAdotante,
+                                    Buttons.souAdotante,
                                     style: ProjectFonts.pLightBold,
                                   ),
                                 ],
@@ -128,7 +128,7 @@ class InitialPageAnimation extends StatelessWidget {
                                   ),
                                   SizedBox(width: 5),
                                   Text(
-                                    Botoes.souOng,
+                                    Buttons.souOng,
                                     style: ProjectFonts.pLightBold,
                                   ),
                                 ],

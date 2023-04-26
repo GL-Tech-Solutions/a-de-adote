@@ -1,4 +1,4 @@
-class Botoes {
+class Buttons {
   static const vamosComecar = "VAMOS COMEÇAR";
   static const souAdotante = "SOU ADOTANTE";
   static const souOng = "SOU UMA ONG";

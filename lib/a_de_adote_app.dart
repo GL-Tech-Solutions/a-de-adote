@@ -9,7 +9,7 @@ import 'package:a_de_adote/app/pages/pets/pets_router.dart';
 import 'package:a_de_adote/app/pages/reset_password/reset_password_router.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'app/core/constantes/labels.dart';
+import 'app/core/constants/labels.dart';
 import 'app/pages/home/main_page.dart';
 import 'app/pages/login/login_router.dart';
 import 'app/pages/onboarding/onboarding_screen_router.dart';

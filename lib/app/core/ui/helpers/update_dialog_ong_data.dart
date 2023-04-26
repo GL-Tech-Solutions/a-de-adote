@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:validatorless/validatorless.dart';
 import '../../../models/ong_model.dart';
-import '../../constantes/labels.dart';
+import '../../constants/labels.dart';
 import '../widgets/standard_form_input.dart';
 
 mixin UpdateDialogOngData<T extends StatefulWidget> on State<T> {

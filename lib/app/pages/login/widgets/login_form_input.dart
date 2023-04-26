@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../core/constantes/labels.dart';
+import '../../../core/constants/labels.dart';
 import '../../../core/ui/styles/project_colors.dart';
 import '../../../core/ui/styles/project_fonts.dart';
 

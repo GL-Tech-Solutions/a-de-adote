@@ -5,8 +5,8 @@ import 'package:a_de_adote/app/pages/reset_password/reset_password_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:a_de_adote/app/core/constantes/labels.dart';
-import 'package:a_de_adote/app/core/constantes/botoes.dart';
+import 'package:a_de_adote/app/core/constants/labels.dart';
+import 'package:a_de_adote/app/core/constants/buttons.dart';
 import '../../core/ui/styles/project_colors.dart';
 import '../../core/ui/styles/project_fonts.dart';
 import '../../core/ui/widgets/form_button.dart';
@@ -122,7 +122,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                               ),
                               FormButton(
                                 formKey: _formKey,
-                                text: Botoes.enviar,
+                                text: Buttons.enviar,
                                 action: () {
                                   final valid =
                                       _formKey.currentState?.validate() ??

@@ -90,7 +90,7 @@ class StandardSearchBar extends StatelessWidget {
                     height: 50,
                     child: ListTile(
                       title: Text(
-                        options.elementAt(index), //.nome,
+                        options.elementAt(index),
                         style: ProjectFonts.smallSecundaryDark.copyWith(
                           color: ProjectColors.darkLight,
                         ),

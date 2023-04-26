@@ -14,13 +14,5 @@ class WhatsappLaunchService {
     } else {
       throw LaunchUrlException('Não foi possível carregar o WhatsApp.');
     }
-    /*try {
-      await launchUrl(
-        urlAndroid,
-        mode: LaunchMode.externalNonBrowserApplication,
-      );
-    } on Exception catch (e) {
-      throw LaunchUrlException(e.toString());
-    }*/
   }
 }

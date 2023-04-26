@@ -4,7 +4,7 @@ import 'package:a_de_adote/app/core/ui/styles/project_colors.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_fonts.dart';
 import 'package:a_de_adote/app/core/ui/widgets/standard_dropdown.dart';
 import 'package:flutter/material.dart';
-import '../../constantes/labels.dart';
+import '../../constants/labels.dart';
 import '../widgets/standard_form_input.dart';
 
 mixin UpdateDialogOngPix<T extends StatefulWidget> on State<T> {
