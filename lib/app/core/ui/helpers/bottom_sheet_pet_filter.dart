@@ -1,5 +1,4 @@
 import 'package:a_de_adote/app/core/ui/helpers/filters_state.dart';
-import 'package:a_de_adote/app/pages/home/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:stepper_counter_swipe/stepper_counter_swipe.dart';
 import '../styles/project_colors.dart';

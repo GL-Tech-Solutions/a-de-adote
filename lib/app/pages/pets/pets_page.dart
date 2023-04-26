@@ -1,9 +1,6 @@
-import 'dart:developer';
-
 import 'package:a_de_adote/app/core/ui/helpers/bottom_sheet_pet_filter.dart';
 import 'package:a_de_adote/app/core/ui/helpers/filters_state.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_colors.dart';
-import 'package:a_de_adote/app/core/ui/styles/project_fonts.dart';
 import 'package:a_de_adote/app/core/ui/widgets/container_research.dart';
 import 'package:a_de_adote/app/core/ui/widgets/standard_drawer.dart';
 import 'package:a_de_adote/app/core/ui/widgets/standard_shimmer_effect.dart';
@@ -27,7 +24,7 @@ class PetsPage extends StatefulWidget {
 
 class _PetsPageState extends State<PetsPage> with BottomSheetPetFilter {
   final ValueNotifier<bool> _isSearchBar = ValueNotifier(false);
-  bool _isLoading = false;
+  bool _isLoading = true;
 
   @override
   void initState() {

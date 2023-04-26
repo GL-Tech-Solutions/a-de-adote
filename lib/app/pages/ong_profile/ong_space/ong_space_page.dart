@@ -30,7 +30,7 @@ class _OngSpacePageState extends State<OngSpacePage>
         UpdateDialogOngData,
         UpdateDialogOngDescription,
         UpdateDialogOngPix {
-  bool _isLoading = false;
+  bool _isLoading = true;
 
   @override
   void initState() {

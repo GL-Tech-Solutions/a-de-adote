@@ -76,7 +76,7 @@ class PetsController extends Cubit<PetsState> {
     List<PetModel> newListFiltered = currentList.where(
       (pet) {
         if (filters['ong'] != 'Todas') {
-          return pet.ongNome == filters['ong'];
+          return pet.ongId == filters['ong'];
         }
         return true;
       },

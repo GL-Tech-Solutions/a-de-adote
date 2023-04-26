@@ -26,6 +26,17 @@ class OngRepositoryImpl implements OngRepository {
   }
 
   @override
+  Future<bool> verifyCnpjDuplicity(String cnpj) async {
+    final snapshot =
+        await db.collection('ong').where('cnpj', isEqualTo: cnpj).get();
+    if (snapshot.docs.isEmpty) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  @override
   Future<OngModel> getOngDataFromWeb(String cnpj) async {
     try {
       final result = await dio.get('https://receitaws.com.br/v1/cnpj/$cnpj');

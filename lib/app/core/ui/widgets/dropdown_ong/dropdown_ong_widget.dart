@@ -77,7 +77,7 @@ class _DropdownOngWidgetState extends State<DropdownOngWidget> {
           List<DropdownMenuItem<String>>? items = state.listOngs
               .map(
                 (ong) => DropdownMenuItem(
-                  value: ong.fantasia,
+                  value: ong.id,
                   child: Text(
                     ong.fantasia,
                     style: ProjectFonts.smallSecundaryDark,

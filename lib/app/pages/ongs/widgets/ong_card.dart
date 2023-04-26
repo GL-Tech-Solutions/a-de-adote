@@ -89,7 +89,7 @@ class OngCard extends StatelessWidget {
                         child: ElevatedButton(
                           onPressed: () {
                             final filter = {
-                              'ong': ong.fantasia,
+                              'ong': ong.id,
                               'dog': false,
                               'cat': false,
                               'bird': false,

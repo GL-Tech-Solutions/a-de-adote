@@ -37,16 +37,27 @@ class _PetEditPageState extends State<PetEditPage> with BottomSheetImageSource {
   final ValueNotifier<bool> _vacina3 = ValueNotifier(false);
   final _sobre = TextEditingController();
 
+  final ScrollController _scrollController = ScrollController();
+
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      _scrollController.jumpTo(37);
+
       petModel = ModalRoute.of(context)?.settings.arguments as PetModel;
+      String initialUnidadeIdadeValue =
+          petModel!.idadeAproximada.substring(2).replaceFirst(' ', '');
+      if (initialUnidadeIdadeValue == 'ano') {
+        initialUnidadeIdadeValue = 'anos';
+      } else if (initialUnidadeIdadeValue == 'mês') {
+        initialUnidadeIdadeValue = 'meses';
+      }
+
       _nome.text = petModel!.nome;
       _especie.value = petModel!.especie;
       _porte.value = petModel!.porte;
-      _unidadeIdade.value =
-          petModel!.idadeAproximada.substring(2).replaceFirst(' ', '');
+      _unidadeIdade.value = initialUnidadeIdadeValue;
       _sexo.value = petModel!.sexo;
       _idadeAproximada.text =
           petModel!.idadeAproximada.replaceAll(RegExp(r'[^0-9]'), '');
@@ -85,6 +96,7 @@ class _PetEditPageState extends State<PetEditPage> with BottomSheetImageSource {
               child: SingleChildScrollView(
                 reverse: true,
                 physics: const ClampingScrollPhysics(),
+                controller: _scrollController,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30.0),
                   child: Column(
@@ -177,6 +189,7 @@ class _PetEditPageState extends State<PetEditPage> with BottomSheetImageSource {
                             StandardFormInput(
                               controller: _nome,
                               labelText: 'Nome',
+                              maxLength: 30,
                               validator: Validatorless.required(
                                 'Por favor, insira um nome!',
                               ),
@@ -258,6 +271,8 @@ class _PetEditPageState extends State<PetEditPage> with BottomSheetImageSource {
                                   child: StandardFormInput(
                                     controller: _idadeAproximada,
                                     labelText: 'Idade aproximada',
+                                    inputType: TextInputType.number,
+                                    maxLength: 2,
                                     validator: Validatorless.required(
                                       'Insira uma idade!',
                                     ),
@@ -315,7 +330,7 @@ class _PetEditPageState extends State<PetEditPage> with BottomSheetImageSource {
                                     builder: (BuildContext context, bool value,
                                         Widget? child) {
                                       return CheckboxRow(
-                                        labelText: 'Vacina 1',
+                                        labelText: 'Antirrábica',
                                         value: value,
                                         checkboxCallback: (state) {
                                           _vacina1.value = state!;
@@ -340,9 +355,8 @@ class _PetEditPageState extends State<PetEditPage> with BottomSheetImageSource {
                                     builder: (BuildContext context, bool value,
                                         Widget? child) {
                                       return CheckboxRow(
-                                        labelText: 'Vacina 2',
+                                        labelText: 'V3 ou V8',
                                         value: value,
-                                        gap: 3,
                                         checkboxCallback: (state) {
                                           _vacina2.value = state!;
                                         },
@@ -354,7 +368,7 @@ class _PetEditPageState extends State<PetEditPage> with BottomSheetImageSource {
                                     builder: (BuildContext context, bool value,
                                         Widget? child) {
                                       return CheckboxRow(
-                                        labelText: 'Vacina 3',
+                                        labelText: 'V5 ou V10',
                                         value: value,
                                         checkboxCallback: (state) {
                                           _vacina3.value = state!;
@@ -371,6 +385,7 @@ class _PetEditPageState extends State<PetEditPage> with BottomSheetImageSource {
                             ExpandedFormInput(
                               controller: _sobre,
                               labelText: 'Sobre',
+                              maxLength: 400,
                             ),
                             const SizedBox(
                               height: 15,
@@ -385,10 +400,22 @@ class _PetEditPageState extends State<PetEditPage> with BottomSheetImageSource {
                                         (_formKey.currentState?.validate() ??
                                             false);
                                     if (valid) {
+                                      String unidadeIdadeValue;
+                                      if (_idadeAproximada.text == '1' ||
+                                          _idadeAproximada.text == '01') {
+                                        unidadeIdadeValue =
+                                            _unidadeIdade.value == 'meses'
+                                                ? 'mês'
+                                                : 'ano';
+                                      } else {
+                                        unidadeIdadeValue =
+                                            _unidadeIdade.value ?? '';
+                                      }
+
                                       final PetModel pet = petModel!.copyWith(
                                         nome: _nome.text,
                                         idadeAproximada:
-                                            '${_idadeAproximada.text} ${_unidadeIdade.value}',
+                                            '${_idadeAproximada.text} $unidadeIdadeValue',
                                         especie: _especie.value!,
                                         sexo: _sexo.value!,
                                         porte: _porte.value!,

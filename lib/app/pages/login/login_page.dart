@@ -98,7 +98,7 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 45),
+                            padding: const EdgeInsets.symmetric(horizontal: 30),
                             child: Form(
                               key: _formKey,
                               child: Column(
@@ -108,6 +108,7 @@ class _LoginPageState extends State<LoginPage> {
                                     type: 'login',
                                     controller: _email,
                                     labelText: Labels.email,
+                                    maxLength: 256,
                                   ),
                                   const SizedBox(
                                     height: 15,
@@ -116,6 +117,7 @@ class _LoginPageState extends State<LoginPage> {
                                     type: 'senha',
                                     controller: _senha,
                                     labelText: Labels.senha,
+                                    maxLength: 50,
                                   ),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.end,

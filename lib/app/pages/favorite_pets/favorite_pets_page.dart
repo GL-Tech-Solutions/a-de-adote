@@ -22,7 +22,7 @@ class FavoritePetsPage extends StatefulWidget {
 }
 
 class _FavoritePetsPageState extends State<FavoritePetsPage> {
-  bool _isLoading = false;
+  bool _isLoading = true;
 
   @override
   void initState() {

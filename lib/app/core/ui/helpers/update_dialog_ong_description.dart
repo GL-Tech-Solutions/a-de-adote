@@ -41,6 +41,7 @@ mixin UpdateDialogOngDescription<T extends StatefulWidget> on State<T> {
             child: ExpandedFormInput(
               controller: _sobre,
               labelText: 'Sobre',
+              maxLength: 600,
               validator:
                   Validatorless.required('Por favor, insira uma descrição.'),
             ),

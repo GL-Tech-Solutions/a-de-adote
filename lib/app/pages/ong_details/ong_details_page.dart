@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:a_de_adote/app/core/extensions/capitalize_only_first_letter_extension.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_fonts.dart';
 import 'package:a_de_adote/app/core/ui/widgets/standard_drawer.dart';
@@ -285,7 +284,7 @@ class OngDetailsPage extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 10)),
                   onPressed: () {
                     final filter = {
-                      'ong': ong.fantasia,
+                      'ong': ong.id,
                       'dog': false,
                       'cat': false,
                       'bird': false,
@@ -299,8 +298,13 @@ class OngDetailsPage extends StatelessWidget {
                     };
 
                     Navigator.of(context).pop();
-                    FiltersState.petCurrentFilters = filter;
-                    context.read<TabsState>().setTabIndex(0);
+                    Timer(
+                      const Duration(milliseconds: 500),
+                      () {
+                        FiltersState.petCurrentFilters = filter;
+                        context.read<TabsState>().setTabIndex(0);
+                      },
+                    );
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,

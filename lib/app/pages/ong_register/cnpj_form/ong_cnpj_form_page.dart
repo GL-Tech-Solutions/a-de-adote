@@ -128,10 +128,7 @@ class _ONGCNPJFormPageState extends State<ONGCNPJFormPage> {
                                   if (valid) {
                                     context
                                         .read<OngCnpjFormController>()
-                                        .loadOng(
-                                          _cnpj.text.replaceAll(
-                                              RegExp(r'[^0-9]'), ''),
-                                        );
+                                        .loadOng(_cnpj.text);
                                   }
                                 },
                                 isLoading: _isLoading,

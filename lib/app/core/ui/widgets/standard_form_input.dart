@@ -7,6 +7,7 @@ class StandardFormInput extends StatefulWidget {
   final TextEditingController controller;
   final String labelText;
   final String? hintText;
+  final int? maxLength;
   final bool? fullSelectionText;
   final Widget? trailing;
   final List<TextInputFormatter>? mask;
@@ -19,6 +20,7 @@ class StandardFormInput extends StatefulWidget {
     required this.controller,
     required this.labelText,
     this.hintText,
+    this.maxLength,
     this.fullSelectionText,
     this.trailing,
     this.mask,
@@ -31,7 +33,6 @@ class StandardFormInput extends StatefulWidget {
   State<StandardFormInput> createState() => _StandardFormInputState();
 }
 
-// TODO Corrigir o a função do Focus selecionar todo o texto. Atualmente isso faz o scroll não ir até ele.
 class _StandardFormInputState extends State<StandardFormInput> {
   final _focusNode = FocusNode();
 
@@ -56,6 +57,7 @@ class _StandardFormInputState extends State<StandardFormInput> {
         controller: widget.controller,
         focusNode: _focusNode,
         style: ProjectFonts.pLight,
+        maxLength: widget.maxLength,
         decoration: InputDecoration(
             focusedBorder: const OutlineInputBorder(
               borderRadius: BorderRadius.all(
@@ -83,6 +85,7 @@ class _StandardFormInputState extends State<StandardFormInput> {
             ),
             filled: true,
             fillColor: ProjectColors.light.withOpacity(0.2),
+            counterText: '',
             hintText: widget.hintText,
             hintStyle: const TextStyle(
               color: ProjectColors.secondary,

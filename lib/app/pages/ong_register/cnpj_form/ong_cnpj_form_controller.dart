@@ -13,8 +13,21 @@ class OngCnpjFormController extends Cubit<OngCnpjFormState> {
   Future<void> loadOng(String cnpj) async {
     try {
       emit(state.copyWith(status: OngCnpjFormStatus.loading));
-      final ong = await _ongRepository.getOngDataFromWeb(cnpj);
-      emit(state.copyWith(status: OngCnpjFormStatus.loaded, ong: ong));
+      bool cnpjNotExists = await _ongRepository.verifyCnpjDuplicity(cnpj);
+
+      if (cnpjNotExists) {
+        final ong = await _ongRepository.getOngDataFromWeb(
+          cnpj.replaceAll(RegExp(r'[^0-9]'), ''),
+        );
+        emit(state.copyWith(status: OngCnpjFormStatus.loaded, ong: ong));
+      } else {
+        emit(
+          state.copyWith(
+            status: OngCnpjFormStatus.error,
+            errorMessage: 'CNPJ já cadastrado!',
+          ),
+        );
+      }
     } on Exception catch (e, s) {
       log('Erro ao buscar CNPJ', error: e, stackTrace: s);
       emit(

@@ -115,6 +115,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                 type: 'login',
                                 controller: _email,
                                 labelText: Labels.email,
+                                maxLength: 256,
                               ),
                               const SizedBox(
                                 height: 15,

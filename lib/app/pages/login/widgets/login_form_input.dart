@@ -7,6 +7,7 @@ class LoginFormInput extends StatefulWidget {
   final String type;
   final TextEditingController controller;
   final String labelText;
+  final int? maxLength;
   final bool? fullSelectionText;
   final String? Function(String?)? validator;
 
@@ -15,6 +16,7 @@ class LoginFormInput extends StatefulWidget {
     required this.type,
     required this.controller,
     required this.labelText,
+    this.maxLength,
     this.fullSelectionText,
     this.validator,
   });
@@ -56,6 +58,7 @@ class _LoginFormInputState extends State<LoginFormInput> {
           controller: widget.controller,
           focusNode: _focusNode,
           style: ProjectFonts.pLight,
+          maxLength: widget.maxLength,
           decoration: InputDecoration(
             suffixIcon: widget.type == 'login' || widget.type == 'signup_senha'
                 ? null
@@ -97,6 +100,7 @@ class _LoginFormInputState extends State<LoginFormInput> {
             ),
             filled: true,
             fillColor: ProjectColors.light.withOpacity(0.2),
+            counterText: '',
             labelText: widget.labelText,
             labelStyle: ProjectFonts.pLight,
             errorStyle: const TextStyle(

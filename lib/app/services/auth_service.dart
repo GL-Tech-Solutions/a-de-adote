@@ -22,7 +22,6 @@ class AuthService extends ChangeNotifier {
 
   _getUser() {
     ongUser = _auth.currentUser;
-    log(ongUser?.uid ?? 'Não há usuário');
     notifyListeners();
   }
 

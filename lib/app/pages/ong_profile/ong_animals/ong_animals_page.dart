@@ -21,7 +21,7 @@ class OngAnimalsPage extends StatefulWidget {
 
 class _OngAnimalsPageState extends State<OngAnimalsPage>
     with AlertDialogConfirmationMessage, BottomSheetPetFilter {
-  bool _isLoading = false;
+  bool _isLoading = true;
 
   @override
   void initState() {

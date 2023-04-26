@@ -7,6 +7,7 @@ class ExpandedFormInput extends StatefulWidget {
   final TextEditingController controller;
   final String labelText;
   final String? hintText;
+  final int? maxLength;
   final bool? fullSelectionText;
   final List<TextInputFormatter>? mask;
   final TextInputType? inputType;
@@ -18,6 +19,7 @@ class ExpandedFormInput extends StatefulWidget {
     required this.controller,
     required this.labelText,
     this.hintText,
+    this.maxLength,
     this.fullSelectionText,
     this.mask,
     this.inputType,
@@ -56,9 +58,11 @@ class _ExpandedFormInputState extends State<ExpandedFormInput> {
         controller: widget.controller,
         focusNode: _focusNode,
         style: ProjectFonts.smallLight,
+        maxLength: widget.maxLength,
         maxLines: null,
         expands: true,
         decoration: InputDecoration(
+          counterText: '',
           focusedBorder: const OutlineInputBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(6),

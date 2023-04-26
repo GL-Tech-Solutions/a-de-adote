@@ -145,6 +145,7 @@ class _ONGSignUpFormPageState extends State<ONGSignUpFormPage> {
                                 type: 'login',
                                 controller: _email,
                                 labelText: 'E-mail',
+                                maxLength: 256,
                                 fullSelectionText: true,
                               ),
                               const SizedBox(
@@ -154,6 +155,7 @@ class _ONGSignUpFormPageState extends State<ONGSignUpFormPage> {
                                 type: 'signup_senha',
                                 controller: _senha,
                                 labelText: 'Senha',
+                                maxLength: 50,
                               ),
                               const SizedBox(
                                 height: 15,
@@ -162,6 +164,7 @@ class _ONGSignUpFormPageState extends State<ONGSignUpFormPage> {
                                 type: 'signup_senha',
                                 controller: _confirmarSenha,
                                 labelText: 'Confirmar Senha',
+                                maxLength: 50,
                                 validator: (value) {
                                   if (value != _senha.text) {
                                     return 'Senhas não conferem!';

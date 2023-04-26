@@ -38,7 +38,16 @@ class _PetRegisterPageState extends State<PetRegisterPage>
   final ValueNotifier<bool> _vacina3 = ValueNotifier(false);
   final _sobre = TextEditingController();
 
-  //TODO Alterar o salvamento de "anos" para o singular quando for apenas 1
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      _scrollController.jumpTo(37);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,6 +73,7 @@ class _PetRegisterPageState extends State<PetRegisterPage>
               child: SingleChildScrollView(
                 reverse: true,
                 physics: const ClampingScrollPhysics(),
+                controller: _scrollController,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30.0),
                   child: Column(
@@ -155,6 +165,7 @@ class _PetRegisterPageState extends State<PetRegisterPage>
                             StandardFormInput(
                               controller: _nome,
                               labelText: 'Nome',
+                              maxLength: 30,
                               validator: Validatorless.required(
                                 'Por favor, insira um nome!',
                               ),
@@ -236,6 +247,8 @@ class _PetRegisterPageState extends State<PetRegisterPage>
                                   child: StandardFormInput(
                                     controller: _idadeAproximada,
                                     labelText: 'Idade aproximada',
+                                    inputType: TextInputType.number,
+                                    maxLength: 2,
                                     validator: Validatorless.required(
                                       'Insira uma idade!',
                                     ),
@@ -293,7 +306,7 @@ class _PetRegisterPageState extends State<PetRegisterPage>
                                     builder: (BuildContext context, bool value,
                                         Widget? child) {
                                       return CheckboxRow(
-                                        labelText: 'Vacina 1',
+                                        labelText: 'Antirrábica',
                                         value: value,
                                         checkboxCallback: (state) {
                                           _vacina1.value = state!;
@@ -318,9 +331,9 @@ class _PetRegisterPageState extends State<PetRegisterPage>
                                     builder: (BuildContext context, bool value,
                                         Widget? child) {
                                       return CheckboxRow(
-                                        labelText: 'Vacina 2',
+                                        labelText: 'V3 ou V8',
                                         value: value,
-                                        gap: 3,
+                                        gap: 0,
                                         checkboxCallback: (state) {
                                           _vacina2.value = state!;
                                         },
@@ -332,7 +345,7 @@ class _PetRegisterPageState extends State<PetRegisterPage>
                                     builder: (BuildContext context, bool value,
                                         Widget? child) {
                                       return CheckboxRow(
-                                        labelText: 'Vacina 3',
+                                        labelText: 'V5 ou V10',
                                         value: value,
                                         checkboxCallback: (state) {
                                           _vacina3.value = state!;
@@ -349,6 +362,7 @@ class _PetRegisterPageState extends State<PetRegisterPage>
                             ExpandedFormInput(
                               controller: _sobre,
                               labelText: 'Sobre',
+                              maxLength: 400,
                             ),
                             const SizedBox(
                               height: 15,
@@ -368,10 +382,22 @@ class _PetRegisterPageState extends State<PetRegisterPage>
                                       showAlert('Por favor, insira uma foto.');
                                     }
                                     if (valid) {
+                                      String unidadeIdadeValue;
+                                      if (_idadeAproximada.text == '1' ||
+                                          _idadeAproximada.text == '01') {
+                                        unidadeIdadeValue =
+                                            _unidadeIdade.value == 'meses'
+                                                ? 'mês'
+                                                : 'ano';
+                                      } else {
+                                        unidadeIdadeValue =
+                                            _unidadeIdade.value ?? '';
+                                      }
+
                                       final PetModel pet = PetModel(
                                         nome: _nome.text,
                                         idadeAproximada:
-                                            '${_idadeAproximada.text} ${_unidadeIdade.value}',
+                                            '${_idadeAproximada.text} $unidadeIdadeValue',
                                         especie: _especie.value!,
                                         sexo: _sexo.value!,
                                         porte: _porte.value!,

@@ -271,39 +271,54 @@ class _PetDetailsPageState extends State<PetDetailsPage>
                               padding: EdgeInsets.symmetric(horizontal: 12),
                               child: Divider(),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 10,
-                                horizontal: 12,
+                            Visibility(
+                              visible: widget.pet.especie == 'Cachorro' ||
+                                  widget.pet.especie == 'Gato',
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 10,
+                                      horizontal: 12,
+                                    ),
+                                    child: Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Wrap(
+                                        spacing: 10,
+                                        runSpacing: 10,
+                                        children: [
+                                          InfoChip(
+                                              info: 'Castrado',
+                                              infoState: state.pet!.castrado),
+                                          InfoChip(
+                                              info: 'Antirrábica',
+                                              infoState: state
+                                                  .pet!.vacinas!['vacina1']),
+                                          InfoChip(
+                                              info: widget.pet.especie ==
+                                                      'Cachorro'
+                                                  ? 'V8'
+                                                  : 'V3',
+                                              infoState: state
+                                                  .pet!.vacinas!['vacina2']),
+                                          InfoChip(
+                                              info: widget.pet.especie ==
+                                                      'Cachorro'
+                                                  ? 'V10'
+                                                  : 'V5',
+                                              infoState: state
+                                                  .pet!.vacinas!['vacina3']),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  const Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 12),
+                                    child: Divider(),
+                                  ),
+                                ],
                               ),
-                              child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Wrap(
-                                  spacing: 10,
-                                  runSpacing: 10,
-                                  children: [
-                                    InfoChip(
-                                        info: 'Castrado',
-                                        infoState: state.pet!.castrado),
-                                    InfoChip(
-                                        info: 'Vacina 1',
-                                        infoState:
-                                            state.pet!.vacinas!['vacina1']),
-                                    InfoChip(
-                                        info: 'Vacina 2',
-                                        infoState:
-                                            state.pet!.vacinas!['vacina2']),
-                                    InfoChip(
-                                        info: 'Vacina 3',
-                                        infoState:
-                                            state.pet!.vacinas!['vacina3']),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            const Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 12),
-                              child: Divider(),
                             ),
                             Padding(
                               padding: const EdgeInsets.symmetric(
