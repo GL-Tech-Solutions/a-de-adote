@@ -12,6 +12,7 @@ class Buttons {
   static const cancelar = "CANCELAR";
   static const camera = "Câmera";
   static const galeria = "Galeria";
+  static const limparFiltro = "LIMPAR FILTRO";
   static const limparFiltros = "LIMPAR FILTROS";
   static const aplicar = "APLICAR";
   static const fechar = "FECHAR";
