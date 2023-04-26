@@ -3,18 +3,18 @@ class Labels {
   static const titulo = "A de Adote";
   //ONBOARDING SCREEN
   static const msg1Adotante =
-      "Esse é um texto para quem selecionou que é Adotante!";
+      "Amor de verdade não se compra, se encontra!";
   static const msg2Adotante =
-      "Esse é um texto para quem selecionou que é Adotante!";
+      "Se você acredita que  todo animal de rua merece um lar, adote!";
   static const msg3Adotante =
-      "Esse é um texto para quem selecionou que é Adotante!";
+      "Castração: Não adie esse ato de amor!";
 
-  static const msg1Ong = "Esse é um texto para quem selecionou que é ONG!";
-  static const msg2Ong = "Esse é um texto para quem selecionou que é ONG!";
-  static const msg3Ong = "Esse é um texto para quem selecionou que é ONG!";
+  static const msg1Ong = "Posse responsável: Para evitar devoluções ou abandono, as instituições devem adotar critérios rigorosos para entender sobre a rotina e intuito do adotante.";
+  static const msg2Ong = "Incentive a castração. Quem ama, cuida e castra!";
+  static const msg3Ong = "Posse responsável: Sempre mantenha a carteira de vacinação em dia.";
 
-  static const informativoAdotante = "Um texto feito para quem quer adotar";
-  static const informativoOng = "Um texto para elas, as ONGS!";
+  static const informativoAdotante = "Seja bem vindo, entre e encontre seu melhor amigo!";
+  static const informativoOng = "Seja bem vindo, vamos juntos aproximar melhores amigos!";
 
   //CNPJ FORM PAGE
   static const iniciar = "Vamos começar!";
