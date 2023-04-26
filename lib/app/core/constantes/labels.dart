@@ -14,7 +14,7 @@ class Labels {
   static const msg3Ong = "Posse responsável: Sempre mantenha a carteira de vacinação em dia.";
 
   static const informativoAdotante = "Seja bem vindo, entre e encontre seu melhor amigo!";
-  static const informativoOng = "Seja bem vindo, vamos juntos aproximar melhores amigos!";
+  static const informativoOng = "Seja bem vindo! Vamos juntos, aproximar melhores amigos!";
 
   //CNPJ FORM PAGE
   static const iniciar = "Vamos começar!";
