@@ -254,7 +254,7 @@ class _PetEditPageState extends State<PetEditPage> with BottomSheetImageSource {
                                           _sexo.value = selected;
                                         },
                                         validator: Validatorless.required(
-                                          'Válor inválido!',
+                                          'Valor inválido!',
                                         ),
                                       );
                                     },

@@ -47,8 +47,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
                   backgroundColor: ProjectColors.success,
-                  content: Text(
-                      'E-mail de redefinição de senha enviado com sucesso.'),
+                  content: Text(Labels.emailEnviado),
                 ),
               );
             },

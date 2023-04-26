@@ -12,7 +12,7 @@ class ResearchLaunchService {
         urlAndroid,
       );
     } else {
-      throw LaunchUrlException('Não foi possível carregar o WhatsApp.');
+      throw LaunchUrlException('Não foi possível carregar a página.');
     }
   }
 }

@@ -84,7 +84,7 @@ class OngAnimalCard extends StatelessWidget {
                                   ? MaterialCommunityIcons.cat
                                   : pet.especie == 'Pássaro'
                                       ? MaterialCommunityIcons.bird
-                                      : pet.especie == 'Outro'
+                                      : pet.especie == 'Outros'
                                           ? MaterialCommunityIcons.paw
                                           : MaterialCommunityIcons.paw,
                           size: 14,

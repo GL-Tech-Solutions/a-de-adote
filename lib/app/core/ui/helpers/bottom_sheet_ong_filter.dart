@@ -115,7 +115,7 @@ mixin BottomSheetOngFilter<T extends StatefulWidget> on State<T> {
                         ),
                       ),
                       child: const Text(
-                        'LIMPAR FILTRO',
+                        'LIMPAR FILTROS',
                         style: ProjectFonts.smallSecundaryDarkBold,
                       ),
                     ),
