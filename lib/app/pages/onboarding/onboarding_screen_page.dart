@@ -119,7 +119,7 @@ class _OnboardingScreenPageState extends State<OnboardingScreenPage> {
                                     image: AssetImage(
                                       _option == 'adotante'
                                           ? 'assets/images/onboarding/2.png'
-                                          : 'assets/images/onboarding/1.png',
+                                          : 'assets/images/onboarding/5.png',
                                     ),
                                   ),
                                 ),
@@ -190,7 +190,7 @@ class _OnboardingScreenPageState extends State<OnboardingScreenPage> {
                                   child: Image(
                                     image: AssetImage(
                                       _option == 'adotante'
-                                          ? 'assets/images/onboarding/5.png'
+                                          ? 'assets/images/onboarding/1.png'
                                           : 'assets/images/onboarding/6.png',
                                     ),
                                   ),

@@ -1,21 +1,22 @@
 class Labels {
   //A DE ADOTE APP
   static const titulo = "A de Adote";
-
-  //ONBOARDING SCREEN
-  static const msg1Adotante =
-      "Esse é um texto para quem selecionou que é Adotante!";
+//ONBOARDING SCREEN
+  static const msg1Adotante = "Você não precisa realizar cadastro para encontrar um amigo!";
   static const msg2Adotante =
-      "Esse é um texto para quem selecionou que é Adotante!";
-  static const msg3Adotante =
-      "Esse é um texto para quem selecionou que é Adotante!";
+      "Ao clicar em entrar em contato você será direcionado ao canal de comunicação da ONG.";
+  static const msg3Adotante = "Castração: Não adie esse ato de amor!";
 
-  static const msg1Ong = "Esse é um texto para quem selecionou que é ONG!";
-  static const msg2Ong = "Esse é um texto para quem selecionou que é ONG!";
-  static const msg3Ong = "Esse é um texto para quem selecionou que é ONG!";
+  static const msg1Ong =
+      "Lembre-se demanter o cadastro dos animais atualizado!";
+  static const msg2Ong = "Incentive a castração. Quem ama, cuida e castra!";
+  static const msg3Ong =
+      "Posse responsável: Sempre mantenha a carteira de vacinação em dia.";
 
-  static const informativoAdotante = "Um texto feito para quem quer adotar";
-  static const informativoOng = "Um texto para elas, as ONGS!";
+  static const informativoAdotante =
+      "Seja bem vindo, entre e encontre seu melhor amigo!";
+  static const informativoOng =
+      "Seja bem vindo! Vamos juntos, aproximar melhores amigos!";
 
   //ONG CNPJ FORM PAGE + OTHERS
   static const iniciar = "Vamos começar!";
