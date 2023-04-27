@@ -137,8 +137,8 @@ class _OnboardingScreenPageState extends State<OnboardingScreenPage> {
                                 ),
                                 Text(
                                   _option == 'adotante'
-                                      ? Labels.informativoAdotante
-                                      : Labels.informativoOng,
+                                      ? Labels.informativoAdotante1
+                                      : Labels.informativoOng1,
                                   style: ProjectFonts.pLight,
                                 )
                               ],
@@ -173,8 +173,8 @@ class _OnboardingScreenPageState extends State<OnboardingScreenPage> {
                                 ),
                                 Text(
                                   _option == 'adotante'
-                                      ? Labels.informativoAdotante
-                                      : Labels.informativoOng,
+                                      ? Labels.informativoAdotante2
+                                      : Labels.informativoOng2,
                                   style: ProjectFonts.pLight,
                                 )
                               ],
@@ -209,8 +209,8 @@ class _OnboardingScreenPageState extends State<OnboardingScreenPage> {
                                 ),
                                 Text(
                                   _option == 'adotante'
-                                      ? Labels.informativoAdotante
-                                      : Labels.informativoOng,
+                                      ? Labels.informativoAdotante3
+                                      : Labels.informativoOng3,
                                   style: ProjectFonts.pLight,
                                 )
                               ],

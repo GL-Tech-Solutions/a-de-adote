@@ -2,21 +2,31 @@ class Labels {
   //A DE ADOTE APP
   static const titulo = "A de Adote";
 //ONBOARDING SCREEN
-  static const msg1Adotante = "Você não precisa realizar cadastro para encontrar um amigo!";
-  static const msg2Adotante =
-      "Ao clicar em entrar em contato você será direcionado ao canal de comunicação da ONG.";
-  static const msg3Adotante = "Castração: Não adie esse ato de amor!";
 
-  static const msg1Ong =
-      "Lembre-se demanter o cadastro dos animais atualizado!";
-  static const msg2Ong = "Incentive a castração. Quem ama, cuida e castra!";
-  static const msg3Ong =
-      "Posse responsável: Sempre mantenha a carteira de vacinação em dia.";
+//ADOTANTE
+  static const msg1Adotante = "Seja bem vindo, entre e encontre seu melhor amigo!";
+  static const msg2Adotante = "Contato com a ONG";
+  static const msg3Adotante = "Castração";
+  
+  static const informativoAdotante1 =
+      "Você não precisa realizar cadastro para encontrar um amigo!";
+  static const informativoAdotante2 =
+      "Ao clicar em entrar em contato você será direcionado diretamente ao canal de comunicação da ONG!";
+  static const informativoAdotante3 =
+      "A castração evita doenças e pode aumentar a vida do seu animal. Não adie esse ato de amor!";
+  
+  //ONG
+  static const msg1Ong = "Seja bem vindo! Vamos juntos unir melhores amigos!";
+  static const msg2Ong = "Lembre-se de manter o cadastro dos animais atualizado";
+  static const msg3Ong = "Posse responsável";
 
-  static const informativoAdotante =
-      "Seja bem vindo, entre e encontre seu melhor amigo!";
-  static const informativoOng =
-      "Seja bem vindo! Vamos juntos, aproximar melhores amigos!";
+  static const informativoOng1 =
+      "Faça seu cadastro e adicione os animais que sua instituição tem disponível para adoção!";
+  static const informativoOng2 =
+      "Você pode cadastrar novos animais e gerenciá-los na aba 'Meus animais'";
+  static const informativoOng3 =
+      "Incentive a castração. Quem ama, cuida e castra!";
+
 
   //ONG CNPJ FORM PAGE + OTHERS
   static const iniciar = "Vamos começar!";
