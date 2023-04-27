@@ -1,3 +1,5 @@
+import 'package:a_de_adote/app/core/constants/buttons.dart';
+import 'package:a_de_adote/app/core/constants/labels.dart';
 import 'package:a_de_adote/app/core/extensions/dropdown_menu_items.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_colors.dart';
 import 'package:a_de_adote/app/core/ui/widgets/checkbox_row.dart';
@@ -74,7 +76,7 @@ class _PetEditPageState extends State<PetEditPage> with BottomSheetImageSource {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const StandardAppBar(title: 'Editar animal'),
+      appBar: const StandardAppBar(title: Labels.titleEditarAnimal),
       body: BlocListener<PetEditController, PetEditState>(
         listener: (context, state) {
           state.status.matchAny(
@@ -188,10 +190,10 @@ class _PetEditPageState extends State<PetEditPage> with BottomSheetImageSource {
                           children: [
                             StandardFormInput(
                               controller: _nome,
-                              labelText: 'Nome',
+                              labelText: Labels.nomeAnimal,
                               maxLength: 30,
                               validator: Validatorless.required(
-                                'Por favor, insira um nome!',
+                                Labels.nomeAnimalValido,
                               ),
                             ),
                             const SizedBox(
@@ -202,14 +204,14 @@ class _PetEditPageState extends State<PetEditPage> with BottomSheetImageSource {
                               builder: (BuildContext context, String? value,
                                   Widget? child) {
                                 return StandardDropdown(
-                                  labelText: 'Espécie',
+                                  labelText: Labels.especie,
                                   items: context.dropdownMenuItems.especies,
                                   value: value!,
                                   dropdownCallback: (selected) {
                                     _especie.value = selected;
                                   },
                                   validator: Validatorless.required(
-                                    'Por favor, insira uma espécie!',
+                                    Labels.especieValida,
                                   ),
                                 );
                               },
@@ -225,14 +227,14 @@ class _PetEditPageState extends State<PetEditPage> with BottomSheetImageSource {
                                     builder: (BuildContext context,
                                         String? value, Widget? child) {
                                       return StandardDropdown(
-                                        labelText: 'Porte',
+                                        labelText: Labels.porte,
                                         items: context.dropdownMenuItems.porte,
                                         value: value!,
                                         dropdownCallback: (selected) {
                                           _porte.value = selected;
                                         },
                                         validator: Validatorless.required(
-                                          'Por favor, insira um porte!',
+                                          Labels.porteValido,
                                         ),
                                       );
                                     },
@@ -247,14 +249,14 @@ class _PetEditPageState extends State<PetEditPage> with BottomSheetImageSource {
                                     builder: (BuildContext context,
                                         String? value, Widget? child) {
                                       return StandardDropdown(
-                                        labelText: 'Sexo',
+                                        labelText: Labels.sexo,
                                         items: context.dropdownMenuItems.sexo,
                                         value: value!,
                                         dropdownCallback: (selected) {
                                           _sexo.value = selected;
                                         },
                                         validator: Validatorless.required(
-                                          'Valor inválido!',
+                                          Labels.valorInvalido,
                                         ),
                                       );
                                     },
@@ -270,11 +272,11 @@ class _PetEditPageState extends State<PetEditPage> with BottomSheetImageSource {
                                 Expanded(
                                   child: StandardFormInput(
                                     controller: _idadeAproximada,
-                                    labelText: 'Idade aproximada',
+                                    labelText: Labels.idadeAproximada,
                                     inputType: TextInputType.number,
                                     maxLength: 2,
                                     validator: Validatorless.required(
-                                      'Insira uma idade!',
+                                      Labels.idadeValida,
                                     ),
                                   ),
                                 ),
@@ -295,7 +297,7 @@ class _PetEditPageState extends State<PetEditPage> with BottomSheetImageSource {
                                           _unidadeIdade.value = selected;
                                         },
                                         validator: Validatorless.required(
-                                          'Válor inválido!',
+                                          Labels.valorInvalido,
                                         ),
                                       );
                                     },
@@ -317,7 +319,7 @@ class _PetEditPageState extends State<PetEditPage> with BottomSheetImageSource {
                                     builder: (BuildContext context, bool value,
                                         Widget? child) {
                                       return CheckboxRow(
-                                        labelText: 'Castrado',
+                                        labelText: Labels.castrado,
                                         value: value,
                                         checkboxCallback: (state) {
                                           _castrado.value = state!;
@@ -330,7 +332,7 @@ class _PetEditPageState extends State<PetEditPage> with BottomSheetImageSource {
                                     builder: (BuildContext context, bool value,
                                         Widget? child) {
                                       return CheckboxRow(
-                                        labelText: 'Antirrábica',
+                                        labelText: Labels.antirrabica,
                                         value: value,
                                         checkboxCallback: (state) {
                                           _vacina1.value = state!;
@@ -355,7 +357,7 @@ class _PetEditPageState extends State<PetEditPage> with BottomSheetImageSource {
                                     builder: (BuildContext context, bool value,
                                         Widget? child) {
                                       return CheckboxRow(
-                                        labelText: 'V3 ou V8',
+                                        labelText: Labels.v3OuV8,
                                         value: value,
                                         checkboxCallback: (state) {
                                           _vacina2.value = state!;
@@ -368,7 +370,7 @@ class _PetEditPageState extends State<PetEditPage> with BottomSheetImageSource {
                                     builder: (BuildContext context, bool value,
                                         Widget? child) {
                                       return CheckboxRow(
-                                        labelText: 'V5 ou V10',
+                                        labelText: Labels.v5OuV10,
                                         value: value,
                                         checkboxCallback: (state) {
                                           _vacina3.value = state!;
@@ -384,7 +386,7 @@ class _PetEditPageState extends State<PetEditPage> with BottomSheetImageSource {
                             ),
                             ExpandedFormInput(
                               controller: _sobre,
-                              labelText: 'Sobre',
+                              labelText: Labels.sobre,
                               maxLength: 400,
                             ),
                             const SizedBox(
@@ -394,7 +396,7 @@ class _PetEditPageState extends State<PetEditPage> with BottomSheetImageSource {
                               builder: (context, state) {
                                 return FormButton(
                                   formKey: _formKey,
-                                  text: 'SALVAR',
+                                  text: Buttons.salvar,
                                   action: () {
                                     final valid =
                                         (_formKey.currentState?.validate() ??
@@ -404,9 +406,9 @@ class _PetEditPageState extends State<PetEditPage> with BottomSheetImageSource {
                                       if (_idadeAproximada.text == '1' ||
                                           _idadeAproximada.text == '01') {
                                         unidadeIdadeValue =
-                                            _unidadeIdade.value == 'meses'
-                                                ? 'mês'
-                                                : 'ano';
+                                            _unidadeIdade.value == Labels.meses
+                                                ? Labels.mes
+                                                : Labels.ano;
                                       } else {
                                         unidadeIdadeValue =
                                             _unidadeIdade.value ?? '';

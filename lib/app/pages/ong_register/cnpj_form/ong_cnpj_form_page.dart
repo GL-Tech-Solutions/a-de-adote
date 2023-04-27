@@ -165,10 +165,10 @@ class _ONGCNPJFormPageState extends State<ONGCNPJFormPage> {
                           text: const TextSpan(
                             children: [
                               TextSpan(
-                                  text: 'Já possui cadastro?',
+                                  text: Labels.possuiCadastro,
                                   style: ProjectFonts.smallLight),
                               TextSpan(
-                                text: ' Fazer login',
+                                text: Labels.fazerLogin,
                                 style: TextStyle(
                                   fontSize: 12,
                                   color: ProjectColors.primaryLight,

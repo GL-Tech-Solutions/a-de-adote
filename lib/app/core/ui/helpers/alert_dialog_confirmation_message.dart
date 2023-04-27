@@ -1,3 +1,4 @@
+import 'package:a_de_adote/app/core/constants/buttons.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_colors.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_fonts.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,7 @@ mixin AlertDialogConfirmationMessage<T extends StatefulWidget> on State<T> {
               Navigator.of(context).pop();
             },
             child: Text(
-              'CONFIRMAR',
+              Buttons.confirmar,
               style: ProjectFonts.pSecundaryDark.copyWith(
                 color: const Color.fromARGB(255, 158, 158, 158),
               ),
@@ -37,7 +38,7 @@ mixin AlertDialogConfirmationMessage<T extends StatefulWidget> on State<T> {
               Navigator.of(context).pop();
             },
             child: Text(
-              'CANCELAR',
+              Buttons.cancelar,
               style: ProjectFonts.pSecundaryDark.copyWith(
                 color: ProjectColors.danger,
               ),

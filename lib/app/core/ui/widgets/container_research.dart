@@ -1,3 +1,4 @@
+import 'package:a_de_adote/app/core/constants/labels.dart';
 import 'package:a_de_adote/app/services/research_launch_service.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +22,7 @@ class ContainerResearch extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              'Responda nossa pesquisa!',
+              Labels.responderPesquisa,
               style: ProjectFonts.pLight.copyWith(
                 color: ProjectColors.lightDark,
               ),

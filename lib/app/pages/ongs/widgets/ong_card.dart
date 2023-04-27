@@ -1,3 +1,4 @@
+import 'package:a_de_adote/app/core/constants/buttons.dart';
 import 'package:a_de_adote/app/core/extensions/capitalize_only_first_letter_extension.dart';
 import 'package:a_de_adote/app/core/ui/helpers/filters_state.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_colors.dart';
@@ -5,6 +6,7 @@ import 'package:a_de_adote/app/pages/home/tabs_state.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../../core/constants/labels.dart';
 import '../../../core/ui/styles/project_fonts.dart';
 import '../../../models/ong_model.dart';
 
@@ -114,7 +116,7 @@ class OngCard extends StatelessWidget {
                             alignment: Alignment.center,
                           ),
                           child: const Text(
-                            'VER ANIMAIS',
+                            Buttons.verAnimais,
                             style: ProjectFonts.smallLightBold,
                           ),
                         ),
@@ -131,7 +133,7 @@ class OngCard extends StatelessWidget {
                     children: [
                       Flexible(
                         child: Text(
-                          ong.informacoes ?? 'Sem informações.',
+                          ong.informacoes ?? Labels.semInfo,
                           maxLines: 3,
                           style: ProjectFonts.smallSecundaryDark,
                           overflow: TextOverflow.ellipsis,

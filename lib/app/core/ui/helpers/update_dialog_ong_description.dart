@@ -1,3 +1,5 @@
+import 'package:a_de_adote/app/core/constants/buttons.dart';
+import 'package:a_de_adote/app/core/constants/labels.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_colors.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_fonts.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +31,7 @@ mixin UpdateDialogOngDescription<T extends StatefulWidget> on State<T> {
           bottom: 0,
         ),
         title: const Text(
-          'Atualizar descrição da ONG',
+          Labels.atualizarDescricao,
           style: ProjectFonts.pLightBold,
         ),
         contentPadding: const EdgeInsets.all(10),
@@ -40,10 +42,9 @@ mixin UpdateDialogOngDescription<T extends StatefulWidget> on State<T> {
             key: _formKey,
             child: ExpandedFormInput(
               controller: _sobre,
-              labelText: 'Sobre',
+              labelText: Labels.sobre,
               maxLength: 600,
-              validator:
-                  Validatorless.required('Por favor, insira uma descrição.'),
+              validator: Validatorless.required(Labels.sobreValido),
             ),
           ),
         ),
@@ -61,7 +62,7 @@ mixin UpdateDialogOngDescription<T extends StatefulWidget> on State<T> {
               }
             },
             child: Text(
-              'SALVAR',
+              Buttons.salvar,
               style: ProjectFonts.pSecundaryDark.copyWith(
                 color: ProjectColors.primaryLight,
               ),
@@ -72,7 +73,7 @@ mixin UpdateDialogOngDescription<T extends StatefulWidget> on State<T> {
               Navigator.of(context).pop();
             },
             child: Text(
-              'CANCELAR',
+              Buttons.cancelar,
               style: ProjectFonts.pSecundaryDark.copyWith(
                 color: ProjectColors.lightDark,
               ),

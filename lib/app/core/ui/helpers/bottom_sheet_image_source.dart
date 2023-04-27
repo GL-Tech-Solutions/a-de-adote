@@ -1,3 +1,4 @@
+import 'package:a_de_adote/app/core/constants/buttons.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_colors.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_fonts.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +30,7 @@ mixin BottomSheetImageSource<T extends StatefulWidget> on State<T> {
                     ),
                   ),
                   const Text(
-                    'Câmera',
+                    Buttons.camera,
                     style: ProjectFonts.pSecundaryDark,
                   )
                 ],
@@ -52,7 +53,7 @@ mixin BottomSheetImageSource<T extends StatefulWidget> on State<T> {
                     ),
                   ),
                   const Text(
-                    'Galeria',
+                    Buttons.galeria,
                     style: ProjectFonts.pSecundaryDark,
                   )
                 ],

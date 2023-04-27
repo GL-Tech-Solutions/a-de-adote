@@ -1,4 +1,5 @@
 import 'package:a_de_adote/app/core/constants/buttons.dart';
+import 'package:a_de_adote/app/core/constants/labels.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../core/ui/styles/project_colors.dart';
@@ -47,11 +48,11 @@ class InitialPageAnimation extends StatelessWidget {
                           text: const TextSpan(
                         children: [
                           TextSpan(
-                            text: 'Que bom te ver!\n',
+                            text: Labels.boasVindas,
                             style: ProjectFonts.h5LightBold,
                           ),
                           TextSpan(
-                            text: 'Por favor, selecione uma das opções',
+                            text: Labels.selecioneOpcao,
                             style: ProjectFonts.h6Light,
                           ),
                         ],

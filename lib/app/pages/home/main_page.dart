@@ -1,3 +1,4 @@
+import 'package:a_de_adote/app/core/constants/labels.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_colors.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_fonts.dart';
 import 'package:a_de_adote/app/pages/home/tabs_state.dart';
@@ -54,18 +55,18 @@ class _MainPageState extends State<MainPage> {
               const NavigationDestination(
                 selectedIcon: Icon(Icons.pets),
                 icon: Icon(Icons.pets_outlined),
-                label: 'Pets',
+                label: Labels.pets,
               ),
               const NavigationDestination(
                 selectedIcon: Icon(Icons.home),
                 icon: Icon(Icons.home_outlined),
-                label: 'ONGs',
+                label: Labels.ongs,
               ),
               NavigationDestination(
                 selectedIcon: Icon(_isOng ? Icons.person : Icons.favorite),
                 icon: Icon(
                     _isOng ? Icons.person_outline : Icons.favorite_outline),
-                label: _isOng ? 'Perfil' : 'Favoritos',
+                label: _isOng ? Labels.perfil : Labels.titleFavoritos,
               ),
             ],
           ),

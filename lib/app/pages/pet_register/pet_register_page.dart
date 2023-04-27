@@ -1,3 +1,5 @@
+import 'package:a_de_adote/app/core/constants/buttons.dart';
+import 'package:a_de_adote/app/core/constants/labels.dart';
 import 'package:a_de_adote/app/core/extensions/dropdown_menu_items.dart';
 import 'package:a_de_adote/app/core/ui/helpers/alert_dialog_alert.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_colors.dart';
@@ -51,7 +53,7 @@ class _PetRegisterPageState extends State<PetRegisterPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const StandardAppBar(title: 'Cadastrar animal'),
+      appBar: const StandardAppBar(title: Labels.titleCadastrarAnimal),
       body: BlocListener<PetRegisterController, PetRegisterState>(
         listener: (context, state) {
           state.status.matchAny(
@@ -164,10 +166,10 @@ class _PetRegisterPageState extends State<PetRegisterPage>
                           children: [
                             StandardFormInput(
                               controller: _nome,
-                              labelText: 'Nome',
+                              labelText: Labels.nomeAnimal,
                               maxLength: 30,
                               validator: Validatorless.required(
-                                'Por favor, insira um nome!',
+                                Labels.nomeAnimalValido,
                               ),
                             ),
                             const SizedBox(
@@ -178,14 +180,14 @@ class _PetRegisterPageState extends State<PetRegisterPage>
                               builder: (BuildContext context, String? value,
                                   Widget? child) {
                                 return StandardDropdown(
-                                  labelText: 'Espécie',
+                                  labelText: Labels.especie,
                                   items: context.dropdownMenuItems.especies,
                                   value: value!,
                                   dropdownCallback: (selected) {
                                     _especie.value = selected;
                                   },
                                   validator: Validatorless.required(
-                                    'Por favor, insira uma espécie!',
+                                    Labels.especieValida,
                                   ),
                                 );
                               },
@@ -201,14 +203,14 @@ class _PetRegisterPageState extends State<PetRegisterPage>
                                     builder: (BuildContext context,
                                         String? value, Widget? child) {
                                       return StandardDropdown(
-                                        labelText: 'Porte',
+                                        labelText: Labels.porte,
                                         items: context.dropdownMenuItems.porte,
                                         value: value!,
                                         dropdownCallback: (selected) {
                                           _porte.value = selected;
                                         },
                                         validator: Validatorless.required(
-                                          'Por favor, insira um porte!',
+                                          Labels.porteValido,
                                         ),
                                       );
                                     },
@@ -223,14 +225,14 @@ class _PetRegisterPageState extends State<PetRegisterPage>
                                     builder: (BuildContext context,
                                         String? value, Widget? child) {
                                       return StandardDropdown(
-                                        labelText: 'Sexo',
+                                        labelText: Labels.sexo,
                                         items: context.dropdownMenuItems.sexo,
                                         value: value!,
                                         dropdownCallback: (selected) {
                                           _sexo.value = selected;
                                         },
                                         validator: Validatorless.required(
-                                          'Válor inválido!',
+                                          Labels.valorInvalido,
                                         ),
                                       );
                                     },
@@ -246,11 +248,11 @@ class _PetRegisterPageState extends State<PetRegisterPage>
                                 Expanded(
                                   child: StandardFormInput(
                                     controller: _idadeAproximada,
-                                    labelText: 'Idade aproximada',
+                                    labelText: Labels.idadeAproximada,
                                     inputType: TextInputType.number,
                                     maxLength: 2,
                                     validator: Validatorless.required(
-                                      'Insira uma idade!',
+                                      Labels.idadeValida,
                                     ),
                                   ),
                                 ),
@@ -271,7 +273,7 @@ class _PetRegisterPageState extends State<PetRegisterPage>
                                           _unidadeIdade.value = selected;
                                         },
                                         validator: Validatorless.required(
-                                          'Válor inválido!',
+                                          Labels.valorInvalido,
                                         ),
                                       );
                                     },
@@ -293,7 +295,7 @@ class _PetRegisterPageState extends State<PetRegisterPage>
                                     builder: (BuildContext context, bool value,
                                         Widget? child) {
                                       return CheckboxRow(
-                                        labelText: 'Castrado',
+                                        labelText: Labels.castrado,
                                         value: value,
                                         checkboxCallback: (state) {
                                           _castrado.value = state!;
@@ -306,7 +308,7 @@ class _PetRegisterPageState extends State<PetRegisterPage>
                                     builder: (BuildContext context, bool value,
                                         Widget? child) {
                                       return CheckboxRow(
-                                        labelText: 'Antirrábica',
+                                        labelText: Labels.antirrabica,
                                         value: value,
                                         checkboxCallback: (state) {
                                           _vacina1.value = state!;
@@ -331,7 +333,7 @@ class _PetRegisterPageState extends State<PetRegisterPage>
                                     builder: (BuildContext context, bool value,
                                         Widget? child) {
                                       return CheckboxRow(
-                                        labelText: 'V3 ou V8',
+                                        labelText: Labels.v3OuV8,
                                         value: value,
                                         gap: 0,
                                         checkboxCallback: (state) {
@@ -345,7 +347,7 @@ class _PetRegisterPageState extends State<PetRegisterPage>
                                     builder: (BuildContext context, bool value,
                                         Widget? child) {
                                       return CheckboxRow(
-                                        labelText: 'V5 ou V10',
+                                        labelText: Labels.v5OuV10,
                                         value: value,
                                         checkboxCallback: (state) {
                                           _vacina3.value = state!;
@@ -361,7 +363,7 @@ class _PetRegisterPageState extends State<PetRegisterPage>
                             ),
                             ExpandedFormInput(
                               controller: _sobre,
-                              labelText: 'Sobre',
+                              labelText: Labels.sobre,
                               maxLength: 400,
                             ),
                             const SizedBox(
@@ -372,23 +374,23 @@ class _PetRegisterPageState extends State<PetRegisterPage>
                               builder: (context, state) {
                                 return FormButton(
                                   formKey: _formKey,
-                                  text: 'CADASTRAR',
+                                  text: Buttons.cadastrar,
                                   action: () {
                                     final valid =
                                         (_formKey.currentState?.validate() ??
                                                 false) &&
                                             state.image != null;
                                     if (state.image == null) {
-                                      showAlert('Por favor, insira uma foto.');
+                                      showAlert(Labels.insiraFoto);
                                     }
                                     if (valid) {
                                       String unidadeIdadeValue;
                                       if (_idadeAproximada.text == '1' ||
                                           _idadeAproximada.text == '01') {
                                         unidadeIdadeValue =
-                                            _unidadeIdade.value == 'meses'
-                                                ? 'mês'
-                                                : 'ano';
+                                            _unidadeIdade.value == Labels.meses
+                                                ? Labels.mes
+                                                : Labels.ano;
                                       } else {
                                         unidadeIdadeValue =
                                             _unidadeIdade.value ?? '';

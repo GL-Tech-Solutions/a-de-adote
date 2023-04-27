@@ -1,3 +1,4 @@
+import 'package:a_de_adote/app/core/constants/buttons.dart';
 import 'package:a_de_adote/app/core/extensions/dropdown_menu_items.dart';
 import 'package:a_de_adote/app/core/extensions/mask_formatters.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_colors.dart';
@@ -40,7 +41,7 @@ mixin UpdateDialogOngPix<T extends StatefulWidget> on State<T> {
           bottom: 0,
         ),
         title: const Text(
-          'Atualizar Pix',
+          Labels.atualizarPix,
           style: ProjectFonts.pLightBold,
         ),
         contentPadding: const EdgeInsets.all(10),
@@ -66,7 +67,7 @@ mixin UpdateDialogOngPix<T extends StatefulWidget> on State<T> {
                               },
                               validator: (option) {
                                 if (option!.isEmpty || option == '') {
-                                  return 'Inválido!';
+                                  return Labels.campoInvalido;
                                 }
                                 return null;
                               }),
@@ -84,36 +85,36 @@ mixin UpdateDialogOngPix<T extends StatefulWidget> on State<T> {
                             controller: _donationOptionEC,
                             labelText: value,
                             fullSelectionText: true,
-                            mask: value == 'CNPJ'
+                            mask: value == Labels.cnpj
                                 ? [context.maskFormatters.maskCNPJFormatter]
-                                : value == 'Celular'
+                                : value == Labels.celular
                                     ? [context.maskFormatters.maskTelFormatter]
                                     : [],
-                            inputType: value == 'CNPJ'
+                            inputType: value == Labels.cnpj
                                 ? TextInputType.number
-                                : value == 'Celular'
+                                : value == Labels.celular
                                     ? TextInputType.phone
                                     : TextInputType.emailAddress,
                             validator: (text) {
                               switch (value) {
-                                case 'CNPJ':
+                                case Labels.cnpj:
                                   if ((text!.isEmpty) || (text.length < 18)) {
                                     return Labels.cnpjValido;
                                   }
                                   break;
-                                case 'Celular':
+                                case Labels.celular:
                                   if ((text!.isEmpty) || (text.length < 15)) {
-                                    return 'Celular inválido!';
+                                    return Labels.celularValido;
                                   }
                                   break;
-                                case 'E-mail':
+                                case Labels.email:
                                   if (text!.isEmpty) {
-                                    return 'E-mail inválido!';
+                                    return Labels.emailValido;
                                   }
                                   break;
                                 default:
                                   if (text!.isEmpty) {
-                                    return 'Campo inválido!';
+                                    return Labels.invalido;
                                   }
                                   break;
                               }
@@ -145,7 +146,7 @@ mixin UpdateDialogOngPix<T extends StatefulWidget> on State<T> {
               }
             },
             child: Text(
-              'SALVAR',
+              Buttons.salvar,
               style: ProjectFonts.pSecundaryDark.copyWith(
                 color: ProjectColors.primaryLight,
               ),
@@ -154,7 +155,7 @@ mixin UpdateDialogOngPix<T extends StatefulWidget> on State<T> {
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
             child: Text(
-              'CANCELAR',
+              Buttons.cancelar,
               style: ProjectFonts.pSecundaryDark.copyWith(
                 color: ProjectColors.lightDark,
               ),

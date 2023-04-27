@@ -1,3 +1,5 @@
+import 'package:a_de_adote/app/core/constants/buttons.dart';
+import 'package:a_de_adote/app/core/constants/labels.dart';
 import 'package:a_de_adote/app/core/ui/helpers/filters_state.dart';
 import 'package:flutter/material.dart';
 import 'package:stepper_counter_swipe/stepper_counter_swipe.dart';
@@ -84,7 +86,7 @@ mixin BottomSheetPetFilter<T extends StatefulWidget> on State<T> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text(
-                      'Filtros',
+                      Labels.filtros,
                       style: ProjectFonts.h6SecundaryDarkBold,
                     ),
                     TextButton.icon(
@@ -95,7 +97,7 @@ mixin BottomSheetPetFilter<T extends StatefulWidget> on State<T> {
                         color: ProjectColors.danger,
                       ),
                       label: Text(
-                        'FECHAR',
+                        Buttons.fechar,
                         style: ProjectFonts.smallLight
                             .copyWith(color: ProjectColors.danger),
                       ),
@@ -111,7 +113,7 @@ mixin BottomSheetPetFilter<T extends StatefulWidget> on State<T> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: const [
                           Text(
-                            'ONG',
+                            Labels.ong,
                             style: ProjectFonts.smallSecundaryDarkBold,
                           ),
                         ],
@@ -145,7 +147,7 @@ mixin BottomSheetPetFilter<T extends StatefulWidget> on State<T> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: const [
                         Text(
-                          'Espécie',
+                          Labels.especie,
                           style: ProjectFonts.smallSecundaryDarkBold,
                         ),
                       ],
@@ -160,7 +162,7 @@ mixin BottomSheetPetFilter<T extends StatefulWidget> on State<T> {
                             builder: (BuildContext context, bool isSelected,
                                 Widget? child) {
                               return StandardChoiceChip(
-                                label: 'Cachorro',
+                                label: Labels.cachorro,
                                 selected: isSelected,
                                 choiceChipCallback: (state) {
                                   _dog.value = state!;
@@ -173,7 +175,7 @@ mixin BottomSheetPetFilter<T extends StatefulWidget> on State<T> {
                             builder: (BuildContext context, bool isSelected,
                                 Widget? child) {
                               return StandardChoiceChip(
-                                label: 'Gato',
+                                label: Labels.gato,
                                 selected: isSelected,
                                 choiceChipCallback: (state) {
                                   _cat.value = state!;
@@ -186,7 +188,7 @@ mixin BottomSheetPetFilter<T extends StatefulWidget> on State<T> {
                             builder: (BuildContext context, bool isSelected,
                                 Widget? child) {
                               return StandardChoiceChip(
-                                label: 'Pássaro',
+                                label: Labels.passaro,
                                 selected: isSelected,
                                 choiceChipCallback: (state) {
                                   _bird.value = state!;
@@ -199,7 +201,7 @@ mixin BottomSheetPetFilter<T extends StatefulWidget> on State<T> {
                             builder: (BuildContext context, bool isSelected,
                                 Widget? child) {
                               return StandardChoiceChip(
-                                label: 'Outros',
+                                label: Labels.outros,
                                 selected: isSelected,
                                 choiceChipCallback: (state) {
                                   _other.value = state!;
@@ -220,11 +222,11 @@ mixin BottomSheetPetFilter<T extends StatefulWidget> on State<T> {
                       text: TextSpan(
                         children: [
                           const TextSpan(
-                            text: 'Idade máxima\n',
+                            text: Labels.idadeMaxima,
                             style: ProjectFonts.smallSecundaryDarkBold,
                           ),
                           TextSpan(
-                            text: '(Deslize para alterar)',
+                            text: Labels.deslizeParaAlterar,
                             style: ProjectFonts.smallSecundaryDark
                                 .copyWith(fontSize: 10),
                           ),
@@ -261,7 +263,7 @@ mixin BottomSheetPetFilter<T extends StatefulWidget> on State<T> {
                           ),
                         ),
                         const Text(
-                          'anos',
+                          Labels.anos,
                           style: ProjectFonts.smallSecundaryDark,
                         ),
                       ],
@@ -276,7 +278,7 @@ mixin BottomSheetPetFilter<T extends StatefulWidget> on State<T> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: const [
                         Text(
-                          'Sexo',
+                          Labels.sexo,
                           style: ProjectFonts.smallSecundaryDarkBold,
                         ),
                       ],
@@ -288,7 +290,7 @@ mixin BottomSheetPetFilter<T extends StatefulWidget> on State<T> {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             RadioRow(
-                              labelText: 'Ambos',
+                              labelText: Labels.ambos,
                               labelStyle: ProjectFonts.smallSecundaryDark,
                               state: sexo,
                               value: 0,
@@ -297,7 +299,7 @@ mixin BottomSheetPetFilter<T extends StatefulWidget> on State<T> {
                               },
                             ),
                             RadioRow(
-                              labelText: 'Masculino',
+                              labelText: Labels.masculino,
                               labelStyle: ProjectFonts.smallSecundaryDark,
                               state: sexo,
                               value: 1,
@@ -306,7 +308,7 @@ mixin BottomSheetPetFilter<T extends StatefulWidget> on State<T> {
                               },
                             ),
                             RadioRow(
-                              labelText: 'Feminino',
+                              labelText: Labels.feminino,
                               labelStyle: ProjectFonts.smallSecundaryDark,
                               state: sexo,
                               value: 2,
@@ -328,7 +330,7 @@ mixin BottomSheetPetFilter<T extends StatefulWidget> on State<T> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: const [
                         Text(
-                          'Porte',
+                          Labels.porte,
                           style: ProjectFonts.smallSecundaryDarkBold,
                         ),
                       ],
@@ -344,7 +346,7 @@ mixin BottomSheetPetFilter<T extends StatefulWidget> on State<T> {
                             builder: (BuildContext context, bool value,
                                 Widget? child) {
                               return CheckboxRow(
-                                labelText: 'Mini',
+                                labelText: Labels.mini,
                                 labelStyle: ProjectFonts.smallSecundaryDark,
                                 value: value,
                                 checkboxCallback: (state) {
@@ -358,7 +360,7 @@ mixin BottomSheetPetFilter<T extends StatefulWidget> on State<T> {
                             builder: (BuildContext context, bool value,
                                 Widget? child) {
                               return CheckboxRow(
-                                labelText: 'Pequeno',
+                                labelText: Labels.pequeno,
                                 labelStyle: ProjectFonts.smallSecundaryDark,
                                 value: value,
                                 checkboxCallback: (state) {
@@ -372,7 +374,7 @@ mixin BottomSheetPetFilter<T extends StatefulWidget> on State<T> {
                             builder: (BuildContext context, bool value,
                                 Widget? child) {
                               return CheckboxRow(
-                                labelText: 'Médio',
+                                labelText: Labels.medio,
                                 labelStyle: ProjectFonts.smallSecundaryDark,
                                 value: value,
                                 checkboxCallback: (state) {
@@ -386,7 +388,7 @@ mixin BottomSheetPetFilter<T extends StatefulWidget> on State<T> {
                             builder: (BuildContext context, bool value,
                                 Widget? child) {
                               return CheckboxRow(
-                                labelText: 'Grande',
+                                labelText: Labels.grande,
                                 labelStyle: ProjectFonts.smallSecundaryDark,
                                 value: value,
                                 checkboxCallback: (state) {
@@ -437,7 +439,7 @@ mixin BottomSheetPetFilter<T extends StatefulWidget> on State<T> {
                           ),
                         ),
                         child: const Text(
-                          'LIMPAR FILTROS',
+                          Buttons.limparFiltros,
                           style: ProjectFonts.smallSecundaryDarkBold,
                         ),
                       ),
@@ -474,7 +476,7 @@ mixin BottomSheetPetFilter<T extends StatefulWidget> on State<T> {
                           ),
                         ),
                         child: const Text(
-                          'APLICAR',
+                          Buttons.aplicar,
                           style: ProjectFonts.smallLightBold,
                         ),
                       ),

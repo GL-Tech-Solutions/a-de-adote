@@ -17,11 +17,13 @@ class Labels {
   static const informativoAdotante = "Um texto feito para quem quer adotar";
   static const informativoOng = "Um texto para elas, as ONGS!";
 
-  //CNPJ FORM PAGE + OTHERS
+  //ONG CNPJ FORM PAGE + OTHERS
   static const iniciar = "Vamos começar!";
   static const insiraCnpj = "Insira abaixo o CNPJ da ONG";
   static const cnpjValido = "Informe um CNPJ válido!";
   static const cnpj = "CNPJ";
+  static const possuiCadastro = "Já possui cadastro?";
+  static const fazerLogin = " Fazer login";
 
   //ONG INFORMATIONS FORM PAGE + OTHERS
   static const alterarDados =
@@ -58,6 +60,9 @@ class Labels {
   static const confirmarSenha = "Confirmar Senha";
   static const confirmarSenhaValida = "Senhas não conferem!";
 
+  //ONG REGISTER ROUTER
+  static const cadastro = "Cadastro";
+
   //LOGIN PAGE
   static const login = "Login";
   static const crieConta = " Crie uma conta";
@@ -74,7 +79,7 @@ class Labels {
 
   //LOGIN FORM INPUT
   static const emailValido = "Informe um e-mail válido!";
-  static const senhaValida = "Informe uma senha válida";
+  static const senhaValida = "Informe uma senha válida!";
 
   //ONG REPOSITORY IMPL - ERROS
   static const cnpjInapto =
@@ -88,8 +93,6 @@ class Labels {
   static const erroCadastro = "Erro ao cadastrar.";
   static const ongNaoEncontrada = "Não foi possível encontar a ONG";
   static const erroUpdateOng = "Erro ao atualizar ong.";
-
-  //--------------------------------------------------------------------
 
   //CONTAINER RESEARCH + STANDARD DRAWER
   static const responderPesquisa = "Responda nossa pesquisa!";
@@ -140,7 +143,7 @@ class Labels {
   static const atualizarPix = "Atualizar Pix";
   static const campoInvalido = "Inválido!";
   static const celular = "Celular";
-  static const calularValido = "Celular inválido!";
+  static const celularValido = "Celular inválido!";
 
   //FAVORITE PETS PAGE + MAIN PAGE
   static const titleFavoritos = "Favoritos";
@@ -168,7 +171,7 @@ class Labels {
   static const informacoesOngVazia = "Sem informações sobre a ONG.";
 
   //ONG ANIMALS PAGE + PET DETAILS PAGE
-  static const maoPossuiCadastrados =
+  static const naoPossuiCadastrados =
       "Você ainda não possui nenhum animal cadastrado.";
   static const confirmacaoExcluirAnimal =
       "Você tem certeza que gostaria de excluir este animal?";
@@ -180,11 +183,11 @@ class Labels {
       "Sem informações sobre a ONG. Adicione-as!";
 
   //ONG PROFILE PAGE
-  static const tab1 = "Meus dados";
-  static const tab2 = "Meus animais";
+  static const ongProfileTab1 = "Meus dados";
+  static const ongProfileTab2 = "Meus animais";
 
   //ONG CARD
-  static const semInfo = "Sem informações";
+  static const semInfo = "Sem informações.";
 
   //PET DETAILS PAGE + PET EDIT PAGE + PET REGISTER PAGE
   static const removidoFavoritos = "Removido dos favoritos";
@@ -202,17 +205,18 @@ class Labels {
   static const ano = "ano";
   static const mes = "mês";
   static const meses = "meses";
-  static const titleEditar = "Editar animal";
+  static const titleEditarAnimal = "Editar animal";
   static const nomeAnimal = "Nome";
   static const nomeAnimalValido = "Por favor, insira um nome!";
   static const especieValida = "Por favor, insira uma espécie!";
   static const porteValido = "Por favor, insira um porte!";
-  static const valorValido = "Valor inválido!";
+  static const valorInvalido = "Valor inválido!";
   static const idadeAproximada = "Idade aproximada";
   static const idadeValida = "Insira uma idade!";
   static const v3OuV8 = "V3 ou V8";
   static const v5OuV10 = "V5 ou V10";
 
   //PET REGISTER PAGE
-  static const titleCadastrar = "Cadastrar animal";
+  static const titleCadastrarAnimal = "Cadastrar animal";
+  static const insiraFoto = "Por favor, insira uma foto.";
 }

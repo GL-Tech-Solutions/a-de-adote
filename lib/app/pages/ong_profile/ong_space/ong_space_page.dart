@@ -1,3 +1,4 @@
+import 'package:a_de_adote/app/core/constants/labels.dart';
 import 'package:a_de_adote/app/core/extensions/capitalize_only_first_letter_extension.dart';
 import 'package:a_de_adote/app/core/ui/helpers/bottom_sheet_image_source.dart';
 import 'package:a_de_adote/app/core/ui/helpers/update_dialog_ong_description.dart';
@@ -212,7 +213,7 @@ class _OngSpacePageState extends State<OngSpacePage>
                                         height: 5,
                                       ),
                                       Text(
-                                        'Adicione uma foto de sua ONG!',
+                                        Labels.adicioneFoto,
                                         style: ProjectFonts.h6SecundaryDark,
                                       ),
                                     ],
@@ -302,15 +303,18 @@ class _OngSpacePageState extends State<OngSpacePage>
                                                 children: [
                                                   TextSpan(
                                                     text: i == 0
-                                                        ? 'CNPJ: '
+                                                        ? Labels.cnpjField
                                                         : i == 1
-                                                            ? 'E-mail: '
+                                                            ? Labels.emailField
                                                             : i == 2
-                                                                ? 'Telefone: '
+                                                                ? Labels
+                                                                    .telField
                                                                 : i == 3
-                                                                    ? 'WhatsApp: '
+                                                                    ? Labels
+                                                                        .whatsAppField
                                                                     : i == 4
-                                                                        ? 'Endereço: '
+                                                                        ? Labels
+                                                                            .enderecoField
                                                                         : '',
                                                     style:
                                                         ProjectFonts.pLightBold,
@@ -347,7 +351,7 @@ class _OngSpacePageState extends State<OngSpacePage>
                               children: [
                                 CustomExpansionTile(
                                   isOng: true,
-                                  title: 'Doação - Pix',
+                                  title: Labels.doacaoPix,
                                   edit: () async {
                                     Map<String, dynamic>? newPix =
                                         await showChangeOngPix(state.ong?.pix);
@@ -364,7 +368,7 @@ class _OngSpacePageState extends State<OngSpacePage>
                                   ),
                                   body: state.ong?.pix == null
                                       ? Text(
-                                          'Sem informações de Pix. Adicione um!',
+                                          Labels.pixVazioAdicione,
                                           style: ProjectFonts.pLight.copyWith(
                                             fontStyle: FontStyle.italic,
                                           ),
@@ -375,16 +379,16 @@ class _OngSpacePageState extends State<OngSpacePage>
                                           children: [
                                             Icon(
                                               state.ong?.pix?.keys.first ==
-                                                      'CNPJ'
+                                                      Labels.cnpj
                                                   ? Icons.info_outline_rounded
                                                   : state.ong?.pix?.keys
                                                               .first ==
-                                                          'Celular'
+                                                          Labels.celular
                                                       ? MaterialCommunityIcons
                                                           .whatsapp
                                                       : state.ong?.pix?.keys
                                                                   .first ==
-                                                              'E-mail'
+                                                              Labels.email
                                                           ? Icons.email_outlined
                                                           : null,
                                               color: ProjectColors.light,
@@ -426,7 +430,7 @@ class _OngSpacePageState extends State<OngSpacePage>
                                                       .showSnackBar(
                                                     const SnackBar(
                                                       content: Text(
-                                                        'Pix copiado!',
+                                                        Labels.pixCopiado,
                                                       ),
                                                     ),
                                                   );
@@ -447,7 +451,7 @@ class _OngSpacePageState extends State<OngSpacePage>
                                 ),
                                 CustomExpansionTile(
                                   isOng: true,
-                                  title: 'Sobre',
+                                  title: Labels.sobre,
                                   edit: () async {
                                     String? description =
                                         await showChangeDescription(
@@ -461,7 +465,7 @@ class _OngSpacePageState extends State<OngSpacePage>
                                   },
                                   body: state.ong?.informacoes == null
                                       ? Text(
-                                          'Sem informações sobre a ONG. Adicione-as!',
+                                          Labels.informacoesOngVaziaAdicione,
                                           style:
                                               ProjectFonts.smallLight.copyWith(
                                             fontStyle: FontStyle.italic,

@@ -1,3 +1,4 @@
+import 'package:a_de_adote/app/core/constants/labels.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_colors.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_fonts.dart';
 import 'package:a_de_adote/app/core/ui/widgets/standard_search_bar.dart';
@@ -144,7 +145,7 @@ class _OngAnimalsPageState extends State<OngAnimalsPage>
                               children: const [
                                 Flexible(
                                   child: Text(
-                                    'Você ainda não possui nenhum animal cadastrado.',
+                                    Labels.naoPossuiCadastrados,
                                     style: ProjectFonts.pLight,
                                   ),
                                 ),
@@ -206,7 +207,7 @@ class _OngAnimalsPageState extends State<OngAnimalsPage>
                                   },
                                   deleteMethod: () async {
                                     bool? action = await confirmAction(
-                                        'Você tem certeza que gostaria de excluir este animal?');
+                                        Labels.confirmacaoExcluirAnimal);
                                     if (action == null || action == false) {
                                       null;
                                     } else {

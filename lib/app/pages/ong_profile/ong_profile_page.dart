@@ -1,3 +1,4 @@
+import 'package:a_de_adote/app/core/constants/labels.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_colors.dart';
 import 'package:a_de_adote/app/pages/ong_profile/ong_animals/ong_animals_router.dart';
 import 'package:a_de_adote/app/pages/ong_profile/ong_space/ong_space_router.dart';
@@ -45,10 +46,10 @@ class _OngProfilePageState extends State<OngProfilePage>
         controller: _tabController,
         tabs: const [
           Tab(
-            text: 'Meus dados',
+            text: Labels.ongProfileTab1,
           ),
           Tab(
-            text: 'Meus animais',
+            text: Labels.ongProfileTab2,
           ),
         ],
       );
@@ -64,7 +65,7 @@ class _OngProfilePageState extends State<OngProfilePage>
             headerSliverBuilder: (BuildContext context, innerBoxIsScrolled) {
               return [
                 StandardSliverAppbar(
-                  title: 'Perfil',
+                  title: Labels.perfil,
                   bottom: PreferredSize(
                     preferredSize: _tabBar.preferredSize,
                     child: Material(

@@ -1,3 +1,5 @@
+import 'package:a_de_adote/app/core/constants/buttons.dart';
+import 'package:a_de_adote/app/core/constants/labels.dart';
 import 'package:flutter/material.dart';
 
 import '../styles/project_colors.dart';
@@ -39,7 +41,7 @@ mixin BottomSheetOngFilter<T extends StatefulWidget> on State<T> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Text(
-                    'Filtro',
+                    Labels.filtro,
                     style: ProjectFonts.h6SecundaryDarkBold,
                   ),
                   TextButton.icon(
@@ -50,7 +52,7 @@ mixin BottomSheetOngFilter<T extends StatefulWidget> on State<T> {
                       color: ProjectColors.danger,
                     ),
                     label: Text(
-                      'FECHAR',
+                      Buttons.fechar,
                       style: ProjectFonts.smallLight
                           .copyWith(color: ProjectColors.danger),
                     ),
@@ -64,7 +66,7 @@ mixin BottomSheetOngFilter<T extends StatefulWidget> on State<T> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: const [
                       Text(
-                        'Município',
+                        Labels.municipio,
                         style: ProjectFonts.smallSecundaryDarkBold,
                       ),
                     ],
@@ -115,7 +117,7 @@ mixin BottomSheetOngFilter<T extends StatefulWidget> on State<T> {
                         ),
                       ),
                       child: const Text(
-                        'LIMPAR FILTRO',
+                        Buttons.limparFiltro,
                         style: ProjectFonts.smallSecundaryDarkBold,
                       ),
                     ),
@@ -141,7 +143,7 @@ mixin BottomSheetOngFilter<T extends StatefulWidget> on State<T> {
                         ),
                       ),
                       child: const Text(
-                        'APLICAR',
+                        Buttons.aplicar,
                         style: ProjectFonts.smallLightBold,
                       ),
                     ),

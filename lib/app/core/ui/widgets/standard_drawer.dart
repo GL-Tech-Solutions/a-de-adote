@@ -1,3 +1,4 @@
+import 'package:a_de_adote/app/core/constants/labels.dart';
 import 'package:a_de_adote/app/core/ui/helpers/filters_state.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_colors.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_fonts.dart';
@@ -67,7 +68,7 @@ class _StandardDrawerState extends State<StandardDrawer>
                             width: 5,
                           ),
                           Text(
-                            'Responda nossa pesquisa!',
+                            Labels.responderPesquisa,
                             style: ProjectFonts.pSecundaryDark
                                 .copyWith(fontWeight: FontWeight.w600),
                           ),
@@ -88,8 +89,8 @@ class _StandardDrawerState extends State<StandardDrawer>
                             final auth = Provider.of<AuthService>(context,
                                 listen: false);
                             final navigator = Navigator.of(context);
-                            bool? action = await confirmAction(
-                                'Você tem certeza que gostaria de sair da sua conta agora?');
+                            bool? action =
+                                await confirmAction(Labels.confirmacaoSair);
                             if (action == null || action == false) {
                               null;
                             } else {
@@ -138,7 +139,7 @@ class _StandardDrawerState extends State<StandardDrawer>
                                 width: 5,
                               ),
                               Text(
-                                'Sou uma ONG',
+                                Labels.souOng,
                                 style: ProjectFonts.pLight.copyWith(
                                   fontWeight: FontWeight.w600,
                                 ),

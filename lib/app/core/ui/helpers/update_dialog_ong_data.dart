@@ -1,3 +1,4 @@
+import 'package:a_de_adote/app/core/constants/buttons.dart';
 import 'package:a_de_adote/app/core/extensions/mask_formatters.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_colors.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_fonts.dart';
@@ -62,7 +63,7 @@ mixin UpdateDialogOngData<T extends StatefulWidget> on State<T> {
           bottom: 0,
         ),
         title: const Text(
-          'Atualizar informações da ONG',
+          Labels.atualizarInfoOng,
           style: ProjectFonts.pLightBold,
         ),
         contentPadding: const EdgeInsets.all(10),
@@ -102,20 +103,19 @@ mixin UpdateDialogOngData<T extends StatefulWidget> on State<T> {
                   ),
                   StandardFormInput(
                     controller: _whatsapp,
-                    labelText: 'WhatsApp',
+                    labelText: Labels.whatsApp,
                     mask: [context.maskFormatters.maskTelFormatter],
                     inputType: TextInputType.phone,
                     trailing: const Tooltip(
                       triggerMode: TooltipTriggerMode.tap,
                       preferBelow: false,
-                      message:
-                          'Será a forma direta que o adotante irá entrar em contato.',
+                      message: Labels.whatsAppExplain,
                       child: Icon(
                         Icons.info_outline,
                         color: ProjectColors.lightDark,
                       ),
                     ),
-                    validator: Validatorless.required('Forneça um WhatsApp!'),
+                    validator: Validatorless.required(Labels.whatsAppValido),
                   ),
                   const SizedBox(
                     height: 10,
@@ -263,7 +263,7 @@ mixin UpdateDialogOngData<T extends StatefulWidget> on State<T> {
               }
             },
             child: Text(
-              'SALVAR',
+              Buttons.salvar,
               style: ProjectFonts.pSecundaryDark.copyWith(
                 color: ProjectColors.primaryLight,
               ),
@@ -272,7 +272,7 @@ mixin UpdateDialogOngData<T extends StatefulWidget> on State<T> {
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
             child: Text(
-              'CANCELAR',
+              Buttons.cancelar,
               style: ProjectFonts.pSecundaryDark.copyWith(
                 color: ProjectColors.lightDark,
               ),

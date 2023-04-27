@@ -1,3 +1,5 @@
+import 'package:a_de_adote/app/core/constants/buttons.dart';
+import 'package:a_de_adote/app/core/constants/labels.dart';
 import 'package:a_de_adote/app/core/exceptions/firestore_exception.dart';
 import 'package:a_de_adote/app/core/exceptions/launch_url_exception.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_colors.dart';
@@ -182,7 +184,7 @@ class _PetDetailsPageState extends State<PetDetailsPage>
                                                   .showSnackBar(
                                                 const SnackBar(
                                                   content: Text(
-                                                      'Removido dos favoritos'),
+                                                      Labels.removidoFavoritos),
                                                   duration:
                                                       Duration(seconds: 1),
                                                 ),
@@ -196,8 +198,8 @@ class _PetDetailsPageState extends State<PetDetailsPage>
                                               ScaffoldMessenger.of(context)
                                                   .showSnackBar(
                                                 const SnackBar(
-                                                  content: Text(
-                                                      'Adicionado aos favoritos'),
+                                                  content: Text(Labels
+                                                      .adicionadoFavoritos),
                                                   duration:
                                                       Duration(seconds: 1),
                                                 ),
@@ -221,7 +223,7 @@ class _PetDetailsPageState extends State<PetDetailsPage>
                                 children: [
                                   Expanded(
                                     child: InfoContainer(
-                                      title: 'Espécie',
+                                      title: Labels.especie,
                                       info: state.pet!.especie,
                                       icon: MaterialCommunityIcons.paw_outline,
                                     ),
@@ -231,7 +233,7 @@ class _PetDetailsPageState extends State<PetDetailsPage>
                                   ),
                                   Expanded(
                                     child: InfoContainer(
-                                      title: 'Porte',
+                                      title: Labels.porte,
                                       info: state.pet!.porte,
                                       icon: MaterialCommunityIcons.tape_measure,
                                     ),
@@ -248,7 +250,7 @@ class _PetDetailsPageState extends State<PetDetailsPage>
                                 children: [
                                   Expanded(
                                     child: InfoContainer(
-                                      title: 'Idade Aprox.',
+                                      title: Labels.idadeAprox,
                                       info: state.pet!.idadeAproximada,
                                       icon: Icons.info_outline,
                                     ),
@@ -258,7 +260,7 @@ class _PetDetailsPageState extends State<PetDetailsPage>
                                   ),
                                   Expanded(
                                     child: InfoContainer(
-                                      title: 'Sexo',
+                                      title: Labels.sexo,
                                       info: state.pet!.sexo,
                                       icon: MaterialCommunityIcons
                                           .gender_male_female,
@@ -272,8 +274,8 @@ class _PetDetailsPageState extends State<PetDetailsPage>
                               child: Divider(),
                             ),
                             Visibility(
-                              visible: widget.pet.especie == 'Cachorro' ||
-                                  widget.pet.especie == 'Gato',
+                              visible: widget.pet.especie == Labels.cachorro ||
+                                  widget.pet.especie == Labels.gato,
                               child: Column(
                                 children: [
                                   Padding(
@@ -288,24 +290,24 @@ class _PetDetailsPageState extends State<PetDetailsPage>
                                         runSpacing: 10,
                                         children: [
                                           InfoChip(
-                                              info: 'Castrado',
+                                              info: Labels.castrado,
                                               infoState: state.pet!.castrado),
                                           InfoChip(
-                                              info: 'Antirrábica',
+                                              info: Labels.antirrabica,
                                               infoState: state
                                                   .pet!.vacinas!['vacina1']),
                                           InfoChip(
                                               info: widget.pet.especie ==
-                                                      'Cachorro'
-                                                  ? 'V8'
-                                                  : 'V3',
+                                                      Labels.cachorro
+                                                  ? Labels.v8
+                                                  : Labels.v3,
                                               infoState: state
                                                   .pet!.vacinas!['vacina2']),
                                           InfoChip(
                                               info: widget.pet.especie ==
-                                                      'Cachorro'
-                                                  ? 'V10'
-                                                  : 'V5',
+                                                      Labels.cachorro
+                                                  ? Labels.v10
+                                                  : Labels.v5,
                                               infoState: state
                                                   .pet!.vacinas!['vacina3']),
                                         ],
@@ -330,11 +332,11 @@ class _PetDetailsPageState extends State<PetDetailsPage>
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
                                   const Text(
-                                    'Sobre',
+                                    Labels.sobre,
                                     style: ProjectFonts.pLightBold,
                                   ),
                                   Text(
-                                    state.pet!.descricao ?? 'Sem descrição.',
+                                    state.pet!.descricao ?? Labels.semDescricao,
                                     style: ProjectFonts.smallLight,
                                   ),
                                 ],
@@ -396,7 +398,7 @@ class _PetDetailsPageState extends State<PetDetailsPage>
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: const [
                               Text(
-                                'FALE COM A ONG',
+                                Buttons.falarComOng,
                                 style: ProjectFonts.pLightBold,
                               ),
                               SizedBox(
@@ -466,7 +468,7 @@ class _PetDetailsPageState extends State<PetDetailsPage>
                                 color: Colors.blue,
                               ),
                               title: const Text(
-                                'Editar',
+                                Buttons.editar,
                                 style: ProjectFonts.pSecundaryDark,
                               ),
                               onTap: () async {
@@ -496,13 +498,13 @@ class _PetDetailsPageState extends State<PetDetailsPage>
                                 color: ProjectColors.danger,
                               ),
                               title: const Text(
-                                'Excluir',
+                                Buttons.excluir,
                                 style: ProjectFonts.pSecundaryDark,
                               ),
                               onTap: () async {
                                 Navigator.of(context).pop();
                                 bool? action = await confirmAction(
-                                    'Você tem certeza que gostaria de excluir este animal?');
+                                    Labels.confirmacaoExcluirAnimal);
                                 if (action == null || action == false) {
                                   null;
                                 } else {

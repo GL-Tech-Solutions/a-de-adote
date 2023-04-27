@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:a_de_adote/app/core/constants/labels.dart';
 import 'package:a_de_adote/app/core/ui/widgets/container_research.dart';
 import 'package:a_de_adote/app/pages/favorite_pets/favorite_pets_controller.dart';
 import 'package:a_de_adote/app/pages/favorite_pets/favorite_pets_state.dart';
@@ -40,7 +41,7 @@ class _FavoritePetsPageState extends State<FavoritePetsPage> {
         headerSliverBuilder: (BuildContext context, innerBoxIsScrolled) {
           return [
             StandardSliverAppbar(
-              title: 'Favoritos',
+              title: Labels.titleFavoritos,
               canPop: false,
               bottom: PreferredSize(
                 preferredSize: Size(
@@ -121,7 +122,7 @@ class _FavoritePetsPageState extends State<FavoritePetsPage> {
                                     children: const [
                                       Flexible(
                                         child: Text(
-                                          'Você ainda não possui nenhum animal favorito.',
+                                          Labels.naoPossuiFavoritos,
                                           style: ProjectFonts.pLight,
                                         ),
                                       ),

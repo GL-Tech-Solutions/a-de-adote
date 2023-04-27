@@ -1,3 +1,4 @@
+import 'package:a_de_adote/app/core/constants/labels.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_colors.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_fonts.dart';
 import 'package:flutter/material.dart';
@@ -66,7 +67,7 @@ class StandardSearchBar extends StatelessWidget {
                 Icons.close,
               ),
             ),
-            hintText: 'Pesquise um nome',
+            hintText: Labels.pesquisarNome,
             hintStyle:
                 ProjectFonts.pLight.copyWith(color: ProjectColors.darkLight),
           ),

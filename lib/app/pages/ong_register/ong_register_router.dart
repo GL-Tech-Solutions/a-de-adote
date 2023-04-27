@@ -1,3 +1,4 @@
+import 'package:a_de_adote/app/core/constants/labels.dart';
 import 'package:a_de_adote/app/pages/ong_register/cnpj_form/ong_cnpj_form_router.dart';
 import 'package:a_de_adote/app/pages/ong_register/signup_form/ong_signup_form_router.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,7 @@ class _OngRegisterRouterState extends State<OngRegisterRouter> {
         }
       },
       child: Scaffold(
-          appBar: const StandardAppBar(title: 'Cadastro'),
+          appBar: const StandardAppBar(title: Labels.cadastro),
           body: Navigator(
             key: navKey,
             initialRoute: '/cnpj',

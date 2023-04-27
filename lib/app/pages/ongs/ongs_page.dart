@@ -1,3 +1,4 @@
+import 'package:a_de_adote/app/core/constants/labels.dart';
 import 'package:a_de_adote/app/core/ui/helpers/filters_state.dart';
 import 'package:a_de_adote/app/core/ui/widgets/standard_drawer.dart';
 import 'package:a_de_adote/app/core/ui/widgets/standard_shimmer_effect.dart';
@@ -89,7 +90,7 @@ class _OngsPageState extends State<OngsPage> with BottomSheetOngFilter {
                           },
                         )
                       : StandardSliverAppbar(
-                          title: 'ONGs',
+                          title: Labels.ongs,
                           canPop: false,
                           alternateAppbar: () {
                             context.read<OngsController>().clearOngsFiltered();

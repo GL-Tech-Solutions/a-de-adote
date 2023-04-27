@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:a_de_adote/app/core/constants/buttons.dart';
+import 'package:a_de_adote/app/core/constants/labels.dart';
 import 'package:a_de_adote/app/core/extensions/capitalize_only_first_letter_extension.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_fonts.dart';
 import 'package:a_de_adote/app/core/ui/widgets/standard_drawer.dart';
@@ -120,15 +122,17 @@ class OngDetailsPage extends StatelessWidget {
                                               children: [
                                                 TextSpan(
                                                   text: i == 0
-                                                      ? 'CNPJ: '
+                                                      ? Labels.cnpjField
                                                       : i == 1
-                                                          ? 'E-mail: '
+                                                          ? Labels.emailField
                                                           : i == 2
-                                                              ? 'Telefone: '
+                                                              ? Labels.telField
                                                               : i == 3
-                                                                  ? 'WhatsApp: '
+                                                                  ? Labels
+                                                                      .whatsAppField
                                                                   : i == 4
-                                                                      ? 'Endereço: '
+                                                                      ? Labels
+                                                                          .enderecoField
                                                                       : '',
                                                   style:
                                                       ProjectFonts.pLightBold,
@@ -163,7 +167,7 @@ class OngDetailsPage extends StatelessWidget {
                             children: [
                               CustomExpansionTile(
                                 isOng: false,
-                                title: 'Doação - Pix',
+                                title: Labels.doacaoPix,
                                 isInitialExpanded: true,
                                 bodyPadding: EdgeInsets.symmetric(
                                   vertical: ong.pix == null ? 10 : 0,
@@ -171,7 +175,7 @@ class OngDetailsPage extends StatelessWidget {
                                 ),
                                 body: ong.pix == null
                                     ? Text(
-                                        'Sem informações de Pix.',
+                                        Labels.pixVazio,
                                         style: ProjectFonts.pLight.copyWith(
                                           fontStyle: FontStyle.italic,
                                         ),
@@ -181,14 +185,14 @@ class OngDetailsPage extends StatelessWidget {
                                             MainAxisAlignment.start,
                                         children: [
                                           Icon(
-                                            ong.pix?.keys.first == 'CNPJ'
+                                            ong.pix?.keys.first == Labels.cnpj
                                                 ? Icons.info_outline_rounded
                                                 : ong.pix?.keys.first ==
-                                                        'Celular'
+                                                        Labels.celular
                                                     ? MaterialCommunityIcons
                                                         .whatsapp
                                                     : ong.pix?.keys.first ==
-                                                            'E-mail'
+                                                            Labels.email
                                                         ? Icons.email_outlined
                                                         : null,
                                             color: ProjectColors.light,
@@ -227,7 +231,7 @@ class OngDetailsPage extends StatelessWidget {
                                                     .showSnackBar(
                                                   const SnackBar(
                                                     content: Text(
-                                                      'Pix copiado!',
+                                                      Labels.pixCopiado,
                                                     ),
                                                   ),
                                                 );
@@ -247,11 +251,11 @@ class OngDetailsPage extends StatelessWidget {
                               ),
                               CustomExpansionTile(
                                 isOng: false,
-                                title: 'Sobre',
+                                title: Labels.sobre,
                                 isInitialExpanded: true,
                                 body: ong.informacoes == null
                                     ? Text(
-                                        'Sem informações sobre a ONG.',
+                                        Labels.informacoesOngVazia,
                                         style: ProjectFonts.smallLight.copyWith(
                                           fontStyle: FontStyle.italic,
                                         ),
@@ -310,7 +314,7 @@ class OngDetailsPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: const [
                       Text(
-                        'VER ANIMAIS',
+                        Buttons.verAnimais,
                         style: ProjectFonts.pLightBold,
                       ),
                       SizedBox(

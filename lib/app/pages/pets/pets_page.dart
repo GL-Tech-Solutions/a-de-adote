@@ -1,3 +1,4 @@
+import 'package:a_de_adote/app/core/constants/labels.dart';
 import 'package:a_de_adote/app/core/ui/helpers/bottom_sheet_pet_filter.dart';
 import 'package:a_de_adote/app/core/ui/helpers/filters_state.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_colors.dart';
@@ -89,7 +90,7 @@ class _PetsPageState extends State<PetsPage> with BottomSheetPetFilter {
                           },
                         )
                       : StandardSliverAppbar(
-                          title: 'Pets',
+                          title: Labels.pets,
                           canPop: false,
                           alternateAppbar: () {
                             context.read<PetsController>().clearPetsFiltered();

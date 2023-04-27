@@ -1,3 +1,4 @@
+import 'package:a_de_adote/app/core/constants/labels.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_colors.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_fonts.dart';
 import 'package:a_de_adote/app/models/pet_model.dart';
@@ -78,13 +79,13 @@ class OngAnimalCard extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Icon(
-                          pet.especie == 'Cachorro'
+                          pet.especie == Labels.cachorro
                               ? MaterialCommunityIcons.dog
-                              : pet.especie == 'Gato'
+                              : pet.especie == Labels.gato
                                   ? MaterialCommunityIcons.cat
-                                  : pet.especie == 'Pássaro'
+                                  : pet.especie == Labels.passaro
                                       ? MaterialCommunityIcons.bird
-                                      : pet.especie == 'Outros'
+                                      : pet.especie == Labels.outros
                                           ? MaterialCommunityIcons.paw
                                           : MaterialCommunityIcons.paw,
                           size: 14,
