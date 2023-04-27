@@ -16,7 +16,7 @@ class Labels {
       "A castração evita doenças e pode aumentar a vida do seu animal. Não adie esse ato de amor!";
   
   //ONG
-  static const msg1Ong = "Seja bem vindo! Vamos juntos unir melhores amigos!";
+  static const msg1Ong = "Seja bem vindo! Vamos juntos, unir melhores amigos!";
   static const msg2Ong = "Lembre-se de manter o cadastro dos animais atualizado";
   static const msg3Ong = "Posse responsável";
 
