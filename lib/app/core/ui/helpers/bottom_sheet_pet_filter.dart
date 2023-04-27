@@ -236,7 +236,7 @@ mixin BottomSheetPetFilter<T extends StatefulWidget> on State<T> {
                     Row(
                       children: [
                         Container(
-                          height: 45,
+                          height: 50,
                           padding: const EdgeInsets.all(4),
                           child: StepperSwipe(
                             initialValue: _idadeMaxima.value,

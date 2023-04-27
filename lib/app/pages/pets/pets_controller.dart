@@ -21,6 +21,9 @@ class PetsController extends Cubit<PetsState> {
         emit(state.copyWith(status: PetsStatus.loaded));
       } else {
         loadPetsFiltered(FiltersState.petCurrentFilters);
+        if (state.status == PetsStatus.error) {
+          clearPetsFiltered();
+        }
       }
     } on FirestoreException catch (e) {
       emit(

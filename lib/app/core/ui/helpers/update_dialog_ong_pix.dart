@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:a_de_adote/app/core/constants/buttons.dart';
 import 'package:a_de_adote/app/core/extensions/dropdown_menu_items.dart';
 import 'package:a_de_adote/app/core/extensions/mask_formatters.dart';
@@ -139,10 +141,14 @@ mixin UpdateDialogOngPix<T extends StatefulWidget> on State<T> {
             onPressed: () {
               final valid = _formKey.currentState?.validate() ?? false;
               if (valid) {
+                FocusManager.instance.primaryFocus?.unfocus();
                 updatedDonationForms = {
                   _donationOptionDBX.value ?? '': _donationOptionEC.text,
                 };
-                Navigator.of(context).pop();
+                Timer(
+                  const Duration(milliseconds: 100),
+                  () => Navigator.of(context).pop(),
+                );
               }
             },
             child: Text(

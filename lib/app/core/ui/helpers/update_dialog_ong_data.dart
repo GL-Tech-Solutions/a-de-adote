@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:a_de_adote/app/core/constants/buttons.dart';
 import 'package:a_de_adote/app/core/extensions/mask_formatters.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_colors.dart';
@@ -247,6 +249,7 @@ mixin UpdateDialogOngData<T extends StatefulWidget> on State<T> {
             onPressed: () {
               final valid = _formKey.currentState?.validate() ?? false;
               if (valid) {
+                FocusManager.instance.primaryFocus?.unfocus();
                 updatedOng = ong.copyWith(
                   fantasia: _nomeFantasia.text,
                   telefone: _telefone.text,
@@ -259,7 +262,10 @@ mixin UpdateDialogOngData<T extends StatefulWidget> on State<T> {
                   municipio: _cidade.text,
                   uf: _uf.text,
                 );
-                Navigator.of(context).pop();
+                Timer(
+                  const Duration(milliseconds: 100),
+                  () => Navigator.of(context).pop(),
+                );
               }
             },
             child: Text(

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:a_de_adote/app/core/constants/buttons.dart';
 import 'package:a_de_adote/app/core/constants/labels.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_colors.dart';
@@ -57,8 +59,12 @@ mixin UpdateDialogOngDescription<T extends StatefulWidget> on State<T> {
             onPressed: () {
               final valid = _formKey.currentState?.validate() ?? false;
               if (valid) {
+                FocusManager.instance.primaryFocus?.unfocus();
                 descricao = _sobre.text;
-                Navigator.of(context).pop();
+                Timer(
+                  const Duration(milliseconds: 100),
+                  () => Navigator.of(context).pop(),
+                );
               }
             },
             child: Text(

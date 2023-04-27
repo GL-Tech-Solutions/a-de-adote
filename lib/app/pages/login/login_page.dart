@@ -154,6 +154,8 @@ class _LoginPageState extends State<LoginPage> {
                                                   ?.validate() ??
                                               false;
                                           if (valid) {
+                                            FocusManager.instance.primaryFocus
+                                                ?.unfocus();
                                             context
                                                 .read<LoginController>()
                                                 .loginOng(
