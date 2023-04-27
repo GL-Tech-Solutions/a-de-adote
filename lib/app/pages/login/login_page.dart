@@ -208,45 +208,48 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
-                Align(
-                  alignment: FractionalOffset.bottomCenter,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Divider(
-                        color: ProjectColors.lightDark,
-                      ),
-                      TextButton(
-                        onPressed: () async {
-                          final navigator = Navigator.of(context);
-                          final sp = await SharedPreferences.getInstance();
-                          sp.setString('userType', 'adotante');
-                          navigator.popAndPushNamed('/main');
-                        },
-                        style: ButtonStyle(
-                          overlayColor: MaterialStateProperty.all(
-                            ProjectColors.primary.withOpacity(0.2),
-                          ),
+                Visibility(
+                  visible: MediaQuery.of(context).viewInsets.bottom == 0,
+                  child: Align(
+                    alignment: FractionalOffset.bottomCenter,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Divider(
+                          color: ProjectColors.lightDark,
                         ),
-                        child: RichText(
-                          text: const TextSpan(
-                            children: [
-                              TextSpan(
-                                  text: Labels.naoEOng,
-                                  style: ProjectFonts.smallLight),
-                              TextSpan(
-                                text: Labels.entrarComoAdotante,
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: ProjectColors.light,
-                                  fontWeight: FontWeight.bold,
+                        TextButton(
+                          onPressed: () async {
+                            final navigator = Navigator.of(context);
+                            final sp = await SharedPreferences.getInstance();
+                            sp.setString('userType', 'adotante');
+                            navigator.popAndPushNamed('/main');
+                          },
+                          style: ButtonStyle(
+                            overlayColor: MaterialStateProperty.all(
+                              ProjectColors.primary.withOpacity(0.2),
+                            ),
+                          ),
+                          child: RichText(
+                            text: const TextSpan(
+                              children: [
+                                TextSpan(
+                                    text: Labels.naoEOng,
+                                    style: ProjectFonts.smallLight),
+                                TextSpan(
+                                  text: Labels.entrarComoAdotante,
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: ProjectColors.light,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ],

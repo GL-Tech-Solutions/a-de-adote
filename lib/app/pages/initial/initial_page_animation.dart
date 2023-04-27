@@ -29,7 +29,9 @@ class InitialPageAnimation extends StatelessWidget {
           ),
           child: Center(
             child: Padding(
-              padding: const EdgeInsets.only(top: 125, bottom: 50),
+              padding: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height * 0.05,
+                  bottom: MediaQuery.of(context).size.height * 0.02),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

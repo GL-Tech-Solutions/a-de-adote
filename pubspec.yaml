@@ -60,6 +60,7 @@ dependencies:
   flutter_image_compress: ^1.1.3
   shimmer: ^2.0.0
   stepper_counter_swipe: ^1.0.2
+  flutter_keyboard_visibility: ^5.4.1
 
 flutter_native_splash:
     color: "#242C3C"

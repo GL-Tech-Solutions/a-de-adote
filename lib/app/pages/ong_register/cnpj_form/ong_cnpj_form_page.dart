@@ -4,6 +4,7 @@ import 'package:a_de_adote/app/pages/ong_register/cnpj_form/ong_cnpj_form_state.
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../core/ui/styles/project_colors.dart';
 import '../../../core/ui/styles/project_fonts.dart';
@@ -140,48 +141,54 @@ class _ONGCNPJFormPageState extends State<ONGCNPJFormPage> {
                     ),
                   ],
                 ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Divider(
-                        color: ProjectColors.lightDark,
-                      ),
-                      TextButton(
-                        onPressed: () async {
-                          final navigator =
-                              Navigator.of(context, rootNavigator: true);
-                          final sp = await SharedPreferences.getInstance();
-                          sp.setString('userType', 'ong');
-                          navigator.popAndPushNamed('/login');
-                        },
-                        style: ButtonStyle(
-                          overlayColor: MaterialStateProperty.all(
-                            ProjectColors.primary.withOpacity(0.2),
+                KeyboardVisibilityBuilder(
+                    builder: (context, isKeyboardVisible) {
+                  return Visibility(
+                    visible: !isKeyboardVisible,
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Divider(
+                            color: ProjectColors.lightDark,
                           ),
-                        ),
-                        child: RichText(
-                          text: const TextSpan(
-                            children: [
-                              TextSpan(
-                                  text: Labels.possuiCadastro,
-                                  style: ProjectFonts.smallLight),
-                              TextSpan(
-                                text: Labels.fazerLogin,
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: ProjectColors.primaryLight,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                          TextButton(
+                            onPressed: () async {
+                              final navigator =
+                                  Navigator.of(context, rootNavigator: true);
+                              final sp = await SharedPreferences.getInstance();
+                              sp.setString('userType', 'ong');
+                              navigator.popAndPushNamed('/login');
+                            },
+                            style: ButtonStyle(
+                              overlayColor: MaterialStateProperty.all(
+                                ProjectColors.primary.withOpacity(0.2),
                               ),
-                            ],
+                            ),
+                            child: RichText(
+                              text: const TextSpan(
+                                children: [
+                                  TextSpan(
+                                      text: Labels.possuiCadastro,
+                                      style: ProjectFonts.smallLight),
+                                  TextSpan(
+                                    text: Labels.fazerLogin,
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: ProjectColors.primaryLight,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
-                        ),
+                        ],
                       ),
-                    ],
-                  ),
-                ),
+                    ),
+                  );
+                }),
               ],
             ),
           );

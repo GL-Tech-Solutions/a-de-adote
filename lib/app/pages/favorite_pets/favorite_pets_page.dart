@@ -106,30 +106,29 @@ class _FavoritePetsPageState extends State<FavoritePetsPage> {
                             Widget? child) {
                           return Visibility(
                             visible: canBeVisible,
-                            child: Center(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  const Icon(
-                                    MaterialCommunityIcons.paw,
-                                    size: 18,
-                                    color: ProjectColors.light,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: const [
-                                      Flexible(
-                                        child: Text(
-                                          Labels.naoPossuiFavoritos,
-                                          style: ProjectFonts.pLight,
-                                        ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const Icon(
+                                  MaterialCommunityIcons.paw,
+                                  size: 18,
+                                  color: ProjectColors.light,
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: const [
+                                    Flexible(
+                                      child: Text(
+                                        Labels.naoPossuiFavoritos,
+                                        style: ProjectFonts.pLight,
+                                        textAlign: TextAlign.center,
                                       ),
-                                    ],
-                                  ),
-                                ],
-                              ),
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
                           );
                         })

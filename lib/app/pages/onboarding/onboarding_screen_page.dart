@@ -72,8 +72,11 @@ class _OnboardingScreenPageState extends State<OnboardingScreenPage> {
                 ]),
           ),
           child: Padding(
-            padding:
-                const EdgeInsets.only(top: 40, bottom: 10, left: 15, right: 15),
+            padding: EdgeInsets.only(
+                top: MediaQuery.of(context).size.height * 0.04,
+                bottom: MediaQuery.of(context).size.height * 0.004,
+                left: 15,
+                right: 15),
             child:
                 BlocBuilder<OnboardingScreenController, OnboardingScreenState>(
               builder: (context, state) {
@@ -100,7 +103,7 @@ class _OnboardingScreenPageState extends State<OnboardingScreenPage> {
                       ),
                     ),
                     SizedBox(
-                      height: 590,
+                      height: MediaQuery.of(context).size.height * 0.72,
                       child: PageView(
                         physics: const ClampingScrollPhysics(),
                         controller: _pc,
@@ -109,8 +112,11 @@ class _OnboardingScreenPageState extends State<OnboardingScreenPage> {
                             .setPage(page),
                         children: [
                           Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 40, horizontal: 25),
+                            padding: EdgeInsets.symmetric(
+                              vertical:
+                                  MediaQuery.of(context).size.height * 0.02,
+                              horizontal: 25,
+                            ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -121,6 +127,10 @@ class _OnboardingScreenPageState extends State<OnboardingScreenPage> {
                                           ? 'assets/images/onboarding/2.png'
                                           : 'assets/images/onboarding/5.png',
                                     ),
+                                    height: MediaQuery.of(context).size.height *
+                                        0.4,
+                                    width: MediaQuery.of(context).size.height *
+                                        0.4,
                                   ),
                                 ),
                                 const SizedBox(
@@ -157,6 +167,10 @@ class _OnboardingScreenPageState extends State<OnboardingScreenPage> {
                                           ? 'assets/images/onboarding/3.png'
                                           : 'assets/images/onboarding/4.png',
                                     ),
+                                    height: MediaQuery.of(context).size.height *
+                                        0.4,
+                                    width: MediaQuery.of(context).size.height *
+                                        0.4,
                                   ),
                                 ),
                                 const SizedBox(
@@ -193,6 +207,10 @@ class _OnboardingScreenPageState extends State<OnboardingScreenPage> {
                                           ? 'assets/images/onboarding/1.png'
                                           : 'assets/images/onboarding/6.png',
                                     ),
+                                    height: MediaQuery.of(context).size.height *
+                                        0.4,
+                                    width: MediaQuery.of(context).size.height *
+                                        0.4,
                                   ),
                                 ),
                                 const SizedBox(
@@ -265,30 +283,30 @@ class _OnboardingScreenPageState extends State<OnboardingScreenPage> {
                               child: Align(
                                 alignment: FractionalOffset.bottomCenter,
                                 child: AnimatedButton(
-                                    route: _option == 'adotante'
-                                        ? () async {
-                                            final navigator =
-                                                Navigator.of(context);
-                                            final sp = await SharedPreferences
-                                                .getInstance();
-                                            sp.setBool('isFirstAccess', false);
-                                            sp.setString(
-                                                'userType', 'adotante');
-                                            navigator.popAndPushNamed(
-                                              '/main',
-                                            );
-                                          }
-                                        : () async {
-                                            final navigator =
-                                                Navigator.of(context);
-                                            final sp = await SharedPreferences
-                                                .getInstance();
-                                            sp.setBool('isFirstAccess', false);
-                                            sp.setString('userType', 'ong');
-                                            navigator.popAndPushNamed(
-                                              '/register',
-                                            );
-                                          }),
+                                  route: _option == 'adotante'
+                                      ? () async {
+                                          final navigator =
+                                              Navigator.of(context);
+                                          final sp = await SharedPreferences
+                                              .getInstance();
+                                          sp.setBool('isFirstAccess', false);
+                                          sp.setString('userType', 'adotante');
+                                          navigator.popAndPushNamed(
+                                            '/main',
+                                          );
+                                        }
+                                      : () async {
+                                          final navigator =
+                                              Navigator.of(context);
+                                          final sp = await SharedPreferences
+                                              .getInstance();
+                                          sp.setBool('isFirstAccess', false);
+                                          sp.setString('userType', 'ong');
+                                          navigator.popAndPushNamed(
+                                            '/register',
+                                          );
+                                        },
+                                ),
                               ),
                             ),
                           ),
