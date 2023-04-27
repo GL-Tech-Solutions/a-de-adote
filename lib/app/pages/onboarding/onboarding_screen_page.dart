@@ -118,8 +118,8 @@ class _OnboardingScreenPageState extends State<OnboardingScreenPage> {
                                   child: Image(
                                     image: AssetImage(
                                       _option == 'adotante'
-                                          ? 'assets/images/logos/logo_icon_white_450.png'
-                                          : 'assets/images/logos/logo_icon_white_450.png',
+                                          ? 'assets/images/onboarding/2.png'
+                                          : 'assets/images/onboarding/1.png',
                                     ),
                                   ),
                                 ),
@@ -154,8 +154,8 @@ class _OnboardingScreenPageState extends State<OnboardingScreenPage> {
                                   child: Image(
                                     image: AssetImage(
                                       _option == 'adotante'
-                                          ? 'assets/images/logos/logo_icon_white_450.png'
-                                          : 'assets/images/logos/logo_icon_white_450.png',
+                                          ? 'assets/images/onboarding/3.png'
+                                          : 'assets/images/onboarding/4.png',
                                     ),
                                   ),
                                 ),
@@ -190,8 +190,8 @@ class _OnboardingScreenPageState extends State<OnboardingScreenPage> {
                                   child: Image(
                                     image: AssetImage(
                                       _option == 'adotante'
-                                          ? 'assets/images/logos/logo_icon_white_450.png'
-                                          : 'assets/images/logos/logo_icon_white_450.png',
+                                          ? 'assets/images/onboarding/5.png'
+                                          : 'assets/images/onboarding/6.png',
                                     ),
                                   ),
                                 ),
