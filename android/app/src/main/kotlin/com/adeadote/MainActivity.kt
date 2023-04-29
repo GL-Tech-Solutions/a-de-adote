@@ -1,4 +1,4 @@
-package com.example.a_de_adote
+package com.adeadote
 
 import io.flutter.embedding.android.FlutterActivity
 
