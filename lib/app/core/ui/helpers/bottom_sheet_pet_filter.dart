@@ -2,7 +2,6 @@ import 'package:a_de_adote/app/core/constants/buttons.dart';
 import 'package:a_de_adote/app/core/constants/labels.dart';
 import 'package:a_de_adote/app/core/ui/helpers/filters_state.dart';
 import 'package:flutter/material.dart';
-import 'package:stepper_counter_swipe/stepper_counter_swipe.dart';
 import '../styles/project_colors.dart';
 import '../styles/project_fonts.dart';
 import '../widgets/checkbox_row.dart';
@@ -233,41 +232,28 @@ mixin BottomSheetPetFilter<T extends StatefulWidget> on State<T> {
                         ],
                       ),
                     ),
-                    Row(
-                      children: [
-                        Container(
-                          height: 50,
-                          padding: const EdgeInsets.all(4),
-                          child: StepperSwipe(
-                            initialValue: _idadeMaxima.value,
-                            speedTransitionLimitCount: 3,
-                            onChanged: (int value) {
-                              _idadeMaxima.value = value;
+                    Expanded(
+                      child: ValueListenableBuilder(
+                        valueListenable: _idadeMaxima,
+                        builder: (BuildContext context, int idadeMaxima,
+                            Widget? child) {
+                          return Slider(
+                            value: idadeMaxima.toDouble(),
+                            onChanged: (double value) {
+                              _idadeMaxima.value = value.toInt();
                             },
-                            firstIncrementDuration: const Duration(
-                              milliseconds: 250,
-                            ),
-                            secondIncrementDuration: const Duration(
-                              milliseconds: 100,
-                            ),
-                            direction: Axis.horizontal,
-                            dragButtonColor: ProjectColors.primary,
-                            iconsColor: ProjectColors.secondaryDark,
-                            withBackground: true,
-                            withSpring: true,
-                            withFastCount: true,
-                            withPlusMinus: true,
-                            maxValue: 20,
-                            minValue: 1,
-                            stepperValue: 1,
-                          ),
-                        ),
-                        const Text(
-                          Labels.anos,
-                          style: ProjectFonts.smallSecundaryDark,
-                        ),
-                      ],
-                    )
+                            min: 1,
+                            max: 20,
+                            divisions: 19,
+                            label: idadeMaxima.toString(),
+                          );
+                        },
+                      ),
+                    ),
+                    const Text(
+                      Labels.anos,
+                      style: ProjectFonts.smallSecundaryDark,
+                    ),
                   ],
                 ),
                 const Divider(),

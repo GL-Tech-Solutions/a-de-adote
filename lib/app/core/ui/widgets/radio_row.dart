@@ -36,7 +36,7 @@ class RadioRow extends StatelessWidget {
           groupValue: state,
           value: value,
           onChanged: radioCallback,
-          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          materialTapTargetSize: MaterialTapTargetSize.padded,
         ),
       ],
     );

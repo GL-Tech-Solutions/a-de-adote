@@ -33,7 +33,7 @@ class CheckboxRow extends StatelessWidget {
         Checkbox(
           value: value,
           onChanged: checkboxCallback,
-          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          materialTapTargetSize: MaterialTapTargetSize.padded,
         ),
       ],
     );

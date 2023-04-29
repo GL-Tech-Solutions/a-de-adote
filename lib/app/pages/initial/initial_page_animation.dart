@@ -67,22 +67,22 @@ class InitialPageAnimation extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Expanded(
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(vertical: 14),
-                            decoration: const BoxDecoration(
-                              color: ProjectColors.primary,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(6),
-                              ),
+                          child: InkWell(
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(6),
                             ),
-                            child: InkWell(
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(6),
+                            onTap: (() {
+                              Navigator.pushNamed(context, '/onboarding',
+                                  arguments: 'adotante');
+                            }),
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(vertical: 14),
+                              decoration: const BoxDecoration(
+                                color: ProjectColors.primary,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(6),
+                                ),
                               ),
-                              onTap: (() {
-                                Navigator.pushNamed(context, '/onboarding',
-                                    arguments: 'adotante');
-                              }),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: const [
@@ -105,22 +105,22 @@ class InitialPageAnimation extends StatelessWidget {
                           width: 15,
                         ),
                         Expanded(
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(vertical: 14),
-                            decoration: const BoxDecoration(
-                              color: ProjectColors.secondary,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(6),
-                              ),
+                          child: InkWell(
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(6),
                             ),
-                            child: InkWell(
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(6),
+                            onTap: (() {
+                              Navigator.pushNamed(context, '/onboarding',
+                                  arguments: 'ong');
+                            }),
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(vertical: 14),
+                              decoration: const BoxDecoration(
+                                color: ProjectColors.secondary,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(6),
+                                ),
                               ),
-                              onTap: (() {
-                                Navigator.pushNamed(context, '/onboarding',
-                                    arguments: 'ong');
-                              }),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: const [

@@ -59,7 +59,7 @@ class _DropdownOngWidgetState extends State<DropdownOngWidget> {
       builder: (context, state) {
         if (_isLoading) {
           return Container(
-            height: 40,
+            height: 48,
             decoration: BoxDecoration(
               color: ProjectColors.lightDark,
               borderRadius: BorderRadius.circular(6),
@@ -117,7 +117,8 @@ class _DropdownOngWidgetState extends State<DropdownOngWidget> {
               isCollapsed: true,
               filled: true,
               fillColor: ProjectColors.lightDark,
-              contentPadding: const EdgeInsets.only(left: 8, top: 8, bottom: 8),
+              contentPadding:
+                  const EdgeInsets.only(left: 12, top: 12, bottom: 12),
             ),
           );
         }

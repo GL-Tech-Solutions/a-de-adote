@@ -151,7 +151,7 @@ class _PetDetailsPageState extends State<PetDetailsPage>
                                                 .ongUser ==
                                             null, // Significa que não é uma Ong acessando os detalhes do Pet.
                                         child: LikeButton(
-                                          size: 26,
+                                          size: 48,
                                           circleColor: const CircleColor(
                                             start: ProjectColors.primaryLight,
                                             end: ProjectColors.primaryLight,

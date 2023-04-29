@@ -131,7 +131,7 @@ class Labels {
   static const passaro = "Pássaro";
   static const outros = "Outros";
   static const idadeMaxima = "Idade máxima\n";
-  static const deslizeParaAlterar = "Deslize para alterar";
+  static const deslizeParaAlterar = "(Deslize para alterar)";
   static const anos = "anos";
   static const sexo = "Sexo";
   static const ambos = "Ambos";

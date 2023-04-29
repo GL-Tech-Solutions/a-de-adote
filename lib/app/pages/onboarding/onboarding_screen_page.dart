@@ -102,8 +102,8 @@ class _OnboardingScreenPageState extends State<OnboardingScreenPage> {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.72,
+                    Expanded(
+                      flex: 5,
                       child: PageView(
                         physics: const ClampingScrollPhysics(),
                         controller: _pc,
@@ -155,8 +155,11 @@ class _OnboardingScreenPageState extends State<OnboardingScreenPage> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 40, horizontal: 25),
+                            padding: EdgeInsets.symmetric(
+                              vertical:
+                                  MediaQuery.of(context).size.height * 0.02,
+                              horizontal: 25,
+                            ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -195,8 +198,11 @@ class _OnboardingScreenPageState extends State<OnboardingScreenPage> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 40, horizontal: 25),
+                            padding: EdgeInsets.symmetric(
+                              vertical:
+                                  MediaQuery.of(context).size.height * 0.02,
+                              horizontal: 25,
+                            ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
