@@ -4,20 +4,22 @@ class Labels {
 //ONBOARDING SCREEN
 
 //ADOTANTE
-  static const msg1Adotante = "Seja bem vindo, entre e encontre seu melhor amigo!";
+  static const msg1Adotante =
+      "Seja bem vindo, entre e encontre seu melhor amigo!";
   static const msg2Adotante = "Contato com a ONG";
   static const msg3Adotante = "Castração";
-  
+
   static const informativoAdotante1 =
       "Você não precisa realizar cadastro para encontrar um amigo!";
   static const informativoAdotante2 =
       "Ao clicar em entrar em contato você será direcionado diretamente ao canal de comunicação da ONG!";
   static const informativoAdotante3 =
       "A castração evita doenças e pode aumentar a vida do seu animal. Não adie esse ato de amor!";
-  
+
   //ONG
   static const msg1Ong = "Seja bem vindo! Vamos juntos, unir melhores amigos!";
-  static const msg2Ong = "Lembre-se de manter o cadastro dos animais atualizado";
+  static const msg2Ong =
+      "Lembre-se de manter o cadastro dos animais atualizado";
   static const msg3Ong = "Posse responsável";
 
   static const informativoOng1 =
@@ -26,7 +28,6 @@ class Labels {
       "Você pode cadastrar novos animais e gerenciá-los na aba 'Meus animais'";
   static const informativoOng3 =
       "Incentive a castração. Quem ama, cuida e castra!";
-
 
   //ONG CNPJ FORM PAGE + OTHERS
   static const iniciar = "Vamos começar!";
@@ -175,7 +176,7 @@ class Labels {
   static const emailField = "E-mail: ";
   static const telField = "Telefone: ";
   static const whatsAppField = "WhatsApp: ";
-  static const enderecoField = "Endereço";
+  static const enderecoField = "Endereço: ";
   static const doacaoPix = "Doação - Pix";
   static const pixVazio = "Sem informações de Pix.";
   static const pixCopiado = "PixCopiado!";
