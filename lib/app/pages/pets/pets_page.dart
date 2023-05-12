@@ -136,12 +136,13 @@ class _PetsPageState extends State<PetsPage> with BottomSheetPetFilter {
 
                   return _isLoading
                       ? GridView.builder(
-                          padding: const EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(12),
                           itemCount: 8,
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
                             mainAxisSpacing: 17,
+                            mainAxisExtent: 175,
+                            crossAxisCount: 2,
                             crossAxisSpacing: 12,
                           ),
                           itemBuilder: (context, index) {
@@ -160,8 +161,9 @@ class _PetsPageState extends State<PetsPage> with BottomSheetPetFilter {
                                         : lengthListPets,
                                 gridDelegate:
                                     const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2,
                                   mainAxisSpacing: 10,
+                                  mainAxisExtent: 181,
+                                  crossAxisCount: 2,
                                   crossAxisSpacing: 5,
                                 ),
                                 itemBuilder: (context, index) {

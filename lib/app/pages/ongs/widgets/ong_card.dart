@@ -3,6 +3,7 @@ import 'package:a_de_adote/app/core/extensions/capitalize_only_first_letter_exte
 import 'package:a_de_adote/app/core/ui/helpers/filters_state.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_colors.dart';
 import 'package:a_de_adote/app/pages/home/tabs_state.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -115,8 +116,10 @@ class OngCard extends StatelessWidget {
                             ),
                             alignment: Alignment.center,
                           ),
-                          child: const Text(
+                          child: const AutoSizeText(
                             Buttons.verAnimais,
+                            minFontSize: 8,
+                            maxFontSize: 12,
                             style: ProjectFonts.smallLightBold,
                           ),
                         ),

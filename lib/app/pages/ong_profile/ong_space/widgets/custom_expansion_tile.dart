@@ -55,7 +55,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile>
     return Column(
       children: [
         Container(
-          height: MediaQuery.of(context).size.height * 0.048,
+          height: 37.5,
           width: double.infinity,
           color: ProjectColors.secondaryDark,
           child: Padding(

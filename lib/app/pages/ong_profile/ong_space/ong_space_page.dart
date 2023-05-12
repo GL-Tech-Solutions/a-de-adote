@@ -74,87 +74,89 @@ class _OngSpacePageState extends State<OngSpacePage>
                 '${state.ong?.logradouro.stringAdjusted}, ${state.ong?.numero} - ${state.ong?.bairro.stringAdjusted} / ${state.ong?.municipio.stringAdjusted} - ${state.ong?.uf} / ${state.ong?.cep}';
 
             return _isLoading
-                ? Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.24,
-                        width: double.infinity,
-                        child: const StandardShimmerEffect(radiusValue: 0),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.048,
-                        width: double.infinity,
-                        child: const StandardShimmerEffect(radiusValue: 0),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              height: 19,
-                              width: MediaQuery.of(context).size.width * 0.6,
-                              child: const StandardShimmerEffect(),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            SizedBox(
-                              height: 19,
-                              width: MediaQuery.of(context).size.width * 0.95,
-                              child: const StandardShimmerEffect(),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            SizedBox(
-                              height: 19,
-                              width: MediaQuery.of(context).size.width * 0.5,
-                              child: const StandardShimmerEffect(),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            SizedBox(
-                              height: 19,
-                              width: MediaQuery.of(context).size.width * 0.6,
-                              child: const StandardShimmerEffect(),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            SizedBox(
-                              height: 40,
-                              width: MediaQuery.of(context).size.width * 0.95,
-                              child: const StandardShimmerEffect(),
-                            ),
-                          ],
+                ? SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.24,
+                          width: double.infinity,
+                          child: const StandardShimmerEffect(radiusValue: 0),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.048,
-                        width: double.infinity,
-                        child: const StandardShimmerEffect(radiusValue: 0),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.048,
-                        width: double.infinity,
-                        child: const StandardShimmerEffect(radiusValue: 0),
-                      ),
-                    ],
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.048,
+                          width: double.infinity,
+                          child: const StandardShimmerEffect(radiusValue: 0),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: 19,
+                                width: MediaQuery.of(context).size.width * 0.6,
+                                child: const StandardShimmerEffect(),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              SizedBox(
+                                height: 19,
+                                width: MediaQuery.of(context).size.width * 0.95,
+                                child: const StandardShimmerEffect(),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              SizedBox(
+                                height: 19,
+                                width: MediaQuery.of(context).size.width * 0.5,
+                                child: const StandardShimmerEffect(),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              SizedBox(
+                                height: 19,
+                                width: MediaQuery.of(context).size.width * 0.6,
+                                child: const StandardShimmerEffect(),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              SizedBox(
+                                height: 40,
+                                width: MediaQuery.of(context).size.width * 0.95,
+                                child: const StandardShimmerEffect(),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.048,
+                          width: double.infinity,
+                          child: const StandardShimmerEffect(radiusValue: 0),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.048,
+                          width: double.infinity,
+                          child: const StandardShimmerEffect(radiusValue: 0),
+                        ),
+                      ],
+                    ),
                   )
                 : SingleChildScrollView(
                     child: Column(
@@ -221,7 +223,7 @@ class _OngSpacePageState extends State<OngSpacePage>
                           ),
                         ),
                         Container(
-                          height: MediaQuery.of(context).size.height * 0.048,
+                          height: 37.5,
                           width: double.infinity,
                           color: ProjectColors.primaryDark,
                           padding: const EdgeInsets.only(left: 10),
